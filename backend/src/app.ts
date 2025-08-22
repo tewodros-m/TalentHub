@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { env } from './config/env';
 import authRoutes from './routes/authRoutes';
+import { notFoundHandler, globalErrorHandler } from './middleware/errorHandler';
 
 export const createApp = () => {
   const app = express();
@@ -25,6 +26,10 @@ export const createApp = () => {
   );
 
   app.use('/auth', authRoutes);
+
+  // Error handling middlewares
+  app.use(notFoundHandler);
+  app.use(globalErrorHandler);
 
   return app;
 };
