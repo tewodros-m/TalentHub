@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { env } from './config/env';
+import authRoutes from './routes/authRoutes';
 
 export const createApp = () => {
   const app = express();
@@ -22,6 +23,8 @@ export const createApp = () => {
   app.get('/', (req: Request, res: Response) =>
     res.status(200).json({ status: 'ok', name: 'TalentHub API' })
   );
+
+  app.use('/auth', authRoutes);
 
   return app;
 };
