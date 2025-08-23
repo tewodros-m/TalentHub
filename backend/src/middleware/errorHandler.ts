@@ -15,7 +15,8 @@ const globalErrorHandler = (
 ) => {
   console.error('Error:', err);
 
-  const status = err.statusCode || 500;
+  // const status = err.statusCode || 500;
+  const status = res.statusCode !== 200 ? res.statusCode : 500;
   const message = err.message || 'Internal Server Error';
 
   res.status(status).json({ message });

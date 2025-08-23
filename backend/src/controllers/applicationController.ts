@@ -25,12 +25,9 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
           resolve(result);
         }
       );
-      console.log('Stream', stream);
       streamifier.createReadStream(req.file!.buffer).pipe(stream);
     });
     resumeUrl = upload.secure_url;
-
-    console.log('Upload', upload);
   }
 
   try {
