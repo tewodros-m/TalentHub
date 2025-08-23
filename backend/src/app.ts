@@ -2,8 +2,9 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { env } from './config/env';
-import authRoutes from './routes/authRoutes';
 import { notFoundHandler, globalErrorHandler } from './middleware/errorHandler';
+import authRoutes from './routes/authRoutes';
+import jobRoutes from './routes/jobRoutes';
 
 export const createApp = () => {
   const app = express();
@@ -26,6 +27,7 @@ export const createApp = () => {
   );
 
   app.use('/auth', authRoutes);
+  app.use('/jobs', jobRoutes);
 
   // Error handling middlewares
   app.use(notFoundHandler);
