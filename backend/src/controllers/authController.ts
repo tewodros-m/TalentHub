@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/UserModel';
 import { signToken } from '../utils/jwt';
-import { asyncHandler } from '../middleware/asyncHandler';
+import { asyncHandler } from '../utils/asyncHandler';
 
 const register = asyncHandler(async (req: Request, res: Response) => {
   const { name, email, password, role } = req.body;
