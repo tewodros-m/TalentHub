@@ -6,6 +6,7 @@ import { notFoundHandler, globalErrorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import jobRoutes from './routes/jobRoutes';
 import applicationRoutes from './routes/applicationRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 export const createApp = () => {
   const app = express();
@@ -30,6 +31,7 @@ export const createApp = () => {
   app.use('/auth', authRoutes);
   app.use('/jobs', jobRoutes);
   app.use('/applications', applicationRoutes);
+  app.use('/admin', adminRoutes);
 
   // Error handling middlewares
   app.use(notFoundHandler);
