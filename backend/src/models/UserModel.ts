@@ -5,9 +5,19 @@ import { Role } from '../types/role';
 
 const userSchema = new Schema<IUser>(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true, select: false, minLength: 6 },
+    name: { type: String, required: [true, 'Name is required'] },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+      select: false,
+      minLength: 6,
+    },
     role: {
       type: String,
       enum: Object.values(Role),
