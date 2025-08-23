@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { Role } from '../types/role';
+import { Role } from '../enums/role';
 
 export const requireRole = (...roles: Array<Role>) => {
   return (req: Request, res: Response, next: NextFunction) => {

@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken';
-import { Role } from './role';
+import { Role } from '../enums/role';
 
 declare global {
   namespace Express {

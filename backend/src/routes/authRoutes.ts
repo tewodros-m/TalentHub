@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { register, login } from '../controllers/authController';
 import { requestValidator } from '../middleware/requestValidator';
-import { Role } from '../types/role';
+import { Role } from '../enums/role';
 
 const router = Router();
 

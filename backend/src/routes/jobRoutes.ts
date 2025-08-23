@@ -9,7 +9,7 @@ import {
 import { protect } from '../middleware/protect';
 import { requireRole } from '../middleware/requireRole';
 import { requestValidator } from '../middleware/requestValidator';
-import { Role } from '../types/role';
+import { Role } from '../enums/role';
 
 const router = Router();
 
