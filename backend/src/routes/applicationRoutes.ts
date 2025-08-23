@@ -15,9 +15,10 @@ const router = Router();
 // Store file in memory for cloud upload
 const upload = multer({ storage: multer.memoryStorage() });
 
+router.use(protect);
+
 router.post(
   '/',
-  protect,
   requireRole(Role.applicant),
   upload.single('resume'),
   [body('jobId').notEmpty().withMessage('JobId is required')],
@@ -25,6 +26,6 @@ router.post(
   applyToJob
 );
 
-router.get('/:userId', protect, getUserApplications);
+router.get('/:userId', getUserApplications);
 
 export default router;

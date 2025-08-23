@@ -16,11 +16,11 @@ const router = Router();
 // Public - anyone can view jobs
 router.get('/', listJobs);
 
+router.use(protect, requireRole(Role.employer));
+
 // only employer can create job
 router.post(
   '/',
-  protect,
-  requireRole(Role.employer),
   [
     body('title').notEmpty().withMessage('Job title is required'),
     body('description').notEmpty().withMessage('Job description is required'),
@@ -36,8 +36,6 @@ router.post(
 // only employer can update job
 router.patch(
   '/:id',
-  protect,
-  requireRole(Role.employer),
   [
     body('title')
       .optional()
@@ -57,6 +55,6 @@ router.patch(
 );
 
 // only employer can delete job
-router.delete('/:id', protect, requireRole(Role.employer), deleteJob);
+router.delete('/:id', deleteJob);
 
 export default router;
