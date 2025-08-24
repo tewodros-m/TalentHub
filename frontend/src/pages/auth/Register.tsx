@@ -91,7 +91,8 @@ const Register = () => {
             )
           : error && (
               <p className='text-red-500 text-sm '>
-                Registration failed. Please try again later.
+                {(error as ErrorType).data?.message ||
+                  'Registration failed. Please try again later.'}
               </p>
             )}
         <button

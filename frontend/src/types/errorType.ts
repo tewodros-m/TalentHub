@@ -1,1 +1,6 @@
-export type ErrorType = { status?: string | number; data?: unknown };
+export type ErrorType = {
+  status?: string | number;
+  data?: {
+    message?: string;
+  };
+};
