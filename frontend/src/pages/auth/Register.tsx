@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { RegisterSchema } from '../../schema/authSchema';
 import type { RegisterRequest } from '../../types/authTypes';
 import type { ErrorType } from '../../types/errorType';
+import Input from '../../components/Input';
 
 const Register = () => {
   const [registerUser, { isLoading, error }] = useRegisterMutation();
@@ -37,58 +38,31 @@ const Register = () => {
         Register
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
-        <div>
-          <label
-            className='block text-lg leading-3 font-medium mb-[6px]'
-            htmlFor='name'
-          >
-            Name
-          </label>
-          <input
-            {...register('name')}
-            placeholder='John'
-            className='w-full p-2 border rounded border-gray-300 outline-none focus:ring-2 focus:ring-secondary-500'
-          />
-          {errors.name && (
-            <p className='text-red-500 text-sm '>{errors.name.message}</p>
-          )}
-        </div>
+        <Input
+          label='Name'
+          id='name'
+          placeholder='John'
+          {...register('name')}
+          error={errors.name?.message}
+        />
 
-        <div>
-          <label
-            className='block text-lg leading-3 font-medium mb-[6px]'
-            htmlFor='email'
-          >
-            Email
-          </label>
-          <input
-            {...register('email')}
-            type='email'
-            placeholder='john@example.com'
-            className='w-full p-2 border rounded border-gray-300 outline-none focus:ring-2 focus:ring-secondary-500'
-          />
-          {errors.email && (
-            <p className='text-red-500 text-sm '>{errors.email.message}</p>
-          )}
-        </div>
+        <Input
+          label='Email'
+          id='email'
+          type='email'
+          placeholder='john@example.com'
+          {...register('email')}
+          error={errors.email?.message}
+        />
 
-        <div>
-          <label
-            className='block text-lg leading-3 font-medium mb-[6px]'
-            htmlFor='password'
-          >
-            Password
-          </label>
-          <input
-            {...register('password')}
-            type='password'
-            placeholder='******'
-            className='w-full placeholder:relative placeholder:top-[3px] p-2 border rounded border-gray-300 outline-none focus:ring-2 focus:ring-secondary-500'
-          />
-          {errors.password && (
-            <p className='text-red-500 text-sm '>{errors.password.message}</p>
-          )}
-        </div>
+        <Input
+          label='Password'
+          id='password'
+          type='password'
+          placeholder='******'
+          {...register('password')}
+          error={errors.password?.message}
+        />
 
         <div>
           <label
@@ -101,6 +75,7 @@ const Register = () => {
             {...register('role')}
             className='w-full p-2 border rounded border-gray-300 outline-none focus:ring-2 focus:ring-secondary-500'
           >
+            <option value=''>Select a role</option>
             <option value='applicant'>Applicant</option>
             <option value='employer'>Employer</option>
           </select>
