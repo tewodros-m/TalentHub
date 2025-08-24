@@ -1,21 +1,32 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import DashboardLayout from './layouts/DashboardLayout';
+
+import Landing from './pages/Landing';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import ApplicantDashboard from './pages/applicant/Dashboard';
+import EmployerDashboard from './pages/employer/Dashboard';
+import AdminDashboard from './pages/admin/Dashboard';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className='min-h-screen flex flex-col'>
-        <nav className='bg-primary text-white p-4'>
-          <Link to='/' className='font-bold text-xl'>
-            TalentHub
-          </Link>
-        </nav>
+      <Routes>
+        {/* Public */}
+        <Route element={<MainLayout />}>
+          <Route path='/' element={<Landing />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+        </Route>
 
-        <main className='flex-1 p-4'>
-          <Routes>
-            <Route path='/' element={<h1>Landing Page</h1>} />
-          </Routes>
-        </main>
-      </div>
+        {/* Dashboards */}
+        <Route element={<DashboardLayout />}>
+          <Route path='/applicant/dashboard' element={<ApplicantDashboard />} />
+          <Route path='/employer/dashboard' element={<EmployerDashboard />} />
+          <Route path='/admin/dashboard' element={<AdminDashboard />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
