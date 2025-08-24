@@ -34,7 +34,12 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 
   const token = signToken(user.id, user.role);
   res.json({
-    user,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
     token,
   });
 });
