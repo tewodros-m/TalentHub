@@ -4,13 +4,14 @@ import { Job } from '../models/JobModel';
 
 // Public: List all jobs
 const listJobs = asyncHandler(async (req: Request, res: Response) => {
-  const { q } = req.query;
-  const filter = q
+  const { search } = req.query;
+
+  const filter = search
     ? {
         $or: [
-          { title: { $regex: String(q), $options: 'i' } },
-          { description: { $regex: String(q), $options: 'i' } },
-          { skills: { $in: [new RegExp(String(q), 'i')] } },
+          { title: { $regex: String(search), $options: 'i' } },
+          { description: { $regex: String(search), $options: 'i' } },
+          { skills: { $in: [new RegExp(String(search), 'i')] } },
         ],
       }
     : {};
