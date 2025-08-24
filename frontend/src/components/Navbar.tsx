@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
   return (
-    <nav className='bg-primary text-white px-6 py-3 flex justify-between items-center'>
+    <nav className='bg-primary-500 text-white px-6 py-3 flex justify-between items-center'>
       <Link to='/' className='text-2xl font-bold'>
         TalentHub
       </Link>
@@ -14,7 +13,6 @@ const Navbar = () => {
         <Link to='/register' className='hover:underline'>
           Register
         </Link>
-        <DarkModeToggle />
       </div>
     </nav>
   );
