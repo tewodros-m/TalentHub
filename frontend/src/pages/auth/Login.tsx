@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { useLoginMutation } from '../../features/auth/authApi';
 import { setCredentials } from '../../features/auth/authSlice';
 import { LoginSchema } from '../../schema/authSchema';
@@ -10,7 +11,8 @@ import Input from '../../components/Input';
 import type { ErrorType } from '../../types/errorType';
 
 const Login = () => {
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
+  const [apiError, setApiError] = useState<string | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,7 +33,23 @@ const Login = () => {
       else navigate('/applicant/dashboard');
     } catch (err) {
       console.error('Login failed', err);
+
+      let errorMessage: string | null = null;
+
+      if (err && (err as ErrorType)?.status === 'FETCH_ERROR') {
+        errorMessage = 'Network error. Please check your internet connection.';
+      } else {
+        errorMessage =
+          (err as ErrorType).data?.message || 'Login failed. Please try again.';
+      }
+
+      setApiError(errorMessage);
     }
+  };
+
+  // clear error when user types
+  const handleInputChange = () => {
+    if (apiError) setApiError(null);
   };
 
   return (
@@ -45,7 +63,7 @@ const Login = () => {
           id='email'
           type='email'
           placeholder='john@example.com'
-          {...register('email')}
+          {...register('email', { onChange: handleInputChange })}
           error={errors.email?.message}
         />
 
@@ -54,22 +72,12 @@ const Login = () => {
           id='password'
           type='password'
           placeholder='******'
-          {...register('password')}
+          {...register('password', { onChange: handleInputChange })}
           error={errors.password?.message}
         />
 
-        {error && (error as ErrorType)?.status === 'FETCH_ERROR'
-          ? error && (
-              <p className='text-red-500 text-sm '>
-                Network error. Please check your internet connection.
-              </p>
-            )
-          : error && (
-              <p className='text-red-500 text-sm '>
-                {(error as ErrorType).data?.message ||
-                  'Registration failed. Please try again later.'}
-              </p>
-            )}
+        {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
+
         <button
           type='submit'
           disabled={isLoading}

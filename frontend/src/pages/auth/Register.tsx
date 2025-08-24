@@ -1,16 +1,19 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRegisterMutation } from '../../features/auth/authApi';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useRegisterMutation } from '../../features/auth/authApi';
+import { setCredentials } from '../../features/auth/authSlice';
 import { RegisterSchema } from '../../schema/authSchema';
 import type { RegisterRequest } from '../../types/authTypes';
 import type { ErrorType } from '../../types/errorType';
 import Input from '../../components/Input';
 
 const Register = () => {
-  const [registerUser, { isLoading, error }] = useRegisterMutation();
+  const [registerUser, { isLoading }] = useRegisterMutation();
+  const [apiError, setApiError] = useState<string | null>(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,7 +32,24 @@ const Register = () => {
       navigate('/login');
     } catch (err) {
       console.error('Registration failed', err);
+
+      let errorMessage: string | null = null;
+
+      if (err && (err as ErrorType)?.status === 'FETCH_ERROR') {
+        errorMessage = 'Network error. Please check your internet connection.';
+      } else {
+        errorMessage =
+          (err as ErrorType).data?.message ||
+          'Registration failed. Please try again.';
+      }
+
+      setApiError(errorMessage);
     }
+  };
+
+  // clear error when user types
+  const handleInputChange = () => {
+    if (apiError) setApiError(null);
   };
 
   return (
@@ -42,7 +62,7 @@ const Register = () => {
           label='Name'
           id='name'
           placeholder='John'
-          {...register('name')}
+          {...register('name', { onChange: handleInputChange })}
           error={errors.name?.message}
         />
 
@@ -51,7 +71,7 @@ const Register = () => {
           id='email'
           type='email'
           placeholder='john@example.com'
-          {...register('email')}
+          {...register('email', { onChange: handleInputChange })}
           error={errors.email?.message}
         />
 
@@ -60,7 +80,7 @@ const Register = () => {
           id='password'
           type='password'
           placeholder='******'
-          {...register('password')}
+          {...register('password', { onChange: handleInputChange })}
           error={errors.password?.message}
         />
 
@@ -83,18 +103,8 @@ const Register = () => {
             <p className='text-red-500 text-sm '>{errors.role.message}</p>
           )}
         </div>
-        {error && (error as ErrorType)?.status === 'FETCH_ERROR'
-          ? error && (
-              <p className='text-red-500 text-sm '>
-                Network error. Please check your internet connection.
-              </p>
-            )
-          : error && (
-              <p className='text-red-500 text-sm '>
-                {(error as ErrorType).data?.message ||
-                  'Registration failed. Please try again later.'}
-              </p>
-            )}
+        {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
+
         <button
           type='submit'
           disabled={isLoading}
