@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+@layer base {
+  /* Light mode (default) */
+  :root {
+    /* Primary (#1E40AF) */
+    --color-primary-100: 210, 217, 239;
+    --color-primary-200: 165, 179, 223;
+    --color-primary-300: 120, 140, 207;
+    --color-primary-400: 75, 102, 191;
+    --color-primary-500: 30, 64, 175; /* main */
+    --color-primary-600: 24, 51, 140;
+    --color-primary-700: 18, 38, 105;
+    --color-primary-800: 12, 26, 70;
+    --color-primary-900: 6, 13, 35;
+
+    /* Secondary (#10B981) */
+    --color-secondary-100: 207, 241, 230;
+    --color-secondary-200: 159, 227, 205;
+    --color-secondary-300: 112, 213, 179;
+    --color-secondary-400: 64, 199, 154;
+    --color-secondary-500: 16, 185, 129; /* main */
+    --color-secondary-600: 13, 148, 103;
+    --color-secondary-700: 10, 111, 77;
+    --color-secondary-800: 6, 74, 52;
+    --color-secondary-900: 3, 37, 26;
+
+    /* Gray */
+    --color-gray-100: 243, 244, 246;
+    --color-gray-200: 229, 231, 235;
+    --color-gray-300: 209, 213, 219;
+    --color-gray-400: 153, 161, 175;
+    --color-gray-500: 106, 114, 130;
+    --color-gray-600: 74, 85, 101;
+    --color-gray-700: 54, 65, 83;
+    --color-gray-800: 30, 41, 57;
+    --color-gray-900: 3, 7, 18;
+
+    /* Background & text */
+    --white: 255, 255, 255;
+    --black: 0, 0, 0;
+    --color-bg: 255, 255, 255;
+    --color-text: 0, 0, 0;
+  }
+
+  body {
+    @apply bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))];
+  }
 }
