@@ -1,20 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRegisterMutation } from '../../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
-
-const schema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email(),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  role: z.enum(['applicant', 'employer']),
-});
-
-type FormData = z.infer<typeof schema>;
-type ErrorType = { status?: string | number; data?: unknown };
+import { RegisterSchema } from '../../schema/authSchema';
+import type { RegisterRequest } from '../../types/authTypes';
+import type { ErrorType } from '../../types/errorType';
 
 const Register = () => {
   const [registerUser, { isLoading, error }] = useRegisterMutation();
@@ -25,11 +17,11 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
+  } = useForm<RegisterRequest>({
+    resolver: zodResolver(RegisterSchema),
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: RegisterRequest) => {
     try {
       const res = await registerUser(data).unwrap();
       dispatch(setCredentials(res));
@@ -44,7 +36,7 @@ const Register = () => {
       <h2 className='text-2xl font-bold text-primary-500 mb-4 text-center'>
         Register
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
         <div>
           <label
             className='block text-lg leading-3 font-medium mb-[6px]'
@@ -116,15 +108,17 @@ const Register = () => {
             <p className='text-red-500 text-sm '>{errors.role.message}</p>
           )}
         </div>
-        {error && (error as ErrorType)?.status === 'FETCH_ERROR' ? (
-          <p className='text-red-500 text-sm '>
-            Network error. Please check your internet connection.
-          </p>
-        ) : (
-          <p className='text-red-500 text-sm '>
-            Registration failed. Please try again later.
-          </p>
-        )}
+        {error && (error as ErrorType)?.status === 'FETCH_ERROR'
+          ? error && (
+              <p className='text-red-500 text-sm '>
+                Network error. Please check your internet connection.
+              </p>
+            )
+          : error && (
+              <p className='text-red-500 text-sm '>
+                Registration failed. Please try again later.
+              </p>
+            )}
         <button
           type='submit'
           disabled={isLoading}
