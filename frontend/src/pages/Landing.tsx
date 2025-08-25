@@ -8,10 +8,14 @@ import useDebounce from '../hooks/useDebounce';
 const Landing = () => {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
-  const { data: jobs = [], isLoading } = useGetJobsQuery({
+  const { data: data = { results: 0, jobs: [] }, isLoading } = useGetJobsQuery({
     search: debouncedSearch,
   });
   const isAuthenticated = useSelector((state: RootState) => !!state.auth.token);
+
+  const jobs = data.jobs || [];
+
+  console.log('Jobs', jobs);
 
   return (
     <div className='container mx-auto mt-6'>
@@ -34,7 +38,7 @@ const Landing = () => {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8'>
         {isLoading ? (
           <p className='text-center text-gray-500'>Loading jobs...</p>
-        ) : jobs.length > 0 ? (
+        ) : data.results > 0 ? (
           jobs.map((job) => (
             <JobCard
               key={job._id}

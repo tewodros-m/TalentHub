@@ -20,7 +20,16 @@ const listJobs = asyncHandler(async (req: Request, res: Response) => {
     .sort({ createdAt: -1 })
     .populate('createdBy', 'name email role');
 
-  res.status(200).json(jobs);
+  res.status(200).json({ results: jobs.length, jobs });
+});
+
+// Get all jobs created by the logged-in employer
+const listEmployerJobs = asyncHandler(async (req: Request, res: Response) => {
+  const jobs = await Job.find({ createdBy: req.user!.id })
+    .sort({ createdAt: -1 })
+    .populate('createdBy', 'name email role');
+
+  res.status(200).json({ results: jobs.length, jobs });
 });
 
 // Create a job (employer only)
@@ -79,7 +88,7 @@ const deleteJob = asyncHandler(async (req: Request, res: Response) => {
   }
 
   await job.deleteOne();
-  res.status(204).json({});
+  res.status(200).json({ message: 'Job deleted successfully' });
 });
 
-export { listJobs, createJob, deleteJob, updateJob };
+export { listJobs, listEmployerJobs, createJob, deleteJob, updateJob };

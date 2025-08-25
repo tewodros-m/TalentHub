@@ -5,6 +5,7 @@ import {
   createJob,
   deleteJob,
   updateJob,
+  listEmployerJobs,
 } from '../controllers/jobController';
 import { protect } from '../middleware/protect';
 import { requireRole } from '../middleware/requireRole';
@@ -17,6 +18,8 @@ const router = Router();
 router.get('/', listJobs);
 
 router.use(protect, requireRole(Role.employer));
+
+router.get('/employer', listEmployerJobs);
 
 // only employer can create job
 router.post(
