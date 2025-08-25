@@ -3,12 +3,16 @@ import { useSelector } from 'react-redux';
 import { useGetJobsQuery } from '../features/job/jobApi';
 import type { RootState } from '../app/store';
 import JobCard from '../components/JobCard';
+import useDebounce from '../hooks/useDebounce';
 
 const Landing = () => {
   const [search, setSearch] = useState('');
-  const { data: jobs = [], isLoading } = useGetJobsQuery({ search });
+  const debouncedSearch = useDebounce(search, 500);
+  const { data: jobs = [], isLoading } = useGetJobsQuery({
+    search: debouncedSearch,
+  });
   const isAuthenticated = useSelector((state: RootState) => !!state.auth.token);
-  console.log('search', search);
+
   return (
     <div className='container mx-auto mt-6'>
       <h1 className='text-3xl font-bold text-center text-primary-500'>
