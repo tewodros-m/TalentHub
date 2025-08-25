@@ -21,12 +21,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={id}
           {...props}
-          className={`w-full p-2 border rounded border-gray-300 outline-none 
-                     focus:ring-2 focus:ring-secondary-500 
-                     placeholder:text-gray-400 dark:bg-gray-900 dark:text-white 
-                     ${
-                       error ? 'border-red-500 focus:ring-red-500' : ''
-                     } ${className}`}
+          className={`w-full p-2 border rounded outline-none
+              placeholder:text-gray-400
+              ${
+                error
+                  ? 'border-red-500 focus:ring-2 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-2 focus:ring-secondary-500'
+              }
+              ${className}`}
         />
         {error && <p className='text-red-500 text-sm '>{error}</p>}
       </div>
