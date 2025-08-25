@@ -1,10 +1,47 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useGetJobsQuery } from '../features/job/jobApi';
+import type { RootState } from '../app/store';
+import JobCard from '../components/JobCard';
+
 const Landing = () => {
+  const [search, setSearch] = useState('');
+  const { data: jobs = [], isLoading } = useGetJobsQuery({ search });
+  const isAuthenticated = useSelector((state: RootState) => !!state.auth.token);
+  console.log('search', search);
   return (
-    <div className='text-center mt-10'>
-      <h1 className='text-3xl font-bold text-primary'>Welcome to TalentHub</h1>
-      <p className='mt-2 text-gray-600 dark:text-gray-300'>
-        Find jobs, apply easily, and get hired.
-      </p>
+    <div className='container mx-auto mt-6'>
+      <h1 className='text-3xl font-bold text-center text-primary-500'>
+        Find Your Next Job
+      </h1>
+
+      {/* Search bar */}
+      <div className='flex justify-center mt-6'>
+        <input
+          type='text'
+          placeholder='Search jobs by keyword or skill...'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className='w-1/2 p-2 border-2 border-primary-100 rounded  outline-none focus:border-secondary-600 '
+        />
+      </div>
+
+      {/* Jobs list */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8'>
+        {isLoading ? (
+          <p className='text-center text-gray-500'>Loading jobs...</p>
+        ) : jobs.length > 0 ? (
+          jobs.map((job) => (
+            <JobCard
+              key={job._id}
+              job={job}
+              isAuthenticated={isAuthenticated}
+            />
+          ))
+        ) : (
+          <p className='text-center text-gray-500'>No jobs found.</p>
+        )}
+      </div>
     </div>
   );
 };
