@@ -5,6 +5,7 @@ export const jobApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getJobs: builder.query<JobResponse, { search?: string }>({
       query: ({ search }) => `/jobs?search=${search || ''}`,
+      providesTags: ['Jobs'],
     }),
     createJob: builder.mutation<Job, Partial<Job>>({
       query: (data) => ({
@@ -12,9 +13,11 @@ export const jobApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['EmployerJobs', 'Jobs'],
     }),
     getEmployerJobs: builder.query<JobResponse, void>({
       query: () => '/jobs/employer',
+      providesTags: ['EmployerJobs'],
     }),
     updateJob: builder.mutation<Job, { id: string; data: Partial<Job> }>({
       query: ({ id, data }) => ({
@@ -22,12 +25,14 @@ export const jobApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['EmployerJobs', 'Jobs'],
     }),
     deleteJob: builder.mutation<{ message: string }, string>({
       query: (id) => ({
         url: `/jobs/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['EmployerJobs', 'Jobs'],
     }),
   }),
 });
