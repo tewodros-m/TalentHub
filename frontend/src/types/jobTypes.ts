@@ -8,3 +8,15 @@ export interface Job {
   createdAt: string;
   createdBy: User;
 }
+
+export interface JobResponse {
+  results: number;
+  jobs: Job[];
+}
+
+export type RegisterJob = {
+  _id?: string; // optional, present when editing
+  title: string;
+  description: string;
+  skills: string;
+};
