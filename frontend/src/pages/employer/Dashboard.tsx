@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PlusIcon, SquarePen, Trash2 } from 'lucide-react';
 import {
   useGetEmployerJobsQuery,
   useDeleteJobMutation,
@@ -12,7 +13,7 @@ import {
   TableCell,
 } from '../../components/ui/table';
 import Modal from '../../components/ui/Modal';
-import { PlusIcon, SquarePen, Trash2 } from 'lucide-react';
+import { formatDate } from '../../utils/formateDate';
 
 const EmployerDashboard = () => {
   const { data: data = { results: 0, jobs: [] }, isLoading } =
@@ -87,9 +88,7 @@ const EmployerDashboard = () => {
                   <TableCell>
                     {job.skills.length > 0 ? job.skills.join(', ') : '—'}
                   </TableCell>
-                  <TableCell>
-                    {new Date(job.createdAt).toLocaleDateString()}
-                  </TableCell>
+                  <TableCell>{formatDate(job.createdAt)}</TableCell>
                   <TableCell align='right'>
                     <div className='space-x-2'>
                       <button

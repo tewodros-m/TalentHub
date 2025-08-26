@@ -69,7 +69,7 @@ const ApplicationsTab = () => {
                           ? 'bg-primary-100 text-primary-600'
                           : app.status === 'shortlisted'
                           ? 'bg-secondary-100 text-secondary-600'
-                          : 'bg-red-100 text-red-600'
+                          : 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300'
                       }`}
                   >
                     {app.status}
