@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
+import { useDarkMode } from '../hooks/useDarkMode';
+import { Moon, Sun } from 'lucide-react';
 
 const Navbar = () => {
   const { isAuthenticated, role } = useAuth();
   const dispatch = useDispatch();
+  const { isDark, toggleDarkMode } = useDarkMode();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -31,25 +34,21 @@ const Navbar = () => {
               </Link>
             </>
           )}
-
           {isAuthenticated && role === 'applicant' && (
             <Link to='/applicant/dashboard' className='hover:underline'>
               My Applications
             </Link>
           )}
-
           {isAuthenticated && role === 'employer' && (
             <Link to='/employer/dashboard' className='hover:underline'>
               Employer Dashboard
             </Link>
           )}
-
           {isAuthenticated && role === 'admin' && (
             <Link to='/admin/dashboard' className='hover:underline'>
               Admin Panel
             </Link>
           )}
-
           {isAuthenticated && (
             <button
               onClick={handleLogout}
@@ -58,6 +57,14 @@ const Navbar = () => {
               Logout
             </button>
           )}
+          {/* Dark mode toggle */}
+          <button
+            onClick={toggleDarkMode}
+            className='ml-4 p-2 rounded-full bg-secondary-500 hover:bg-secondary-600 transition'
+            aria-label='Toggle dark mode'
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </div>
     </nav>
