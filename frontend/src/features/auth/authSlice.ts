@@ -3,8 +3,8 @@ import type { AuthState, User } from '../../types/authTypes';
 import { storage } from '../../utils/localStorage';
 
 const initialState: AuthState = {
-  user: storage.get<User>('user') || null,
-  token: storage.get<string>('token') || null,
+  user: null,
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -26,8 +26,16 @@ const authSlice = createSlice({
       storage.remove('user');
       storage.remove('token');
     },
+    loadStoredAuth: (state) => {
+      const token = storage.get<string>('token');
+      const user = storage.get<User>('user');
+      if (token && user) {
+        state.token = token;
+        state.user = user;
+      }
+    },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, loadStoredAuth } = authSlice.actions;
 export default authSlice.reducer;
