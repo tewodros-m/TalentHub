@@ -53,7 +53,7 @@ const Register = () => {
   };
 
   return (
-    <div className='max-w-md mx-auto mt-10 bg-bg p-6 border border-primary-100 rounded-lg shadow'>
+    <div className='max-w-md mx-auto my-10 bg-bg p-6 border border-primary-100 dark:border-primary-200 rounded-lg shadow-xl'>
       <h2 className='text-2xl font-bold text-primary-500 mb-4 text-center'>
         Register
       </h2>
@@ -93,9 +93,12 @@ const Register = () => {
           </label>
           <select
             {...register('role')}
-            className='w-full p-2 border rounded border-gray-300 outline-none focus:ring-2 focus:ring-secondary-500'
+            className='w-full p-2 border rounded outline-none bg-bg
+               focus:ring-2 focus:ring-primary-500'
           >
-            <option value=''>Select a role</option>
+            <option value='' className='hover:bg-primary-100'>
+              Select a role
+            </option>
             <option value='applicant'>Applicant</option>
             <option value='employer'>Employer</option>
           </select>

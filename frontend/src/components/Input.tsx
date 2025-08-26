@@ -12,7 +12,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={id}
-            className='block text-lg font-medium text-gray-700 mb-1'
+            className='block text-lg font-medium text-gray-600 mb-1'
           >
             {label}
           </label>
@@ -21,12 +21,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={id}
           {...props}
-          className={`w-full p-2 border rounded outline-none
+          className={`w-full p-2 border rounded outline-none  bg-bg
               placeholder:text-gray-400
               ${
                 error
                   ? 'border-red-500 focus:ring-2 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-2 focus:ring-secondary-500'
+                  : 'border-gray-300 focus:ring-2 focus:ring-primary-600'
               }
               ${className}`}
         />

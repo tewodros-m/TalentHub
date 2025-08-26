@@ -53,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <div className='max-w-md mx-auto mt-10 bg-bg p-6 border border-primary-100 rounded-lg shadow'>
+    <div className='max-w-md mx-auto mt-10 bg-bg p-6 border border-primary-100 dark:border-primary-200 rounded-lg shadow-xl'>
       <h2 className='text-2xl font-bold text-primary-500 mb-4 text-center'>
         Login
       </h2>
@@ -81,7 +81,7 @@ const Login = () => {
         <button
           type='submit'
           disabled={isLoading}
-          className='w-full bg-primary-500 text-white py-2 rounded hover:bg-primary-600'
+          className='w-full py-2 rounded  bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-600 transition'
         >
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
