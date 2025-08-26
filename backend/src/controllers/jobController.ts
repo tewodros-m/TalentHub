@@ -23,6 +23,18 @@ const listJobs = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json({ results: jobs.length, jobs });
 });
 
+const getJobById = asyncHandler(async (req: Request, res: Response) => {
+  const job = await Job.findById(req.params.id).populate(
+    'createdBy',
+    'name email role'
+  );
+  if (!job) {
+    res.status(404);
+    throw new Error('Job not found');
+  }
+  res.status(200).json(job);
+});
+
 // Get all jobs created by the logged-in employer
 const listEmployerJobs = asyncHandler(async (req: Request, res: Response) => {
   const jobs = await Job.find({ createdBy: req.user!.id })
@@ -91,4 +103,11 @@ const deleteJob = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json({ message: 'Job deleted successfully' });
 });
 
-export { listJobs, listEmployerJobs, createJob, deleteJob, updateJob };
+export {
+  listJobs,
+  getJobById,
+  listEmployerJobs,
+  createJob,
+  deleteJob,
+  updateJob,
+};

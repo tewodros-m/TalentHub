@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import {
   listJobs,
+  getJobById,
   createJob,
   deleteJob,
   updateJob,
@@ -16,6 +17,7 @@ const router = Router();
 
 // Public - anyone can view jobs
 router.get('/', listJobs);
+router.get('/:id', getJobById);
 
 router.use(protect, requireRole(Role.employer));
 
