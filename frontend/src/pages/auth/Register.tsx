@@ -29,7 +29,9 @@ const Register = () => {
     try {
       const res = await registerUser(data).unwrap();
       dispatch(setCredentials(res));
-      navigate('/login');
+      if (res.user.role === 'admin') navigate('/admin/dashboard');
+      else if (res.user.role === 'employer') navigate('/employer/dashboard');
+      else navigate('/applicant/dashboard');
     } catch (err) {
       console.error('Registration failed', err);
 
