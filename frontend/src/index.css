@@ -28,6 +28,7 @@
     --color-secondary-900: 3, 37, 26;
 
     /* Gray */
+    --color-gray-50: 249, 250, 251;
     --color-gray-100: 243, 244, 246;
     --color-gray-200: 229, 231, 235;
     --color-gray-300: 209, 213, 219;
@@ -35,14 +36,57 @@
     --color-gray-500: 106, 114, 130;
     --color-gray-600: 74, 85, 101;
     --color-gray-700: 54, 65, 83;
-    --color-gray-800: 30, 41, 57;
     --color-gray-900: 3, 7, 18;
+    --color-gray-950: 3, 7, 18;
 
     /* Background & text */
     --white: 255, 255, 255;
     --black: 0, 0, 0;
     --color-bg: 255, 255, 255;
     --color-text: 0, 0, 0;
+  }
+
+  /* Dark mode */
+  .dark {
+    /* Primary color */
+    --color-primary-100: 6, 13, 35;
+    --color-primary-200: 12, 26, 70;
+    --color-primary-300: 18, 38, 105;
+    --color-primary-400: 24, 51, 140;
+    --color-primary-500: 30, 64, 175; /* main */
+    --color-primary-600: 75, 102, 191;
+    --color-primary-700: 120, 140, 207;
+    --color-primary-800: 165, 179, 223;
+    --color-primary-900: 210, 217, 239;
+
+    /* Secondary color */
+    --color-secondary-100: 3, 37, 26;
+    --color-secondary-200: 6, 74, 52;
+    --color-secondary-300: 10, 111, 77;
+    --color-secondary-400: 13, 148, 103;
+    --color-secondary-500: 16, 185, 129; /* main */
+    --color-secondary-600: 64, 199, 154;
+    --color-secondary-700: 112, 213, 179;
+    --color-secondary-800: 159, 227, 205;
+    --color-secondary-900: 207, 241, 230;
+
+    /* Gray */
+    --color-gray-50: 3, 7, 18;
+    --color-gray-100: 3, 7, 18;
+    --color-gray-200: 30, 41, 57;
+    --color-gray-300: 54, 65, 83;
+    --color-gray-400: 74, 85, 101;
+    --color-gray-500: 106, 114, 130;
+    --color-gray-600: 153, 161, 175;
+    --color-gray-700: 209, 213, 219;
+    --color-gray-800: 229, 231, 235;
+    --color-gray-900: 243, 244, 246;
+    --color-gray-950: 249, 250, 251;
+
+    --white: 255, 255, 255;
+    --black: 0, 0, 0;
+    --color-bg: 0, 0, 0;
+    --color-text: 255, 255, 255;
   }
 
   body {

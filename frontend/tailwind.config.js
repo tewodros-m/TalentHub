@@ -27,6 +27,7 @@ export default {
           900: 'rgb(var(--color-secondary-900))',
         },
         gray: {
+          50: 'rgb(var(--color-gray-50))',
           100: 'rgb(var(--color-gray-100))',
           200: 'rgb(var(--color-gray-200))',
           300: 'rgb(var(--color-gray-300))',
@@ -36,6 +37,7 @@ export default {
           700: 'rgb(var(--color-gray-700))',
           800: 'rgb(var(--color-gray-800))',
           900: 'rgb(var(--color-gray-900))',
+          950: 'rgb(var(--color-gray-950))',
         },
         white: 'rgb(var(--white))',
         black: 'rgb(var(--black))',
