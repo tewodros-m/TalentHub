@@ -33,7 +33,7 @@ const Landing = () => {
       </div>
 
       {/* Jobs list */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-20'>
         {isLoading ? (
           <p className='text-center text-gray-500'>Loading jobs...</p>
         ) : data.results > 0 ? (

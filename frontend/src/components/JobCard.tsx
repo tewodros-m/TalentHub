@@ -59,7 +59,7 @@ const JobCard = ({ job, isAuthenticated }: Props) => {
         ) : (
           <Link
             to='/login'
-            className='text-center px-4 py-2 rounded-lg bg-secondary-500 text-white font-medium hover:bg-secondary-600 transition'
+            className='text-center px-4 py-2 rounded-lg bg-primary-500 text-white font-medium hover:bg-secondary-600 transition'
           >
             Login to Apply
           </Link>

@@ -43,7 +43,7 @@ const EmployerDashboard = () => {
   return (
     <div>
       {/* Header */}
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between mt-10'>
         <h2 className='text-3xl font-bold text-primary-600'>
           Employer Dashboard
         </h2>
