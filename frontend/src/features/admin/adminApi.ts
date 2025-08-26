@@ -10,6 +10,7 @@ export interface AdminJob {
   title: string;
   description: string;
   createdBy: User;
+  createdAt: string;
   applicationsCount: number;
 }
 
