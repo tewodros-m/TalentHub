@@ -19,7 +19,7 @@ const applicationSchema = new Schema<IApplication>(
       enum: Object.values(ApplicationStatus),
       default: ApplicationStatus.applied,
     },
-    resumeUrl: { type: String },
+    resumeUrl: { type: String, required: [true, 'Resume is required'] },
   },
   { timestamps: true }
 );

@@ -5,6 +5,13 @@ import { Job } from '../models/JobModel';
 import { cloudinary } from '../config/cloudinary';
 import streamifier from 'streamifier';
 
+const getApplications = asyncHandler(async (req: Request, res: Response) => {
+  const applications = await Application.find()
+    .populate('jobId')
+    .populate('userId');
+  res.json({ results: applications.length, applications });
+});
+
 // Apply to a job with resume upload
 const applyToJob = asyncHandler(async (req: Request, res: Response) => {
   const { jobId } = req.body;
@@ -16,18 +23,35 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
   }
 
   let resumeUrl: string | undefined;
+
   if (req.file) {
-    const upload = await new Promise<any>((resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream(
-        { resource_type: 'raw', folder: 'resumes' },
-        (err, result) => {
-          if (err) return reject(err);
-          resolve(result);
-        }
-      );
-      streamifier.createReadStream(req.file!.buffer).pipe(stream);
-    });
-    resumeUrl = upload.secure_url;
+    try {
+      const upload = await new Promise<any>((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: 'raw', folder: 'resumes' },
+          (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+          }
+        );
+        streamifier.createReadStream(req.file!.buffer).pipe(stream);
+      });
+
+      // PDFs may not have secure_url, so fall back to url
+      resumeUrl = upload.secure_url || upload.url;
+
+      if (!resumeUrl) {
+        res.status(500);
+        throw new Error('Failed to upload resume to Cloudinary');
+      }
+    } catch (err) {
+      res.status(500);
+      throw new Error('Resume upload failed');
+    }
+  } else {
+    console.log('req.file', req.file);
+    res.status(400);
+    throw new Error('Resume file is required');
   }
 
   try {
@@ -58,8 +82,8 @@ const getUserApplications = asyncHandler(
     }
 
     const apps = await Application.find({ userId }).populate('jobId');
-    res.json(apps);
+    res.json({ results: apps.length, applications: apps });
   }
 );
 
-export { applyToJob, getUserApplications };
+export { getApplications, applyToJob, getUserApplications };
