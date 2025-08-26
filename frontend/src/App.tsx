@@ -10,6 +10,7 @@ import EmployerDashboard from './pages/employer/Dashboard';
 import AdminDashboard from './pages/admin/Dashboard';
 import ApplyForm from './pages/applicant/ApplyForm';
 import NotFound from './components/NotFound';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -22,13 +23,50 @@ function App() {
           <Route path='/register' element={<Register />} />
         </Route>
 
-        {/* Dashboards */}
-        <Route element={<DashboardLayout />}>
+        {/* Applicant Dashboard */}
+        <Route
+          element={
+            <ProtectedRoute roles={['applicant']}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path='/applicant/dashboard' element={<ApplicantDashboard />} />
+        </Route>
+
+        {/* Employer Dashboard */}
+        <Route
+          element={
+            <ProtectedRoute roles={['employer']}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path='/employer/dashboard' element={<EmployerDashboard />} />
+        </Route>
+
+        {/* Admin Dashboard */}
+        <Route
+          element={
+            <ProtectedRoute roles={['admin']}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path='/admin/dashboard' element={<AdminDashboard />} />
         </Route>
-        <Route path='/apply/:jobId' element={<ApplyForm />} />
+
+        {/* Applicant Apply Form */}
+        <Route
+          path='/apply/:jobId'
+          element={
+            <ProtectedRoute roles={['applicant']}>
+              <ApplyForm />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch All */}
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
