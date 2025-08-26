@@ -87,7 +87,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
       className='max-w-md bg-bg p-4 rounded-lg  space-y-3 border border-primary-100'
     >
       <Input
-        label='title'
+        label='Title'
         id='title'
         placeholder='Web Developer'
         {...register('title', { onChange: handleInputChange })}
@@ -99,7 +99,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
           htmlFor='description'
           className='block text-lg font-medium text-gray-700 mb-1'
         >
-          Job description
+          Description
         </label>
 
         <textarea
@@ -125,7 +125,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
       </div>
 
       <Input
-        label='skills'
+        label='Skills'
         id='skills'
         placeholder='HTML, CSS, Reading'
         {...register('skills', { onChange: handleInputChange })}
