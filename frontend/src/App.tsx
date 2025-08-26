@@ -9,6 +9,7 @@ import ApplicantDashboard from './pages/applicant/Dashboard';
 import EmployerDashboard from './pages/employer/Dashboard';
 import AdminDashboard from './pages/admin/Dashboard';
 import ApplyForm from './pages/applicant/ApplyForm';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/admin/dashboard' element={<AdminDashboard />} />
         </Route>
         <Route path='/apply/:jobId' element={<ApplyForm />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
