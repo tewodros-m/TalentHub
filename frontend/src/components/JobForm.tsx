@@ -97,7 +97,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
       <div>
         <label
           htmlFor='description'
-          className='block text-lg font-medium text-gray-700 mb-1'
+          className='block text-lg font-medium text-gray-600 mb-1'
         >
           Description
         </label>
@@ -107,16 +107,15 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
           {...register('description', { onChange: handleInputChange })}
           placeholder='Job Description'
           className={`w-full p-2 border rounded outline-none
-              placeholder:text-gray-400
+              placeholder:text-gray-400 bg-bg
               ${
                 errors.description
                   ? 'border-red-500 focus:ring-2 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-2 focus:ring-secondary-500'
+                  : 'border-gray-200 focus:ring-2 focus:ring-primary-600'
               }
               `}
           id='description'
         />
-
         {errors.description && (
           <p className='text-red-500 text-sm relative -top-1'>
             {errors?.description.message}
@@ -133,12 +132,12 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
       />
 
       {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
-
+      {/* className='px-4 py-2 bg-primary-500 dark:bg-primary-200 text-white font-medium rounded-lg shadow hover:bg-primary-600 dark:hover:bg-primary-100 transition' */}
       <div className='pt-2 flex gap-4'>
         <button
           type='submit'
           disabled={isCreating || isUpdating}
-          className='w-full bg-primary-500 text-white py-2 rounded hover:bg-primary-700'
+          className='w-full bg-primary-500 dark:bg-primary-200 text-white py-2 rounded-lg hover:bg-primary-600 dark:hover:bg-primary-100 transition'
         >
           {initialData
             ? isUpdating
@@ -151,7 +150,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
         <button
           type='button'
           onClick={handleFormClose}
-          className='w-full bg-gray-100 text-gray-700 py-2 rounded border border-primary-200 hover:bg-gray-200'
+          className='w-full bg-gray-50 text-gray-700 py-2 rounded-lg border border-primary-200 hover:bg-gray-100 dark:hover:bg-black'
         >
           Cancel
         </button>

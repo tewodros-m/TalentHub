@@ -12,7 +12,7 @@ import {
   TableCell,
 } from '../../components/ui/table';
 import Modal from '../../components/ui/Modal';
-import { SquarePen, Trash2 } from 'lucide-react';
+import { PlusIcon, SquarePen, Trash2 } from 'lucide-react';
 
 const EmployerDashboard = () => {
   const { data: data = { results: 0, jobs: [] }, isLoading } =
@@ -43,15 +43,16 @@ const EmployerDashboard = () => {
   return (
     <div>
       {/* Header */}
-      <div className='flex items-center justify-between mt-10'>
+      <div className='flex items-center mx-6 justify-between mt-10'>
         <h2 className='text-3xl font-bold text-primary-600'>
           Employer Dashboard
         </h2>
         <button
           onClick={() => setShowForm(true)}
-          className='px-4 py-2 bg-primary-500 text-white rounded-lg shadow hover:bg-primary-600 transition'
+          className='px-4 py-2 bg-primary-500 dark:bg-primary-200 text-white font-medium rounded-lg shadow hover:bg-primary-600 dark:hover:bg-primary-100 transition'
         >
-          + Post Job
+          <PlusIcon size={20} className='inline mr-1' />
+          Post Job
         </button>
       </div>
 
@@ -95,13 +96,13 @@ const EmployerDashboard = () => {
                         onClick={() => handleEdit(job)}
                         className='px-3 py-1.5 bg-secondary-500 text-white rounded-lg hover:bg-secondary-600 transition'
                       >
-                        <SquarePen />
+                        <SquarePen size={18} />
                       </button>
                       <button
                         onClick={() => handleDelete(job._id)}
                         className='px-3 py-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition'
                       >
-                        <Trash2 />
+                        <Trash2 size={18} />
                       </button>
                     </div>
                   </TableCell>
