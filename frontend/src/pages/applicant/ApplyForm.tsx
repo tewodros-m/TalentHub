@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useApplyToJobMutation } from '../../features/application/applicationApi';
 import { useGetJobByIdQuery } from '../../features/job/jobApi';
 import {
@@ -9,10 +8,10 @@ import {
   type ApplyFormData,
 } from '../../schema/applicationSchema';
 import type { ErrorType } from '../../types/errorType';
+import toast from 'react-hot-toast';
 
 const ApplyForm = () => {
   const [applyToJob, { isLoading }] = useApplyToJobMutation();
-  const [apiError, setApiError] = useState<string | null>(null);
 
   const { jobId } = useParams();
   const navigate = useNavigate();
@@ -39,6 +38,7 @@ const ApplyForm = () => {
 
     try {
       await applyToJob(formData).unwrap();
+      toast.success('Application submitted successfully!');
       navigate('/applicant/dashboard');
     } catch (err) {
       console.error('Application failed', err);
@@ -53,7 +53,7 @@ const ApplyForm = () => {
           'Application failed. Please try again.';
       }
 
-      setApiError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -102,11 +102,6 @@ const ApplyForm = () => {
             </p>
           )}
         </div>
-
-        {/* API Error */}
-        {apiError && (
-          <p className='text-red-500 text-sm text-center'>{apiError}</p>
-        )}
 
         {/* Submit Button */}
         <button
