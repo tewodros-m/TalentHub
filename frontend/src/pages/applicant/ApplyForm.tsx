@@ -58,7 +58,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <div className='max-w-lg mx-auto bg-white  p-8 rounded-2xl shadow-lg mt-10'>
+    <div className='max-w-lg mx-auto bg-bg border border-primary-200 p-8 rounded-2xl shadow-lg mt-10'>
       {/* Title */}
       <h2 className='text-2xl font-bold text-primary-500 mb-6 text-center'>
         Apply for Job
@@ -69,7 +69,7 @@ const ApplyForm = () => {
         <p className='text-gray-500 text-center'>Loading job details...</p>
       ) : job ? (
         <div className='mb-6 p-4 '>
-          <h3 className='text-lg font-semibold text-gray-900 '>{job.title}</h3>
+          <h3 className='text-lg font-semibold text-gray-700 '>{job.title}</h3>
           <p className='text-gray-600 mt-1'>{job.description}</p>
           <p className='text-sm text-secondary-500 mt-2'>
             {job.skills?.join(', ')}
@@ -85,7 +85,7 @@ const ApplyForm = () => {
         <div>
           <label className='block text-sm font-medium text-gray-700  mb-1'>
             Upload Resume{' '}
-            <span className='text-gray-400'>
+            <span className='text-gray-500'>
               (pdf, doc, docx, maximum of 5MB)
             </span>
             <span className='text-red-500'>*</span>
@@ -94,7 +94,7 @@ const ApplyForm = () => {
             type='file'
             accept='.pdf,.doc,.docx'
             {...register('resume')}
-            className='w-full border border-gray-300 p-2 rounded-md bg-white text-sm'
+            className='w-full border border-primary-300 p-2 rounded-md bg-bg text-sm hover:cursor-pointer'
           />
           {errors.resume && (
             <p className='text-red-500 text-sm mt-1'>
@@ -107,7 +107,7 @@ const ApplyForm = () => {
         <button
           type='submit'
           disabled={isLoading}
-          className='w-full bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 rounded-lg transition disabled:opacity-50'
+          className='w-full py-2 rounded bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-600 transition'
         >
           {isLoading ? 'Submitting...' : 'Submit Application'}
         </button>
