@@ -1,21 +1,27 @@
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../app/store';
+import { useAuth } from '../hooks/useAuth';
+import { useDispatch } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 
 const Navbar = () => {
+  const { isAuthenticated, role } = useAuth();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
-    <nav className='bg-primary-500  text-white px-6 py-3'>
+    <nav className='bg-primary-500 text-white px-6 py-3'>
       <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center'>
-        <Link to='/' className='text-2xl font-bold'>
+        {/* Logo */}
+        <Link to='/' className='text-xl font-bold'>
           TalentHub
         </Link>
 
+        {/* Links */}
         <div className='flex gap-4 items-center'>
-          {!user ? (
+          {!isAuthenticated && (
             <>
               <Link to='/login' className='hover:underline'>
                 Login
@@ -24,16 +30,33 @@ const Navbar = () => {
                 Register
               </Link>
             </>
-          ) : (
-            <>
-              <span className='font-medium'>Welcome, {user.name}</span>
-              <button
-                onClick={() => dispatch(logout())}
-                className='hover:underline'
-              >
-                Logout
-              </button>
-            </>
+          )}
+
+          {isAuthenticated && role === 'applicant' && (
+            <Link to='/applicant/dashboard' className='hover:underline'>
+              My Applications
+            </Link>
+          )}
+
+          {isAuthenticated && role === 'employer' && (
+            <Link to='/employer/dashboard' className='hover:underline'>
+              Employer Dashboard
+            </Link>
+          )}
+
+          {isAuthenticated && role === 'admin' && (
+            <Link to='/admin/dashboard' className='hover:underline'>
+              Admin Panel
+            </Link>
+          )}
+
+          {isAuthenticated && (
+            <button
+              onClick={handleLogout}
+              className='ml-4 bg-secondary-500 px-3 py-1 rounded hover:bg-secondary-600'
+            >
+              Logout
+            </button>
           )}
         </div>
       </div>
