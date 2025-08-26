@@ -17,11 +17,12 @@ const router = Router();
 
 // Public - anyone can view jobs
 router.get('/', listJobs);
+
+router.get('/employer', protect, requireRole(Role.employer), listEmployerJobs);
+
 router.get('/:id', getJobById);
 
 router.use(protect, requireRole(Role.employer));
-
-router.get('/employer', listEmployerJobs);
 
 // only employer can create job
 router.post(
