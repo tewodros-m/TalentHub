@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import {
+  listAllJobs,
   listAllApplications,
   updateApplicationStatus,
   applicationsPerJob,
@@ -14,6 +15,8 @@ const router = Router();
 
 // All routes below require admin
 router.use(protect, requireRole(Role.admin));
+
+router.get('/jobs', listAllJobs);
 
 // GET all applications
 router.get('/applications', listAllApplications);
