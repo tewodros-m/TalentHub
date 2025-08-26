@@ -15,10 +15,10 @@ const Sidebar = ({ onSelect, activeTab }: SidebarProps) => {
   ];
 
   return (
-    <div className='w-64 h-screen bg-primary-900 text-text flex flex-col p-5 fixed left-0 top-0'>
+    <div className='w-56 h-screen bg-primary-900 dark:bg-primary-100 text-gray-200 dark:text-gray-700 flex flex-col py-5 fixed left-0 top-0 transition-all'>
       <button
         onClick={() => navigate('/')}
-        className='text-gray-50 fixed left-4 top-4 hover:left-3 transition-all duration-200'
+        className=' fixed left-4 top-4 hover:left-3 transition-all duration-200'
       >
         <ArrowLeft className='mr-2 inline-block' />
         Back
@@ -28,11 +28,11 @@ const Sidebar = ({ onSelect, activeTab }: SidebarProps) => {
           <button
             key={tab.id}
             onClick={() => onSelect(tab.id)}
-            className={`flex items-center gap-3 w-full px-4 py-2 rounded-lg text-sm font-medium transition border-b border-gray-700 mb-4 uppercase
+            className={`flex items-center gap-3 w-full px-4 py-2 text-sm font-medium transition border-b border-gray-600 dark:border-gray-300  uppercase
               ${
                 activeTab === tab.id
-                  ? 'bg-primary-500 text-white'
-                  : 'text-gray-300 hover:bg-gray-700'
+                  ? 'bg-primary-600'
+                  : ' hover:bg-gray-700 hover:dark:bg-primary-200'
               }`}
           >
             {tab.icon}

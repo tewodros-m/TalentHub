@@ -1,4 +1,3 @@
-import { useGetAllJobsQuery } from '../../features/admin/adminApi';
 import {
   BarChart,
   Bar,
@@ -7,12 +6,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+
+import { useGetAllJobsQuery } from '../../features/admin/adminApi';
 import { Table, TableHeader, TableRow, TableCell } from '../ui/table';
 import { formatDate } from '../../utils/formateDate';
+import { useDarkMode } from '../../hooks/useDarkMode';
 
 const JobsTab = () => {
   const { data: jobsData = { results: 0, jobs: [] }, isLoading } =
     useGetAllJobsQuery();
+  const { isDark } = useDarkMode();
 
   const { results: jobsCount, jobs } = jobsData;
 
@@ -20,7 +23,7 @@ const JobsTab = () => {
     Array.isArray(jobs) && jobsCount > 0
       ? jobs.map((job) => ({
           title: job.title,
-          applications: job.applicationsCount ?? 0,
+          Applications: job.applicationsCount ?? 0,
         }))
       : [];
 
@@ -38,10 +41,36 @@ const JobsTab = () => {
             <BarChart data={chartData}>
               <XAxis dataKey='title' />
               <YAxis />
-              <Tooltip cursor={false} />
+              <Tooltip
+                cursor={false}
+                contentStyle={{
+                  backgroundColor: isDark ? 'rgb(0,0,0)' : 'rgb(255,255,255)',
+                  border:
+                    '1px solid ' +
+                    (isDark
+                      ? 'rgb(var(--color-primary-200))'
+                      : 'rgb(var(--color-primary-100))'),
+                  borderRadius: '8px',
+                }}
+                itemStyle={{
+                  color: isDark
+                    ? 'rgb(var(--color-gray-800))'
+                    : 'rgb(var(--color-gray-800))',
+                }}
+                labelStyle={{
+                  color: isDark
+                    ? 'rgb(var(--color-gray-800))'
+                    : 'rgb(var(--color-gray-900))',
+                  fontWeight: 600,
+                }}
+              />
               <Bar
-                dataKey='applications'
-                fill='rgb(var(--color-primary-500))'
+                dataKey='Applications'
+                fill={
+                  isDark
+                    ? 'rgb(var(--color-primary-300))'
+                    : 'rgb(var(--color-primary-500))'
+                }
               />
             </BarChart>
           </ResponsiveContainer>

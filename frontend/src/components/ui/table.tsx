@@ -30,7 +30,7 @@ export const TableRow = ({
   <tr
     className={`border-t ${
       isStriped ? 'bg-gray-50' : 'bg-bg'
-    } hover:bg-gray-200 dark:hover:bg-gray-700 transition`}
+    } hover:bg-gray-200`}
   >
     {children}
   </tr>

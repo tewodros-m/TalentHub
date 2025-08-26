@@ -12,7 +12,7 @@ const AdminDashboard = () => {
       <Sidebar activeTab={activeTab} onSelect={setActiveTab} />
 
       {/* Main Content */}
-      <div className='flex-1 ml-64 py-4 bg-bg min-h-screen'>
+      <div className='flex-1 ml-56 pl-2 py-4 bg-bg min-h-screen'>
         {/* H1 title */}
         <h1 className='text-2xl font-bold text-primary-900 mb-6'>
           Admin Dashboard

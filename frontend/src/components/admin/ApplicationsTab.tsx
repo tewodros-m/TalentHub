@@ -76,16 +76,26 @@ const ApplicationsTab = () => {
                   </span>
                 </TableCell>
                 <TableCell>
-                  <div className='flex gap-2'>
+                  <div className='flex gap-3'>
                     <button
                       onClick={() => handleStatusUpdate(app._id, 'shortlisted')}
-                      className='px-3 py-1 bg-secondary-500 text-white rounded hover:bg-secondary-600 text-xs'
+                      className={`px-3 py-1 bg-secondary-500 text-white rounded hover:bg-secondary-600 text-xs ${
+                        app.status === 'shortlisted'
+                          ? 'opacity-70 cursor-not-allowed'
+                          : ''
+                      }`}
+                      disabled={app.status === 'shortlisted'}
                     >
                       Shortlist
                     </button>
                     <button
                       onClick={() => handleStatusUpdate(app._id, 'rejected')}
-                      className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs'
+                      className={`px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs ${
+                        app.status === 'rejected'
+                          ? 'opacity-70 cursor-not-allowed'
+                          : ''
+                      }`}
+                      disabled={app.status === 'rejected'}
                     >
                       Reject
                     </button>
