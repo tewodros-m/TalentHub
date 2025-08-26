@@ -3,8 +3,8 @@ import type { AuthState, User } from '../../types/authTypes';
 import { storage } from '../../utils/localStorage';
 
 const initialState: AuthState = {
-  user: null,
-  token: null,
+  user: storage.get<User>('user') || null,
+  token: storage.get<string>('token') || null,
 };
 
 const authSlice = createSlice({
