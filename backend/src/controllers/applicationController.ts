@@ -5,13 +5,6 @@ import { Job } from '../models/JobModel';
 import { cloudinary } from '../config/cloudinary';
 import streamifier from 'streamifier';
 
-const getApplications = asyncHandler(async (req: Request, res: Response) => {
-  const applications = await Application.find()
-    .populate('jobId')
-    .populate('userId');
-  res.json({ results: applications.length, applications });
-});
-
 // Apply to a job with resume upload
 const applyToJob = asyncHandler(async (req: Request, res: Response) => {
   const { jobId } = req.body;
@@ -86,4 +79,4 @@ const getUserApplications = asyncHandler(
   }
 );
 
-export { getApplications, applyToJob, getUserApplications };
+export { applyToJob, getUserApplications };

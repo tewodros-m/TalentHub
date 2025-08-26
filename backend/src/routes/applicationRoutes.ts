@@ -2,7 +2,6 @@ import { Router } from 'express';
 import multer from 'multer';
 import { body } from 'express-validator';
 import {
-  getApplications,
   applyToJob,
   getUserApplications,
 } from '../controllers/applicationController';
@@ -14,9 +13,6 @@ import { Role } from '../enums/role';
 const router = Router();
 
 router.use(protect);
-
-// Admin can view all applications
-router.get('/', requireRole(Role.admin), getApplications);
 
 // Store file in memory for cloud upload
 const upload = multer({ storage: multer.memoryStorage() });
