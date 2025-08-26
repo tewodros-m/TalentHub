@@ -15,10 +15,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='bg-primary-500 text-white px-6 py-3'>
+    <nav className='bg-primary-600 dark:bg-primary-100 text-gray-100 dark:text-gray-900 px-6 py-3'>
       <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center'>
         {/* Logo */}
-        <Link to='/' className='text-xl font-bold'>
+        <Link to='/' className='text-2xl font-bold'>
           TalentHub
         </Link>
 
@@ -52,7 +52,7 @@ const Navbar = () => {
           {isAuthenticated && (
             <button
               onClick={handleLogout}
-              className='ml-4 bg-secondary-500 px-3 py-1 rounded hover:bg-secondary-600'
+              className='ml-4 bg-secondary-700 px-3 py-1 rounded hover:bg-secondary-800'
             >
               Logout
             </button>
@@ -60,7 +60,7 @@ const Navbar = () => {
           {/* Dark mode toggle */}
           <button
             onClick={toggleDarkMode}
-            className='ml-4 p-2 rounded-full bg-secondary-500 hover:bg-secondary-600 transition'
+            className='ml-4 p-2 rounded-full bg-secondary-700  hover:bg-secondary-800 transition'
             aria-label='Toggle dark mode'
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
