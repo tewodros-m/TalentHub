@@ -74,7 +74,9 @@ const getUserApplications = asyncHandler(
       throw new Error('Forbidden, you cannot view applications of other users');
     }
 
-    const apps = await Application.find({ userId }).populate('jobId');
+    const apps = await Application.find({ userId })
+      .populate('jobId')
+      .sort({ createdAt: -1 });
     res.json({ results: apps.length, applications: apps });
   }
 );

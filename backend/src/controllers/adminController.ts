@@ -18,7 +18,7 @@ const listAllJobs = asyncHandler(async (_req: Request, res: Response) => {
   });
 
   // Fetch jobs and append applicationsCount
-  const jobs = await Job.find().lean();
+  const jobs = await Job.find().sort({ createdAt: -1 }).lean();
   const jobsWithCounts = jobs.map((job) => ({
     ...job,
     applicationsCount: countsMap[job._id.toString()] || 0,
@@ -34,7 +34,8 @@ const listAllApplications = asyncHandler(
   async (_req: Request, res: Response) => {
     const applications = await Application.find()
       .populate('jobId', 'title description')
-      .populate('userId', 'name email role');
+      .populate('userId', 'name email role')
+      .sort({ createdAt: -1 });
     res.status(200).json({ results: applications.length, applications });
   }
 );
