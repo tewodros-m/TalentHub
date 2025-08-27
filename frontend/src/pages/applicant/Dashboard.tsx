@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
 import { useGetMyApplicationsQuery } from '../../features/application/applicationApi';
-import type { RootState } from '../../app/store';
 import ApplicationCard from '../../components/ApplicationCard';
+import { useAuth } from '../../hooks/useAuth';
 
 const ApplicantDashboard = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
+  const { user } = useAuth();
 
   const { data: data = { results: 0, applications: [] }, isLoading } =
     useGetMyApplicationsQuery(user!.id);

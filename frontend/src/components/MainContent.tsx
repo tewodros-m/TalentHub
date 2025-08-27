@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useGetJobsQuery } from '../features/job/jobApi';
-import type { RootState } from '../app/store';
-import JobCard from '../components/JobCard';
+import JobCard from './JobCard';
 import useDebounce from '../hooks/useDebounce';
 import type { ErrorType } from '../types/errorType';
 
-const Landing = () => {
+const MainContent = () => {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
   const {
@@ -16,7 +14,6 @@ const Landing = () => {
   } = useGetJobsQuery({
     search: debouncedSearch,
   });
-  const isAuthenticated = useSelector((state: RootState) => !!state.auth.token);
 
   const jobs = data.jobs || [];
 
@@ -28,7 +25,7 @@ const Landing = () => {
     } else {
       errorMessage =
         (fetchErr as ErrorType).data?.message ||
-        'Failed to load jobs. Please try again.';
+        'Failed to load jobs. Please try refreshing the page.';
     }
 
     return (
@@ -63,13 +60,7 @@ const Landing = () => {
         {isLoading ? (
           <p className='text-center text-gray-500'>Loading jobs...</p>
         ) : data.results > 0 ? (
-          jobs.map((job) => (
-            <JobCard
-              key={job._id}
-              job={job}
-              isAuthenticated={isAuthenticated}
-            />
-          ))
+          jobs.map((job) => <JobCard key={job._id} job={job} />)
         ) : (
           <p className='text-center text-gray-500'>No jobs found.</p>
         )}
@@ -78,4 +69,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default MainContent;

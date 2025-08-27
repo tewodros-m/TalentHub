@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 
-import Landing from './pages/Landing';
+import MainContent from './components/MainContent';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ApplicantDashboard from './pages/applicant/Dashboard';
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         {/* Public */}
         <Route element={<MainLayout />}>
-          <Route path='/' element={<Landing />} />
+          <Route path='/' element={<MainContent />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Route>

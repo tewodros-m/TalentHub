@@ -2,13 +2,11 @@ import { Link } from 'react-router-dom';
 import { Briefcase, Clock } from 'lucide-react';
 import type { Job } from '../types/jobTypes';
 import { timeAgo } from '../utils/timeAgo';
+import { useAuth } from '../hooks/useAuth';
 
-interface Props {
-  job: Job;
-  isAuthenticated: boolean;
-}
+const JobCard = ({ job }: { job: Job }) => {
+  const { isAuthenticated } = useAuth();
 
-const JobCard = ({ job, isAuthenticated }: Props) => {
   const passedTime = timeAgo(new Date(job.createdAt));
 
   return (
