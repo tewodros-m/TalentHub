@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLoginMutation } from '../../features/auth/authApi';
 import { setCredentials } from '../../features/auth/authSlice';
 import { LoginSchema } from '../../schema/authSchema';
@@ -12,7 +12,6 @@ import type { ErrorType } from '../../types/errorType';
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
-  const [apiError, setApiError] = useState<string | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,6 +27,7 @@ const Login = () => {
     try {
       const res = await login(data).unwrap();
       dispatch(setCredentials(res));
+      toast.success('Logged in successfully!');
       if (res.user.role === 'admin') navigate('/admin/dashboard');
       else if (res.user.role === 'employer') navigate('/employer/dashboard');
       else navigate('/applicant/dashboard');
@@ -43,13 +43,8 @@ const Login = () => {
           (err as ErrorType).data?.message || 'Login failed. Please try again.';
       }
 
-      setApiError(errorMessage);
+      toast.error(errorMessage);
     }
-  };
-
-  // clear error when user types
-  const handleInputChange = () => {
-    if (apiError) setApiError(null);
   };
 
   return (
@@ -63,7 +58,7 @@ const Login = () => {
           id='email'
           type='email'
           placeholder='john@example.com'
-          {...register('email', { onChange: handleInputChange })}
+          {...register('email')}
           error={errors.email?.message}
         />
 
@@ -72,16 +67,14 @@ const Login = () => {
           id='password'
           type='password'
           placeholder='******'
-          {...register('password', { onChange: handleInputChange })}
+          {...register('password')}
           error={errors.password?.message}
         />
-
-        {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
-
+        {/* w-full bg-primary-500 text-white py-2 rounded hover:bg-primary-600 dark:hover:bg-primary-400 transition */}
         <button
           type='submit'
           disabled={isLoading}
-          className='w-full py-2 rounded  bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-600 transition'
+          className='w-full py-2 rounded  bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-600 dark:hover:bg-primary-100 transition'
         >
           {isLoading ? 'Logging in...' : 'Login'}
         </button>

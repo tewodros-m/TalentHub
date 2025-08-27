@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useRegisterMutation } from '../../features/auth/authApi';
 import { setCredentials } from '../../features/auth/authSlice';
 import { RegisterSchema } from '../../schema/authSchema';
@@ -12,7 +12,6 @@ import Input from '../../components/Input';
 
 const Register = () => {
   const [registerUser, { isLoading }] = useRegisterMutation();
-  const [apiError, setApiError] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +28,7 @@ const Register = () => {
     try {
       const res = await registerUser(data).unwrap();
       dispatch(setCredentials(res));
+      toast.success('Registered successfully!');
       if (res.user.role === 'admin') navigate('/admin/dashboard');
       else if (res.user.role === 'employer') navigate('/employer/dashboard');
       else navigate('/applicant/dashboard');
@@ -45,13 +45,8 @@ const Register = () => {
           'Registration failed. Please try again.';
       }
 
-      setApiError(errorMessage);
+      toast.error(errorMessage);
     }
-  };
-
-  // clear error when user types
-  const handleInputChange = () => {
-    if (apiError) setApiError(null);
   };
 
   return (
@@ -64,7 +59,7 @@ const Register = () => {
           label='Name'
           id='name'
           placeholder='John'
-          {...register('name', { onChange: handleInputChange })}
+          {...register('name')}
           error={errors.name?.message}
         />
 
@@ -73,7 +68,7 @@ const Register = () => {
           id='email'
           type='email'
           placeholder='john@example.com'
-          {...register('email', { onChange: handleInputChange })}
+          {...register('email')}
           error={errors.email?.message}
         />
 
@@ -82,7 +77,7 @@ const Register = () => {
           id='password'
           type='password'
           placeholder='******'
-          {...register('password', { onChange: handleInputChange })}
+          {...register('password')}
           error={errors.password?.message}
         />
 
@@ -108,12 +103,11 @@ const Register = () => {
             <p className='text-red-500 text-sm '>{errors.role.message}</p>
           )}
         </div>
-        {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
 
         <button
           type='submit'
           disabled={isLoading}
-          className='w-full bg-primary-500 text-white py-2 rounded hover:bg-primary-600'
+          className='w-full bg-primary-500 dark:bg-primary-200 text-white py-2 rounded hover:bg-primary-600 dark:hover:bg-primary-100 transition'
         >
           {isLoading ? 'Registering...' : 'Register'}
         </button>
