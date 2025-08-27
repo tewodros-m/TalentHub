@@ -27,16 +27,19 @@ const JobsTab = () => {
         }))
       : [];
 
+  const latestTenJobs = chartData.slice(0, 10);
+  console.log('latest jobs', latestTenJobs);
+
   return (
     <div className='space-y-8'>
       {/* Chart */}
       <div className='p-6 bg-bg rounded-2xl shadow-md'>
         <h3 className='text-xl text-primary-800 font-semibold mb-4'>
-          Applications per Job
+          Applications per Job for Latest 10 Jobs
         </h3>
         {isLoading ? (
           <p>Loading chart...</p>
-        ) : chartData.length > 0 ? (
+        ) : latestTenJobs.length > 0 ? (
           <ResponsiveContainer width='100%' height={300}>
             <BarChart data={chartData}>
               <XAxis dataKey='title' />
@@ -82,7 +85,7 @@ const JobsTab = () => {
       {/* Jobs Table */}
       <div className='p-6 bg-bg rounded-2xl shadow-md'>
         <h3 className='text-xl text-primary-800 font-semibold mb-4'>
-          All Jobs
+          All Jobs with Number of Applications
         </h3>
         {isLoading ? (
           <p>Loading jobs...</p>
