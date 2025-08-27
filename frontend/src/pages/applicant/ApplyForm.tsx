@@ -60,6 +60,14 @@ const ApplyForm = () => {
     }
   };
 
+  if (jobLoading) {
+    return (
+      <div className='max-w-lg mx-auto bg-bg p-8 rounded-2xl shadow-lg mt-10'>
+        <p className='text-center'>Loading job details...</p>
+      </div>
+    );
+  }
+
   return (
     <div className='max-w-lg mx-auto bg-bg border border-primary-200 p-8 rounded-2xl shadow-lg mt-10'>
       <button
@@ -75,9 +83,8 @@ const ApplyForm = () => {
       </h2>
 
       {/* Job Info */}
-      {jobLoading ? (
-        <p className='text-gray-500 text-center'>Loading job details...</p>
-      ) : job ? (
+
+      {job ? (
         <div className='mb-6 p-4 '>
           <h3 className='text-lg font-semibold text-gray-700 '>{job.title}</h3>
           <p className='text-gray-600 mt-1'>{job.description}</p>
