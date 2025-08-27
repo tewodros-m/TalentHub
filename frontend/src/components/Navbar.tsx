@@ -52,7 +52,7 @@ const Navbar = () => {
           {isAuthenticated && (
             <button
               onClick={handleLogout}
-              className='ml-4 bg-secondary-700 px-3 py-1 rounded hover:bg-secondary-800'
+              className='ml-4 px-3 py-1 hover:underline'
             >
               Logout
             </button>
@@ -60,7 +60,7 @@ const Navbar = () => {
           {/* Dark mode toggle */}
           <button
             onClick={toggleDarkMode}
-            className='ml-4 p-2 rounded-full bg-secondary-700  hover:bg-secondary-800 transition'
+            className='ml-4 p-2 rounded-full  hover:bg-primary-700 dark:hover:bg-primary-200 transition'
             aria-label='Toggle dark mode'
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
