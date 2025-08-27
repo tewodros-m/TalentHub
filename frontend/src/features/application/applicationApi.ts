@@ -22,7 +22,7 @@ export const applicationApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: formData,
       }),
-      invalidatesTags: (result, error, { userId }) => [
+      invalidatesTags: (_result, _error, { userId }) => [
         { type: 'Applications', id: userId },
         { type: 'Applications' },
       ],
@@ -31,7 +31,9 @@ export const applicationApi = apiSlice.injectEndpoints({
     // GET /applications/:userId
     getMyApplications: builder.query<GetApplicationsResponse, string>({
       query: (userId) => `/applications/${userId}`,
-      providesTags: (result, error, arg) => [{ type: 'Applications', id: arg }],
+      providesTags: (_result, _error, arg) => [
+        { type: 'Applications', id: arg },
+      ],
     }),
   }),
 });
