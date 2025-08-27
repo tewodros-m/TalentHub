@@ -30,7 +30,7 @@ const ApplicantDashboard = () => {
       ) : (
         <div className='m-10'>
           <p className='text-gray-500 text-center text-lg'>
-            You haven’t submitted any applications yet.
+            No submitted applications.
           </p>
         </div>
       )}
