@@ -4,16 +4,42 @@ import { useGetJobsQuery } from '../features/job/jobApi';
 import type { RootState } from '../app/store';
 import JobCard from '../components/JobCard';
 import useDebounce from '../hooks/useDebounce';
+import type { ErrorType } from '../types/errorType';
 
 const Landing = () => {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
-  const { data: data = { results: 0, jobs: [] }, isLoading } = useGetJobsQuery({
+  const {
+    data: data = { results: 0, jobs: [] },
+    isLoading,
+    error: fetchErr,
+  } = useGetJobsQuery({
     search: debouncedSearch,
   });
   const isAuthenticated = useSelector((state: RootState) => !!state.auth.token);
 
   const jobs = data.jobs || [];
+
+  if (fetchErr) {
+    let errorMessage: string | null = null;
+
+    if (fetchErr && (fetchErr as ErrorType)?.status === 'FETCH_ERROR') {
+      errorMessage = 'Network error. Please check your internet connection.';
+    } else {
+      errorMessage =
+        (fetchErr as ErrorType).data?.message ||
+        'Failed to load jobs. Please try again.';
+    }
+
+    return (
+      <div className='container mx-auto mt-6'>
+        <h1 className='text-3xl font-bold text-center text-primary-500'>
+          Find Your Next Job
+        </h1>
+        <p className='text-center text-red-500'>{errorMessage}</p>
+      </div>
+    );
+  }
 
   return (
     <div className='container mx-auto mt-6'>
@@ -33,7 +59,7 @@ const Landing = () => {
       </div>
 
       {/* Jobs list */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-20'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-20 mb-5'>
         {isLoading ? (
           <p className='text-center text-gray-500'>Loading jobs...</p>
         ) : data.results > 0 ? (
