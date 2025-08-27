@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowLeft } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { useApplyToJobMutation } from '../../features/application/applicationApi';
 import { useGetJobByIdQuery } from '../../features/job/jobApi';
 import {
@@ -8,13 +10,14 @@ import {
   type ApplyFormData,
 } from '../../schema/applicationSchema';
 import type { ErrorType } from '../../types/errorType';
-import toast from 'react-hot-toast';
+import { useAuth } from '../../hooks/useAuth';
 
 const ApplyForm = () => {
   const [applyToJob, { isLoading }] = useApplyToJobMutation();
 
   const { jobId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // Fetch job info
   const { data: job, isLoading: jobLoading } = useGetJobByIdQuery(jobId!, {
@@ -37,7 +40,7 @@ const ApplyForm = () => {
     formData.append('resume', data.resume[0]);
 
     try {
-      await applyToJob(formData).unwrap();
+      await applyToJob({ formData, userId: user!.id }).unwrap();
       toast.success('Application submitted successfully!');
       navigate('/applicant/dashboard');
     } catch (err) {
@@ -59,6 +62,13 @@ const ApplyForm = () => {
 
   return (
     <div className='max-w-lg mx-auto bg-bg border border-primary-200 p-8 rounded-2xl shadow-lg mt-10'>
+      <button
+        onClick={() => navigate('/')}
+        className=' fixed left-4 top-4 hover:left-3 transition-all duration-200'
+      >
+        <ArrowLeft className='mr-2 inline-block' />
+        Back
+      </button>
       {/* Title */}
       <h2 className='text-2xl font-bold text-primary-500 mb-6 text-center'>
         Apply for Job

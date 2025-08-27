@@ -10,7 +10,7 @@ const ApplicationCard = ({ application }: ApplicationCardProps) => {
 
   return (
     <div
-      className={`p-5 border  rounded-2xl bg-bg shadow-sm hover:shadow-lg transition ${
+      className={`p-5 border  rounded-2xl bg-bg shadow-sm hover:shadow-lg ${
         status === 'shortlisted'
           ? 'border-secondary-500 '
           : status === 'rejected'

@@ -13,19 +13,25 @@ export const applicationApi = apiSlice.injectEndpoints({
     }),
 
     // POST /applications
-    applyToJob: builder.mutation<Application, FormData>({
-      query: (formData) => ({
+    applyToJob: builder.mutation<
+      Application,
+      { formData: FormData; userId: string }
+    >({
+      query: ({ formData }) => ({
         url: '/applications',
         method: 'POST',
         body: formData,
       }),
-      invalidatesTags: ['Applications', 'Jobs'],
+      invalidatesTags: (result, error, { userId }) => [
+        { type: 'Applications', id: userId },
+        { type: 'Applications' },
+      ],
     }),
 
     // GET /applications/:userId
     getMyApplications: builder.query<GetApplicationsResponse, string>({
       query: (userId) => `/applications/${userId}`,
-      providesTags: ['Application'],
+      providesTags: (result, error, arg) => [{ type: 'Applications', id: arg }],
     }),
   }),
 });
