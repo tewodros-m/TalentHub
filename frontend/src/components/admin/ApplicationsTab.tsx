@@ -25,7 +25,7 @@ const ApplicationsTab = () => {
   };
 
   return (
-    <div className='p-6 bg-bg rounded-2xl shadow-md'>
+    <div className='p-6 bg-bg min-h-screen rounded-2xl shadow-md'>
       <h3 className='text-xl text-primary-800 font-semibold mb-4'>
         All Applications
       </h3>

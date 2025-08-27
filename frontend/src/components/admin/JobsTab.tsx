@@ -28,10 +28,9 @@ const JobsTab = () => {
       : [];
 
   const latestTenJobs = chartData.slice(0, 10);
-  console.log('latest jobs', latestTenJobs);
 
   return (
-    <div className='space-y-8'>
+    <div className='space-y-8 min-h-screen'>
       {/* Chart */}
       <div className='p-6 bg-bg rounded-2xl shadow-md'>
         <h3 className='text-xl text-primary-800 font-semibold mb-4'>
@@ -41,7 +40,7 @@ const JobsTab = () => {
           <p>Loading chart...</p>
         ) : latestTenJobs.length > 0 ? (
           <ResponsiveContainer width='100%' height={300}>
-            <BarChart data={chartData}>
+            <BarChart data={latestTenJobs}>
               <XAxis dataKey='title' />
               <YAxis />
               <Tooltip
