@@ -3,9 +3,10 @@ import type { Job } from '../types/jobTypes';
 import { timeAgo } from '../utils/timeAgo';
 import { useAuth } from '../hooks/useAuth';
 import LinkButton from './ui/LinkButton';
+import Button from './ui/Button';
 
 const JobCard = ({ job }: { job: Job }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, role } = useAuth();
 
   const passedTime = timeAgo(new Date(job.createdAt));
 
@@ -24,7 +25,7 @@ const JobCard = ({ job }: { job: Job }) => {
         </span>
       </div>
 
-      {/* Description */}
+      {/* Description w*/}
       <p className='text-gray-600 mt-3 line-clamp-3'>
         <span className='text-lg text-gray-700 font-semibold'>
           Job description:
@@ -52,9 +53,15 @@ const JobCard = ({ job }: { job: Job }) => {
       {/* Action Button */}
       <div className='mt-4'>
         {isAuthenticated ? (
-          <LinkButton to={`/apply/${job._id}`} variant='primary'>
-            Apply Now
-          </LinkButton>
+          role === 'applicant' ? (
+            <LinkButton to={`/apply/${job._id}`} variant='primary'>
+              Apply Now
+            </LinkButton>
+          ) : (
+            <Button disabled className='rounded-lg' variant='primary'>
+              Apply Now
+            </Button>
+          )
         ) : (
           <LinkButton to='/login' variant='primary'>
             Login to Apply
