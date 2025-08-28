@@ -13,7 +13,7 @@ const ApplicantDashboard = () => {
   return (
     <div className='max-w-4xl min-h-screen mx-auto mt-10 p-6 bg-bg rounded-2xl shadow-lg'>
       {/* Dashboard Title */}
-      <h2 className='text-2xl font-bold text-primary-900 mb-6'>
+      <h2 className='text-3xl font-bold text-primary-600 mb-6 border-b border-gray-200 pb-2'>
         My Applications
       </h2>
 

@@ -14,7 +14,7 @@ const AdminDashboard = () => {
       {/* Main Content */}
       <div className='flex-1 ml-56 pl-2 py-4 bg-bg min-h-screen'>
         {/* H1 title */}
-        <h1 className='text-2xl font-bold text-primary-900 mb-6'>
+        <h1 className='text-3xl font-bold text-primary-600 mb-6 border-b border-gray-200 pb-2'>
           Admin Dashboard
         </h1>
 

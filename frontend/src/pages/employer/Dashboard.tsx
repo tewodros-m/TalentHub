@@ -45,11 +45,10 @@ const EmployerDashboard = () => {
   return (
     <div>
       {/* Header */}
-      <div className='flex items-center mx-6 justify-between mt-10'>
+      <div className='flex items-center mx-6 justify-between mt-10 border-b border-gray-200 pb-2 px-4'>
         <h2 className='text-3xl font-bold text-primary-600'>
           Employer Dashboard
         </h2>
-
         <Button variant='primary' onClick={() => setShowForm(true)}>
           <PlusIcon size={20} className='inline mr-1' />
           Post Job
