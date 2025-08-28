@@ -1,5 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import Button from './Button';
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,12 +20,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
     >
       <div className='bg-bg rounded-xl shadow-2xl w-full max-w-lg p-6 dark:border dark:border-primary-200 relative'>
         {/* Close Button */}
-        <button
+        <Button
           onClick={onClose}
-          className='absolute top-1 right-1 text-gray-500 hover:text-gray-800'
+          variant='custom'
+          className='absolute top-0 right-0 px-1 py-1 border-none'
         >
-          <X size={36} />
-        </button>
+          <X />
+        </Button>
 
         {/* Title */}
         {title && (

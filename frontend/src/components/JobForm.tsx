@@ -9,6 +9,7 @@ import type { Job, RegisterJob } from '../types/jobTypes';
 import { JobSchema } from '../schema/jobSchema';
 import Input from './Input';
 import type { ErrorType } from '../types/errorType';
+import Button from './ui/Button';
 
 interface JobFormProps {
   initialData?: Job; // optional initial values for editing
@@ -132,12 +133,12 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
       />
 
       {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
-      {/* className='px-4 py-2 bg-primary-500 dark:bg-primary-200 text-white font-medium rounded-lg shadow hover:bg-primary-600 dark:hover:bg-primary-100 transition' */}
       <div className='pt-2 flex gap-4'>
-        <button
+        <Button
           type='submit'
-          disabled={isCreating || isUpdating}
-          className='w-full bg-primary-500 dark:bg-primary-200 text-white py-2 rounded-lg hover:bg-primary-600 dark:hover:bg-primary-100 transition'
+          variant='primary'
+          isLoading={isCreating || isUpdating}
+          className='w-full'
         >
           {initialData
             ? isUpdating
@@ -146,14 +147,11 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
             : isCreating
             ? 'Posting...'
             : 'Post Job'}
-        </button>
-        <button
-          type='button'
-          onClick={handleFormClose}
-          className='w-full bg-gray-50 text-gray-700 py-2 rounded-lg border border-primary-200 hover:bg-gray-100 dark:hover:bg-black'
-        >
+        </Button>
+
+        <Button variant='outline' onClick={handleFormClose} className='w-full'>
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   );

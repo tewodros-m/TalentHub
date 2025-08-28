@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { Moon, Sun } from 'lucide-react';
+import Button from './ui/Button';
 
 const Navbar = () => {
   const { isAuthenticated, role } = useAuth();
@@ -50,21 +51,23 @@ const Navbar = () => {
             </Link>
           )}
           {isAuthenticated && (
-            <button
+            <Button
               onClick={handleLogout}
+              variant='custom'
               className='ml-4 px-3 py-1 hover:underline'
             >
               Logout
-            </button>
+            </Button>
           )}
           {/* Dark mode toggle */}
-          <button
+          <Button
             onClick={toggleDarkMode}
-            className='ml-4 p-2 rounded-full  hover:bg-primary-700 dark:hover:bg-primary-200 transition'
+            variant='custom'
+            className='ml-4 px-0 py-0 w-10 h-10 rounded-full hover:bg-primary-700 dark:hover:bg-primary-200 transition'
             aria-label='Toggle dark mode'
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          </Button>
         </div>
       </div>
     </nav>

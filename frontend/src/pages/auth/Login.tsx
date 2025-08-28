@@ -9,6 +9,7 @@ import { LoginSchema } from '../../schema/authSchema';
 import type { LoginRequest } from '../../types/authTypes';
 import Input from '../../components/Input';
 import type { ErrorType } from '../../types/errorType';
+import Button from '../../components/ui/Button';
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -70,14 +71,15 @@ const Login = () => {
           {...register('password')}
           error={errors.password?.message}
         />
-        {/* w-full bg-primary-500 text-white py-2 rounded hover:bg-primary-600 dark:hover:bg-primary-400 transition */}
-        <button
+
+        <Button
           type='submit'
-          disabled={isLoading}
-          className='w-full py-2 rounded  bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-600 dark:hover:bg-primary-100 transition'
+          variant='primary'
+          isLoading={isLoading}
+          className='w-full'
         >
           {isLoading ? 'Logging in...' : 'Login'}
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -5,6 +5,7 @@ import {
 import toast from 'react-hot-toast';
 import { timeAgo } from '../../utils/timeAgo';
 import { Table, TableHeader, TableRow, TableCell } from '../ui/table';
+import Button from '../ui/Button';
 
 const ApplicationsTab = () => {
   const {
@@ -77,9 +78,11 @@ const ApplicationsTab = () => {
                 </TableCell>
                 <TableCell>
                   <div className='flex gap-3'>
-                    <button
+                    <Button
                       onClick={() => handleStatusUpdate(app._id, 'shortlisted')}
-                      className={`px-3 py-1 bg-secondary-500 text-white rounded hover:bg-secondary-600 text-xs ${
+                      variant='secondary'
+                      size='sm'
+                      className={`px-3 py-1 text-xs ${
                         app.status === 'shortlisted'
                           ? 'opacity-70 cursor-not-allowed'
                           : ''
@@ -87,10 +90,13 @@ const ApplicationsTab = () => {
                       disabled={app.status === 'shortlisted'}
                     >
                       Shortlist
-                    </button>
-                    <button
+                    </Button>
+
+                    <Button
                       onClick={() => handleStatusUpdate(app._id, 'rejected')}
-                      className={`px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs ${
+                      variant='danger'
+                      size='sm'
+                      className={`px-3 py-1 text-xs ${
                         app.status === 'rejected'
                           ? 'opacity-70 cursor-not-allowed'
                           : ''
@@ -98,7 +104,7 @@ const ApplicationsTab = () => {
                       disabled={app.status === 'rejected'}
                     >
                       Reject
-                    </button>
+                    </Button>
                   </div>
                 </TableCell>
               </TableRow>

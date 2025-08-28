@@ -9,6 +9,7 @@ import { RegisterSchema } from '../../schema/authSchema';
 import type { RegisterRequest } from '../../types/authTypes';
 import type { ErrorType } from '../../types/errorType';
 import Input from '../../components/Input';
+import Button from '../../components/ui/Button';
 
 const Register = () => {
   const [registerUser, { isLoading }] = useRegisterMutation();
@@ -31,7 +32,7 @@ const Register = () => {
       toast.success('Registered successfully!');
       if (res.user.role === 'admin') navigate('/admin/dashboard');
       else if (res.user.role === 'employer') navigate('/employer/dashboard');
-      else navigate('/applicant/dashboard');
+      else navigate('/');
     } catch (err) {
       console.error('Registration failed', err);
 
@@ -104,13 +105,14 @@ const Register = () => {
           )}
         </div>
 
-        <button
+        <Button
           type='submit'
-          disabled={isLoading}
-          className='w-full bg-primary-500 dark:bg-primary-200 text-white py-2 rounded hover:bg-primary-600 dark:hover:bg-primary-100 transition'
+          variant='primary'
+          isLoading={isLoading}
+          className='w-full'
         >
           {isLoading ? 'Registering...' : 'Register'}
-        </button>
+        </Button>
       </form>
     </div>
   );

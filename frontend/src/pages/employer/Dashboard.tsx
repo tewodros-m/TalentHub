@@ -14,6 +14,7 @@ import {
 } from '../../components/ui/table';
 import Modal from '../../components/ui/Modal';
 import { formatDate } from '../../utils/formateDate';
+import Button from '../../components/ui/Button';
 
 const EmployerDashboard = () => {
   const { data: data = { results: 0, jobs: [] }, isLoading } =
@@ -48,13 +49,11 @@ const EmployerDashboard = () => {
         <h2 className='text-3xl font-bold text-primary-600'>
           Employer Dashboard
         </h2>
-        <button
-          onClick={() => setShowForm(true)}
-          className='px-4 py-2 bg-primary-500 dark:bg-primary-200 text-white font-medium rounded-lg shadow hover:bg-primary-600 dark:hover:bg-primary-100 transition'
-        >
+
+        <Button variant='primary' onClick={() => setShowForm(true)}>
           <PlusIcon size={20} className='inline mr-1' />
           Post Job
-        </button>
+        </Button>
       </div>
 
       {/* Job List */}
@@ -91,18 +90,23 @@ const EmployerDashboard = () => {
                   <TableCell>{formatDate(job.createdAt)}</TableCell>
                   <TableCell align='right'>
                     <div className='space-x-2'>
-                      <button
+                      <Button
                         onClick={() => handleEdit(job)}
-                        className='px-3 py-1.5 bg-secondary-500 text-white rounded-lg hover:bg-secondary-600 transition'
+                        size='sm'
+                        className='px-3 py-1.5 rounded-lg transition'
+                        variant='secondary'
                       >
                         <SquarePen size={18} />
-                      </button>
-                      <button
+                      </Button>
+
+                      <Button
                         onClick={() => handleDelete(job._id)}
-                        className='px-3 py-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition'
+                        size='sm'
+                        className='px-3 py-1.5 rounded-lg transition'
+                        variant='danger'
                       >
                         <Trash2 size={18} />
-                      </button>
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>

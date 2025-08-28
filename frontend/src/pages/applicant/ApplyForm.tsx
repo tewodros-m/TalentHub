@@ -11,6 +11,7 @@ import {
 } from '../../schema/applicationSchema';
 import type { ErrorType } from '../../types/errorType';
 import { useAuth } from '../../hooks/useAuth';
+import Button from '../../components/ui/Button';
 
 const ApplyForm = () => {
   const [applyToJob, { isLoading }] = useApplyToJobMutation();
@@ -62,7 +63,7 @@ const ApplyForm = () => {
 
   if (jobLoading) {
     return (
-      <div className='max-w-lg mx-auto bg-bg p-8 rounded-2xl shadow-lg mt-10'>
+      <div className='max-w-lg mx-auto bg-bg p-8 rounded-2xl mt-10'>
         <p className='text-center'>Loading job details...</p>
       </div>
     );
@@ -70,13 +71,14 @@ const ApplyForm = () => {
 
   return (
     <div className='max-w-lg mx-auto bg-bg border border-primary-200 p-8 rounded-2xl shadow-lg mt-10'>
-      <button
+      <Button
         onClick={() => navigate('/')}
-        className=' fixed left-4 top-4 hover:left-3 transition-all duration-200'
+        variant='custom'
+        className='fixed left-4 top-4 hover:left-3 transition-all duration-200'
       >
         <ArrowLeft className='mr-2 inline-block' />
         Back
-      </button>
+      </Button>
       {/* Title */}
       <h2 className='text-2xl font-bold text-primary-500 mb-6 text-center'>
         Apply for Job
@@ -121,13 +123,14 @@ const ApplyForm = () => {
         </div>
 
         {/* Submit Button */}
-        <button
+        <Button
           type='submit'
-          disabled={isLoading}
-          className='w-full py-2 rounded bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-600 transition'
+          variant='primary'
+          isLoading={isLoading}
+          className='w-full'
         >
           {isLoading ? 'Submitting...' : 'Submit Application'}
-        </button>
+        </Button>
       </form>
     </div>
   );
