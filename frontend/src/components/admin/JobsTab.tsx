@@ -22,29 +22,39 @@ const JobsTab = () => {
   const chartData =
     Array.isArray(jobs) && jobsCount > 0
       ? jobs.map((job) => ({
+          _id: job._id,
           title: job.title,
           Applications: job.applicationsCount ?? 0,
         }))
       : [];
 
-  const latestTenJobs = chartData.slice(0, 10);
+  const latestTwentyJobs = chartData.slice(0, 20);
 
   return (
     <div className='space-y-8 min-h-screen'>
       {/* Chart */}
       <div className='p-6 bg-bg rounded-2xl shadow-md'>
         <h3 className='text-xl text-primary-800 font-semibold mb-4'>
-          Applications per Job for Latest 10 Jobs
+          Applications per Job for Latest 20 Jobs
         </h3>
         {isLoading ? (
           <p>Loading chart...</p>
-        ) : latestTenJobs.length > 0 ? (
+        ) : latestTwentyJobs.length > 0 ? (
           <ResponsiveContainer width='100%' height={300}>
-            <BarChart data={latestTenJobs}>
-              <XAxis dataKey='title' />
-              <YAxis />
+            <BarChart data={latestTwentyJobs}>
+              <XAxis dataKey='_id' tick={false} />
+              <YAxis
+                allowDecimals={false}
+                tickFormatter={(value) => Math.floor(value).toString()}
+              />
+
               <Tooltip
                 cursor={false}
+                labelFormatter={(value) => {
+                  // Find the actual job by id and return its title for tooltip
+                  const job = latestTwentyJobs.find((job) => job._id === value);
+                  return job ? job.title : value;
+                }}
                 contentStyle={{
                   backgroundColor: isDark ? 'rgb(0,0,0)' : 'rgb(255,255,255)',
                   border:
@@ -90,7 +100,7 @@ const JobsTab = () => {
           <p>Loading jobs...</p>
         ) : jobsCount > 0 ? (
           <Table>
-            <TableHeader headers={['Title', 'Applications', 'Created At']} />
+            <TableHeader headers={['Title', 'Applications', 'Date']} />
             <tbody>
               {jobs.map((job, i) => (
                 <TableRow key={job._id} isStriped={i % 2 === 0}>
