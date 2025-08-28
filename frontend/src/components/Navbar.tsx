@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
 import { useDispatch } from 'react-redux';
+import { Moon, Sun } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
 import { logout } from '../features/auth/authSlice';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { Moon, Sun } from 'lucide-react';
 import Button from './ui/Button';
+import LinkButton from './ui/LinkButton';
 
 const Navbar = () => {
   const { isAuthenticated, role } = useAuth();
@@ -19,36 +19,60 @@ const Navbar = () => {
     <nav className='bg-primary-600 dark:bg-primary-100 text-gray-100 dark:text-gray-900 px-6 py-3'>
       <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center'>
         {/* Logo */}
-        <Link to='/' className='text-2xl font-bold'>
+        <LinkButton
+          to='/'
+          variant='custom'
+          className='!text-2xl !font-bold px-0 py-0'
+        >
           TalentHub
-        </Link>
+        </LinkButton>
 
         {/* Links */}
         <div className='flex gap-4 items-center'>
           {!isAuthenticated && (
             <>
-              <Link to='/login' className='hover:underline'>
+              <LinkButton
+                to='/login'
+                variant='custom'
+                className='hover:underline px-0 py-0'
+              >
                 Login
-              </Link>
-              <Link to='/register' className='hover:underline'>
+              </LinkButton>
+              <LinkButton
+                to='/register'
+                variant='custom'
+                className='hover:underline px-0 py-0'
+              >
                 Register
-              </Link>
+              </LinkButton>
             </>
           )}
           {isAuthenticated && role === 'applicant' && (
-            <Link to='/applicant/dashboard' className='hover:underline'>
+            <LinkButton
+              to='/applicant/dashboard'
+              variant='custom'
+              className='hover:underline px-0 py-0'
+            >
               My Applications
-            </Link>
+            </LinkButton>
           )}
           {isAuthenticated && role === 'employer' && (
-            <Link to='/employer/dashboard' className='hover:underline'>
+            <LinkButton
+              to='/employer/dashboard'
+              variant='custom'
+              className='hover:underline px-0 py-0'
+            >
               Employer Dashboard
-            </Link>
+            </LinkButton>
           )}
           {isAuthenticated && role === 'admin' && (
-            <Link to='/admin/dashboard' className='hover:underline'>
+            <LinkButton
+              to='/admin/dashboard'
+              variant='custom'
+              className='hover:underline px-0 py-0'
+            >
               Admin Panel
-            </Link>
+            </LinkButton>
           )}
           {isAuthenticated && (
             <Button

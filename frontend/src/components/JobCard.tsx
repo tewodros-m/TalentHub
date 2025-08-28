@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Briefcase, Clock } from 'lucide-react';
 import type { Job } from '../types/jobTypes';
 import { timeAgo } from '../utils/timeAgo';
 import { useAuth } from '../hooks/useAuth';
+import LinkButton from './ui/LinkButton';
 
 const JobCard = ({ job }: { job: Job }) => {
   const { isAuthenticated } = useAuth();
@@ -52,19 +52,13 @@ const JobCard = ({ job }: { job: Job }) => {
       {/* Action Button */}
       <div className='mt-4'>
         {isAuthenticated ? (
-          <Link
-            to={`/apply/${job._id}`}
-            className='text-center px-4 py-2 rounded-lg bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-700 dark:hover:bg-primary-400 transition'
-          >
+          <LinkButton to={`/apply/${job._id}`} variant='primary'>
             Apply Now
-          </Link>
+          </LinkButton>
         ) : (
-          <Link
-            to='/login'
-            className='text-center px-4 py-2 rounded-lg bg-primary-500 dark:bg-primary-200 text-white font-medium hover:bg-primary-700 dark:hover:bg-primary-400 transition'
-          >
+          <LinkButton to='/login' variant='primary'>
             Login to Apply
-          </Link>
+          </LinkButton>
         )}
       </div>
     </div>
