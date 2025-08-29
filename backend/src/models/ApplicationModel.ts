@@ -20,6 +20,7 @@ const applicationSchema = new Schema<IApplication>(
       default: ApplicationStatus.applied,
     },
     resumeUrl: { type: String, required: [true, 'Resume is required'] },
+    resumeFileName: { type: String, required: true },
   },
   { timestamps: true }
 );

@@ -6,4 +6,5 @@ export interface IApplication extends Document {
   userId: Types.ObjectId;
   status: ApplicationStatus;
   resumeUrl: string;
+  resumeFileName: string;
 }

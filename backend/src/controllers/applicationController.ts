@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
+import streamifier from 'streamifier';
+import path from 'path';
 import { asyncHandler } from '../utils/asyncHandler';
 import { Application } from '../models/ApplicationModel';
 import { Job } from '../models/JobModel';
 import { cloudinary } from '../config/cloudinary';
-import streamifier from 'streamifier';
 
 // Apply to a job with resume upload
 const applyToJob = asyncHandler(async (req: Request, res: Response) => {
@@ -16,12 +17,29 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
   }
 
   let resumeUrl: string | undefined;
+  let resumeFileName: string | undefined;
 
   if (req.file) {
     try {
+      // filename without extension
+      const originalName = path
+        .parse(req.file.originalname)
+        .name.replace(/\s+/g, '_');
+      // .pdf, .docx, etc.
+      const extension = path.extname(req.file.originalname);
+
+      // Append timestamp to filename
+      const timestamp = Date.now();
+      resumeFileName = `${originalName}_${timestamp}${extension}`;
+
       const upload = await new Promise<any>((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
-          { resource_type: 'raw', folder: 'resumes' },
+          {
+            resource_type: 'raw',
+            folder: 'resumes',
+            public_id: resumeFileName,
+            overwrite: true,
+          },
           (err, result) => {
             if (err) return reject(err);
             resolve(result);
@@ -52,6 +70,7 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
       jobId,
       userId: req.user!.id,
       resumeUrl,
+      resumeFileName,
     });
     res.status(201).json(application);
   } catch (err: any) {
