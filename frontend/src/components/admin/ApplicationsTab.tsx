@@ -48,9 +48,9 @@ const ApplicationsTab = () => {
           <tbody>
             {applications.map((app, index) => (
               <TableRow key={app._id} isStriped={index % 2 === 0}>
-                <TableCell>{app.jobId.title}</TableCell>
-                <TableCell>{app.userId!.name}</TableCell>
-                <TableCell>{app.userId!.email}</TableCell>
+                <TableCell>{app.jobId?.title || 'N/A'}</TableCell>
+                <TableCell>{app.userId?.name || 'N/A'}</TableCell>
+                <TableCell>{app.userId?.email || 'N/A'}</TableCell>
                 <TableCell>{timeAgo(new Date(app.createdAt))}</TableCell>
                 <TableCell>
                   <a
