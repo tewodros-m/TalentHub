@@ -51,7 +51,7 @@ const Register = () => {
   };
 
   return (
-    <div className='max-w-md mx-auto my-10 bg-bg p-6 border border-primary-100 dark:border-primary-200 rounded-lg shadow-xl'>
+    <div className='max-w-lg min-w-[450px] mx-auto my-10 bg-bg p-6 border border-primary-100 dark:border-primary-200 rounded-lg shadow-xl'>
       <h2 className='text-2xl font-bold text-primary-500 mb-4 text-center'>
         Register
       </h2>
@@ -109,7 +109,7 @@ const Register = () => {
           type='submit'
           variant='primary'
           isLoading={isLoading}
-          className='w-full'
+          className='w-full !mt-10'
         >
           {isLoading ? 'Registering...' : 'Register'}
         </Button>
