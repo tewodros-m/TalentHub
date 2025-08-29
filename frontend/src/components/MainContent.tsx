@@ -21,7 +21,7 @@ const MainContent = () => {
     let errorMessage: string | null = null;
 
     if (fetchErr && (fetchErr as ErrorType)?.status === 'FETCH_ERROR') {
-      errorMessage = 'Network error. Please check your internet connection.';
+      errorMessage = 'Network error. Please check your connection.';
     } else {
       errorMessage =
         (fetchErr as ErrorType).data?.message ||
@@ -29,10 +29,7 @@ const MainContent = () => {
     }
 
     return (
-      <div className='container mx-auto mt-6'>
-        <h1 className='text-3xl font-bold text-center text-primary-500'>
-          Find Your Next Job
-        </h1>
+      <div className='flex flex-col gap-10'>
         <p className='text-center text-red-500'>{errorMessage}</p>
       </div>
     );

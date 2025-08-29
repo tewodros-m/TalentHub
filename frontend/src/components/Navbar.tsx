@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='bg-primary-600 dark:bg-primary-100 text-gray-100 dark:text-gray-900 px-6 py-3'>
+    <nav className='h-14 flex items-center bg-primary-600 dark:bg-primary-100 text-gray-100 dark:text-gray-900 px-4'>
       <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center'>
         {/* Logo */}
         <LinkButton
@@ -80,7 +80,7 @@ const Navbar = () => {
             <Button
               onClick={handleLogout}
               variant='custom'
-              className='ml-4 px-3 py-1 hover:underline'
+              className='px-1 py-1 hover:underline'
             >
               Logout
             </Button>
@@ -89,7 +89,7 @@ const Navbar = () => {
           <Button
             onClick={toggleDarkMode}
             variant='custom'
-            className='ml-4 px-0 py-0 w-10 h-10 rounded-full hover:bg-primary-700 dark:hover:bg-primary-200 transition'
+            className='px-0 py-0 w-10 h-10 rounded-full hover:bg-primary-700 dark:hover:bg-primary-200 transition'
             aria-label='Toggle dark mode'
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
