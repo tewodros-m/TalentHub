@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
 import {
   useCreateJobMutation,
   useUpdateJobMutation,
@@ -19,7 +20,7 @@ interface JobFormProps {
 const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
   const [createJob, { isLoading: isCreating }] = useCreateJobMutation();
   const [updateJob, { isLoading: isUpdating }] = useUpdateJobMutation();
-  const [apiError, setApiError] = useState<string | null>(null);
+  // const [apiError, setApiError] = useState<string | null>(null);
 
   const {
     register,
@@ -55,8 +56,10 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
 
       if (initialData) {
         await updateJob({ id: initialData._id!, data: payload }).unwrap();
+        toast.success('Job updated successfully!');
       } else {
         await createJob(payload).unwrap();
+        toast.success('Job posted successfully!');
         reset();
       }
       if (handleFormClose) handleFormClose();
@@ -73,13 +76,8 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
             : 'Job posting failed. Please try again.';
       }
 
-      setApiError(errorMessage);
+      toast.error(errorMessage);
     }
-  };
-
-  // clear error when user types
-  const handleInputChange = () => {
-    if (apiError) setApiError(null);
   };
 
   return (
@@ -91,7 +89,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
         label='Title'
         id='title'
         placeholder='Web Developer'
-        {...register('title', { onChange: handleInputChange })}
+        {...register('title')}
         error={errors.title?.message}
       />
 
@@ -105,7 +103,7 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
 
         <textarea
           rows={5}
-          {...register('description', { onChange: handleInputChange })}
+          {...register('description')}
           placeholder='Job Description'
           className={`w-full p-2 border rounded outline-none
               placeholder:text-gray-400 bg-bg
@@ -128,11 +126,10 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
         label='Skills'
         id='skills'
         placeholder='HTML, CSS, Reading'
-        {...register('skills', { onChange: handleInputChange })}
+        {...register('skills')}
         error={errors.skills?.message}
       />
 
-      {apiError && <p className='text-red-500 text-sm '>{apiError}</p>}
       <div className='pt-2 flex gap-4'>
         <Button
           type='submit'

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PlusIcon, SquarePen, Trash2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 import {
   useGetEmployerJobsQuery,
   useDeleteJobMutation,
@@ -29,6 +30,7 @@ const EmployerDashboard = () => {
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this job?')) {
       await deleteJob(id);
+      toast.success('Job deleted successfully!');
     }
   };
 

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Moon, Sun } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { useAuth } from '../hooks/useAuth';
 import { logout } from '../features/auth/authSlice';
 import { useDarkMode } from '../hooks/useDarkMode';
@@ -13,6 +14,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success('Logged out successfully!');
   };
 
   return (
