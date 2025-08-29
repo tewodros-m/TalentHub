@@ -6,6 +6,7 @@ import { logout } from '../features/auth/authSlice';
 import { useDarkMode } from '../hooks/useDarkMode';
 import Button from './ui/Button';
 import LinkButton from './ui/LinkButton';
+import IconButton from './ui/IconButton';
 
 const Navbar = () => {
   const { isAuthenticated, role } = useAuth();
@@ -23,8 +24,9 @@ const Navbar = () => {
         {/* Logo */}
         <LinkButton
           to='/'
+          size='sm'
           variant='custom'
-          className='!text-2xl !font-bold px-0 py-0'
+          className='!text-2xl !font-bold'
         >
           TalentHub
         </LinkButton>
@@ -35,15 +37,17 @@ const Navbar = () => {
             <>
               <LinkButton
                 to='/login'
+                size='sm'
                 variant='custom'
-                className='hover:underline px-0 py-0'
+                className='hover:underline'
               >
                 Login
               </LinkButton>
               <LinkButton
                 to='/register'
+                size='sm'
                 variant='custom'
-                className='hover:underline px-0 py-0'
+                className='hover:underline'
               >
                 Register
               </LinkButton>
@@ -52,8 +56,9 @@ const Navbar = () => {
           {isAuthenticated && role === 'applicant' && (
             <LinkButton
               to='/applicant/dashboard'
+              size='sm'
               variant='custom'
-              className='hover:underline px-0 py-0'
+              className='hover:underline'
             >
               My Applications
             </LinkButton>
@@ -61,8 +66,9 @@ const Navbar = () => {
           {isAuthenticated && role === 'employer' && (
             <LinkButton
               to='/employer/dashboard'
+              size='sm'
               variant='custom'
-              className='hover:underline px-0 py-0'
+              className='hover:underline'
             >
               Employer Dashboard
             </LinkButton>
@@ -70,8 +76,9 @@ const Navbar = () => {
           {isAuthenticated && role === 'admin' && (
             <LinkButton
               to='/admin/dashboard'
+              size='sm'
               variant='custom'
-              className='hover:underline px-0 py-0'
+              className='hover:underline'
             >
               Admin Panel
             </LinkButton>
@@ -79,21 +86,17 @@ const Navbar = () => {
           {isAuthenticated && (
             <Button
               onClick={handleLogout}
+              size='sm'
               variant='custom'
-              className='px-1 py-1 hover:underline'
+              className='hover:underline'
             >
               Logout
             </Button>
           )}
           {/* Dark mode toggle */}
-          <Button
-            onClick={toggleDarkMode}
-            variant='custom'
-            className='px-0 py-0 w-10 h-10 rounded-full hover:bg-primary-700 dark:hover:bg-primary-200 transition'
-            aria-label='Toggle dark mode'
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </Button>
+          <IconButton onClick={toggleDarkMode} size='sm' variant='primary'>
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </IconButton>
         </div>
       </div>
     </nav>
