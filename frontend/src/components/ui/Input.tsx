@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import Button from './ui/Button';
+import Button from './Button';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;

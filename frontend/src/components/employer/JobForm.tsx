@@ -5,12 +5,12 @@ import toast from 'react-hot-toast';
 import {
   useCreateJobMutation,
   useUpdateJobMutation,
-} from '../features/job/jobApi';
-import type { Job, RegisterJob } from '../types/jobTypes';
-import { JobSchema } from '../schema/jobSchema';
-import Input from './Input';
-import type { ErrorType } from '../types/errorType';
-import Button from './ui/Button';
+} from '../../features/job/jobApi';
+import type { Job, RegisterJob } from '../../types/jobTypes';
+import { JobSchema } from '../../schema/jobSchema';
+import Input from '../ui/Input';
+import type { ErrorType } from '../../types/errorType';
+import Button from '../ui/Button';
 
 interface JobFormProps {
   initialData?: Job; // optional initial values for editing

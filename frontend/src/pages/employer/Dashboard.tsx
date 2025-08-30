@@ -5,7 +5,7 @@ import {
   useGetEmployerJobsQuery,
   useDeleteJobMutation,
 } from '../../features/job/jobApi';
-import JobForm from '../../components/JobForm';
+import JobForm from '../../components/employer/JobForm';
 import type { Job } from '../../types/jobTypes';
 import {
   Table,

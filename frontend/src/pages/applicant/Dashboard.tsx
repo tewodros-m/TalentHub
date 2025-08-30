@@ -1,5 +1,5 @@
 import { useGetMyApplicationsQuery } from '../../features/application/applicationApi';
-import ApplicationCard from '../../components/ApplicationCard';
+import ApplicationCard from '../../components/applicant/ApplicationCard';
 import { useAuth } from '../../hooks/useAuth';
 
 const ApplicantDashboard = () => {

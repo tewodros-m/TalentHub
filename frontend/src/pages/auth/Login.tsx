@@ -7,7 +7,7 @@ import { useLoginMutation } from '../../features/auth/authApi';
 import { setCredentials } from '../../features/auth/authSlice';
 import { LoginSchema } from '../../schema/authSchema';
 import type { LoginRequest } from '../../types/authTypes';
-import Input from '../../components/Input';
+import Input from '../../components/ui/Input';
 import type { ErrorType } from '../../types/errorType';
 import Button from '../../components/ui/Button';
 

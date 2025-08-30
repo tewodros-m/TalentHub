@@ -8,7 +8,7 @@ import { setCredentials } from '../../features/auth/authSlice';
 import { RegisterSchema } from '../../schema/authSchema';
 import type { RegisterRequest } from '../../types/authTypes';
 import type { ErrorType } from '../../types/errorType';
-import Input from '../../components/Input';
+import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
 const Register = () => {

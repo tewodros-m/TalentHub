@@ -1,5 +1,5 @@
-import type { ApplicationWithObjects } from '../types/applicationTypes';
-import { formatDate } from '../utils/formateDate';
+import type { ApplicationWithObjects } from '../../types/applicationTypes';
+import { formatDate } from '../../utils/formateDate';
 
 interface ApplicationCardProps {
   application: ApplicationWithObjects;
