@@ -10,6 +10,7 @@ import type { RegisterRequest } from '../../types/authTypes';
 import type { ErrorType } from '../../types/errorType';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import SelectInput from '../../components/ui/SelectInput';
 
 const Register = () => {
   const [registerUser, { isLoading }] = useRegisterMutation();
@@ -82,28 +83,16 @@ const Register = () => {
           error={errors.password?.message}
         />
 
-        <div>
-          <label
-            className='block text-lg leading-3 font-medium mb-[6px]'
-            htmlFor='role'
-          >
-            Role
-          </label>
-          <select
-            {...register('role')}
-            className='w-full p-2 border rounded outline-none bg-bg
-               focus:ring-2 focus:ring-primary-500'
-          >
-            <option value='' className='hover:bg-primary-100'>
-              Select a role
-            </option>
-            <option value='applicant'>Applicant</option>
-            <option value='employer'>Employer</option>
-          </select>
-          {errors.role && (
-            <p className='text-red-500 text-sm '>{errors.role.message}</p>
-          )}
-        </div>
+        <SelectInput
+          label='Role'
+          id='role'
+          options={[
+            { value: 'applicant', label: 'Applicant' },
+            { value: 'employer', label: 'Employer' },
+          ]}
+          {...register('role')}
+          error={errors.role?.message}
+        />
 
         <Button
           type='submit'
