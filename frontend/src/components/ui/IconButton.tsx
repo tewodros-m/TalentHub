@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '../../utils/cn';
 
 type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'custom';
   variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'custom';
   isLoading?: boolean;
 };
@@ -22,6 +22,7 @@ const sizes: Record<string, string> = {
   sm: 'w-8 h-8 p-1',
   md: 'w-10 h-10 p-2',
   lg: 'w-12 h-12 p-3',
+  custom: '',
 };
 
 const baseStyles =

@@ -3,7 +3,7 @@ import { cn } from '../../utils/cn'; // helper for merging classes
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'custom';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'custom';
   isLoading?: boolean;
 };
 
@@ -25,6 +25,7 @@ const sizes: Record<string, string> = {
   sm: 'px-3 py-1 text-sm',
   md: 'px-4 py-2 text-base',
   lg: 'px-6 py-3 text-lg',
+  custom: '', // no default sizing
 };
 
 const Button: React.FC<ButtonProps> = ({

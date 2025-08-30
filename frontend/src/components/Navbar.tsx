@@ -19,14 +19,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='h-14 flex items-center bg-primary-600 dark:bg-primary-100 text-gray-100 dark:text-gray-900 px-4'>
+    <nav className='h-14 flex items-center bg-primary-600 dark:bg-primary-100 text-primary-100 dark:text-primary-900 px-4'>
       <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center'>
         {/* Logo */}
         <LinkButton
           to='/'
-          size='sm'
+          size='custom'
           variant='custom'
-          className='!text-2xl !font-bold'
+          className='text-2xl !font-bold '
         >
           TalentHub
         </LinkButton>
@@ -37,17 +37,17 @@ const Navbar = () => {
             <>
               <LinkButton
                 to='/login'
-                size='sm'
+                size='custom'
                 variant='custom'
-                className='hover:underline'
+                className='hover:underline text-lg'
               >
                 Login
               </LinkButton>
               <LinkButton
                 to='/register'
-                size='sm'
+                size='custom'
                 variant='custom'
-                className='hover:underline'
+                className='hover:underline text-lg'
               >
                 Register
               </LinkButton>
@@ -56,9 +56,9 @@ const Navbar = () => {
           {isAuthenticated && role === 'applicant' && (
             <LinkButton
               to='/applicant/dashboard'
-              size='sm'
+              size='custom'
               variant='custom'
-              className='hover:underline'
+              className='hover:underline text-lg'
             >
               My Applications
             </LinkButton>
@@ -66,9 +66,9 @@ const Navbar = () => {
           {isAuthenticated && role === 'employer' && (
             <LinkButton
               to='/employer/dashboard'
-              size='sm'
+              size='custom'
               variant='custom'
-              className='hover:underline'
+              className='hover:underline text-lg'
             >
               Employer Dashboard
             </LinkButton>
@@ -76,7 +76,7 @@ const Navbar = () => {
           {isAuthenticated && role === 'admin' && (
             <LinkButton
               to='/admin/dashboard'
-              size='sm'
+              size='custom'
               variant='custom'
               className='hover:underline'
             >
@@ -86,9 +86,9 @@ const Navbar = () => {
           {isAuthenticated && (
             <Button
               onClick={handleLogout}
-              size='sm'
+              size='custom'
               variant='custom'
-              className='hover:underline'
+              className='hover:underline text-lg'
             >
               Logout
             </Button>
