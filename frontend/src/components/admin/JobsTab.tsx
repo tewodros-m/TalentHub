@@ -31,9 +31,9 @@ const JobsTab = () => {
   const latestTwentyJobs = chartData.slice(0, 20);
 
   return (
-    <div className='space-y-8 min-h-screen'>
+    <div className='space-y-4 min-h-screen'>
       {/* Chart */}
-      <div className='p-6 bg-bg rounded-2xl shadow-md'>
+      <div className='p-3 bg-bg shadow-md'>
         <h3 className='text-xl text-primary-800 font-semibold mb-4'>
           Applications per Job for Latest 20 Jobs
         </h3>
@@ -56,23 +56,15 @@ const JobsTab = () => {
                   return job ? job.title : value;
                 }}
                 contentStyle={{
-                  backgroundColor: isDark ? 'rgb(0,0,0)' : 'rgb(255,255,255)',
-                  border:
-                    '1px solid ' +
-                    (isDark
-                      ? 'rgb(var(--color-primary-200))'
-                      : 'rgb(var(--color-primary-100))'),
+                  backgroundColor: 'rgb(var(--color-bg))',
+                  border: '2px solid rgb(var(--color-primary-100))',
                   borderRadius: '8px',
                 }}
                 itemStyle={{
-                  color: isDark
-                    ? 'rgb(var(--color-gray-800))'
-                    : 'rgb(var(--color-gray-800))',
+                  color: 'rgb(var(--color-primary-600))',
                 }}
                 labelStyle={{
-                  color: isDark
-                    ? 'rgb(var(--color-gray-800))'
-                    : 'rgb(var(--color-gray-900))',
+                  color: 'rgb(var(--color-primary-600))',
                   fontWeight: 600,
                 }}
               />
@@ -100,11 +92,21 @@ const JobsTab = () => {
           <p>Loading jobs...</p>
         ) : jobsCount > 0 ? (
           <Table>
-            <TableHeader headers={['Title', 'Applications', 'Date']} />
+            <TableHeader
+              headers={[
+                'Title',
+                'Employer Name',
+                'Employer Email',
+                'No. Applications',
+                'Posted Date',
+              ]}
+            />
             <tbody>
               {jobs.map((job, i) => (
                 <TableRow key={job._id} isStriped={i % 2 === 0}>
                   <TableCell>{job.title}</TableCell>
+                  <TableCell>{job.createdBy.name}</TableCell>
+                  <TableCell>{job.createdBy.email}</TableCell>
                   <TableCell align='center'>
                     {job.applicationsCount ?? 0}
                   </TableCell>

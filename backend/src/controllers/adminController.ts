@@ -18,7 +18,10 @@ const listAllJobs = asyncHandler(async (_req: Request, res: Response) => {
   });
 
   // Fetch jobs and append applicationsCount
-  const jobs = await Job.find().sort({ createdAt: -1 }).lean();
+  const jobs = await Job.find()
+    .populate('createdBy', 'name email')
+    .sort({ createdAt: -1 })
+    .lean();
   const jobsWithCounts = jobs.map((job) => ({
     ...job,
     applicationsCount: countsMap[job._id.toString()] || 0,
