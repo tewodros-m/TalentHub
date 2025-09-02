@@ -3,6 +3,7 @@ import multer from 'multer';
 import { body } from 'express-validator';
 import {
   applyToJob,
+  getEmployerApplications,
   getUserApplications,
 } from '../controllers/applicationController';
 import { protect } from '../middleware/protect';
@@ -26,6 +27,7 @@ router.post(
   applyToJob
 );
 
-router.get('/:userId', getUserApplications);
+router.get('/employer', requireRole(Role.employer), getEmployerApplications);
+router.get('/:userId', requireRole(Role.applicant), getUserApplications);
 
 export default router;

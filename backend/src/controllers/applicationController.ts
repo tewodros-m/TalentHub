@@ -110,4 +110,35 @@ const getUserApplications = asyncHandler(
   }
 );
 
-export { applyToJob, getUserApplications };
+const getEmployerApplications = asyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const employerId = req.user!.id;
+
+      const applications = await Application.find()
+        .populate({
+          path: 'jobId',
+          match: { createdBy: employerId }, // only jobs created by this employer
+          select: 'title description',
+        })
+        .populate('userId', 'name email') // applicant details
+        .sort({ createdAt: -1 });
+
+      // Filter out applications where jobId is null
+      const employerApplications = applications.filter(
+        (app) => app.jobId !== null
+      );
+
+      res.status(200).json({
+        results: employerApplications.length,
+        applications: employerApplications,
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: 'Failed to fetch employer applications' });
+    }
+  }
+);
+
+export { applyToJob, getUserApplications, getEmployerApplications };
