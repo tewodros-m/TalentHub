@@ -8,7 +8,8 @@ import { useDarkMode } from '../hooks/useDarkMode';
 import Button from './ui/Button';
 import LinkButton from './ui/LinkButton';
 import IconButton from './ui/IconButton';
-import Notification from './Notification';
+import NotificationList from './NotificationList';
+import { useNotification } from '../hooks/useNotification';
 
 const Navbar = () => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -17,6 +18,8 @@ const Navbar = () => {
   const { isAuthenticated, role } = useAuth();
   const dispatch = useDispatch();
   const { isDark, toggleDarkMode } = useDarkMode();
+
+  const { unreadCount } = useNotification();
 
   useEffect(() => {
     setShowNotifications(false);
@@ -134,15 +137,21 @@ const Navbar = () => {
               onClick={() => setShowNotifications((prev) => !prev)}
               size='sm'
               variant='primary'
+              className='relative'
             >
               <BellRing />
+              {unreadCount > 0 && (
+                <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full px-1'>
+                  {unreadCount}
+                </span>
+              )}
             </IconButton>
           )}
         </div>
         {/* Notifications dropdown */}
         {showNotifications && (
           <div ref={notificationRef} className='absolute right-4 top-10'>
-            <Notification />
+            <NotificationList />
           </div>
         )}
       </div>
