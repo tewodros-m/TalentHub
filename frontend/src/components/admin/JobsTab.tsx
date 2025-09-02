@@ -9,8 +9,8 @@ import {
 
 import { useGetAllJobsQuery } from '../../features/admin/adminApi';
 import { Table, TableHeader, TableRow, TableCell } from '../ui/table';
-import { formatDate } from '../../utils/formateDate';
 import { useDarkMode } from '../../hooks/useDarkMode';
+import { timeAgo } from '../../utils/timeAgo';
 
 const JobsTab = () => {
   const { data: jobsData = { results: 0, jobs: [] }, isLoading } =
@@ -98,7 +98,7 @@ const JobsTab = () => {
                 'Employer Name',
                 'Employer Email',
                 'No. Applications',
-                'Posted Date',
+                'Posted',
               ]}
             />
             <tbody>
@@ -110,7 +110,7 @@ const JobsTab = () => {
                   <TableCell align='center'>
                     {job.applicationsCount ?? 0}
                   </TableCell>
-                  <TableCell>{formatDate(job.createdAt)}</TableCell>
+                  <TableCell>{timeAgo(new Date(job.createdAt))}</TableCell>
                 </TableRow>
               ))}
             </tbody>

@@ -16,11 +16,12 @@ const Sidebar = ({ onSelect, activeTab }: SidebarProps) => {
   ];
 
   return (
-    <div className='w-56 h-screen bg-primary-900 dark:bg-primary-100 text-gray-200 dark:text-gray-700 flex flex-col py-5 fixed left-0 top-0 transition-all'>
+    <div className='w-56 h-screen bg-primary-900 dark:bg-primary-100 text-gray-200 dark:text-gray-700 flex flex-col py-5 fixed left-0 top-0 transition-all z-50'>
       <Button
         onClick={() => navigate('/')}
         variant='custom'
-        className='fixed left-4 top-4 hover:left-3 transition-all duration-200 px-0 py-0 border-none'
+        size='custom'
+        className='fixed left-2 top-4 hover:left-1 transition-all duration-200 border-none'
       >
         <ArrowLeft className='mr-2 inline-block' />
         Back

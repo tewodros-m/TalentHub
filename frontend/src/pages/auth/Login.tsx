@@ -59,6 +59,7 @@ const Login = () => {
           id='email'
           type='email'
           placeholder='john@example.com'
+          defaultValue='employer@talenthub.com'
           {...register('email')}
           error={errors.email?.message}
         />
@@ -68,6 +69,7 @@ const Login = () => {
           id='password'
           type='password'
           placeholder='******'
+          defaultValue='password123'
           {...register('password')}
           error={errors.password?.message}
         />

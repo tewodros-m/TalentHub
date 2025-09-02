@@ -54,7 +54,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='h-14 flex items-center bg-primary-600 dark:bg-primary-100 text-primary-100 dark:text-primary-900 px-4'>
+    <nav className='h-14 fixed w-full flex items-center bg-primary-600 dark:bg-primary-100 text-primary-100 dark:text-primary-900 px-4 z-40'>
       <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center relative'>
         {/* Logo */}
         <LinkButton

@@ -36,7 +36,7 @@ const MainContent = () => {
   }
 
   return (
-    <div className='container mx-auto mt-6'>
+    <div className='mt-24 overflow-y-auto container mx-auto'>
       <h1 className='text-3xl font-bold text-center text-primary-500'>
         Find Your Next Job
       </h1>

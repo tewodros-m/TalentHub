@@ -14,8 +14,8 @@ import {
   TableCell,
 } from '../../components/ui/table';
 import Modal from '../../components/ui/Modal';
-import { formatDate } from '../../utils/formateDate';
 import Button from '../../components/ui/Button';
+import { timeAgo } from '../../utils/timeAgo';
 
 const EmployerDashboard = () => {
   const { data: data = { results: 0, jobs: [] }, isLoading } =
@@ -47,7 +47,7 @@ const EmployerDashboard = () => {
   return (
     <div>
       {/* Header */}
-      <div className='flex items-center mx-6 justify-between mt-10 border-b border-gray-200 pb-2 px-4'>
+      <div className='flex items-center mx-6 justify-between mt-20 border-b border-gray-200 pb-2 px-4'>
         <h2 className='text-3xl font-bold text-primary-600'>
           Employer Dashboard
         </h2>
@@ -69,13 +69,7 @@ const EmployerDashboard = () => {
         ) : jobs.length > 0 ? (
           <Table>
             <TableHeader
-              headers={[
-                'Title',
-                'Description',
-                'Skills',
-                'Created At',
-                'Actions',
-              ]}
+              headers={['Title', 'Description', 'Skills', 'Posted', 'Actions']}
             />
             <tbody>
               {jobs.map((job, idx) => (
@@ -89,7 +83,7 @@ const EmployerDashboard = () => {
                   <TableCell>
                     {job.skills.length > 0 ? job.skills.join(', ') : '—'}
                   </TableCell>
-                  <TableCell>{formatDate(job.createdAt)}</TableCell>
+                  <TableCell>{timeAgo(new Date(job.createdAt))}</TableCell>
                   <TableCell align='right'>
                     <div className='space-x-2'>
                       <Button

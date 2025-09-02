@@ -11,7 +11,7 @@ const JobCard = ({ job }: { job: Job }) => {
   const passedTime = timeAgo(new Date(job.createdAt));
 
   return (
-    <div className='rounded-2xl border border-primary-200 bg-bg shadow-md hover:shadow-xl  p-5 flex flex-col transition-transform duration-500 ease-out hover:-translate-y-2 mb-6'>
+    <div className='rounded-2xl border border-primary-200 bg-bg shadow-md hover:shadow-xl  p-5 flex flex-col transition-transform duration-500 ease-out hover:-translate-y-2 mb-6 z-10'>
       {/* Title */}
       <h3 className='text-xl font-semibold text-primary-600 flex items-center gap-2'>
         <Briefcase className='w-5 h-5' /> {job.title}
