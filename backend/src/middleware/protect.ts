@@ -12,7 +12,12 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   const token = header.split(' ')[1];
   try {
     const payload = jwt.verify(token, env.JWT_SECRET) as any;
-    req.user = { id: payload.id, role: payload.role } as any;
+    req.user = {
+      id: payload.id,
+      role: payload.role,
+      name: payload.name,
+      email: payload.email,
+    } as any;
     next();
   } catch (e) {
     return res

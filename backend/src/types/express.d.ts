@@ -7,6 +7,8 @@ declare global {
       user?: {
         id: string;
         role: Role;
+        name: string;
+        email: string;
       } & JwtPayload;
     }
   }
