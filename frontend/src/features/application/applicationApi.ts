@@ -35,6 +35,10 @@ export const applicationApi = apiSlice.injectEndpoints({
         { type: 'Applications', id: arg },
       ],
     }),
+
+    getEmployerApplications: builder.query<GetApplicationsResponse, void>({
+      query: () => 'applications/employer',
+    }),
   }),
 });
 
@@ -42,4 +46,5 @@ export const {
   useApplyToJobMutation,
   useGetMyApplicationsQuery,
   useGetApplicationsQuery,
+  useGetEmployerApplicationsQuery,
 } = applicationApi;
