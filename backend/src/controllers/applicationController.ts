@@ -5,6 +5,7 @@ import { asyncHandler } from '../utils/asyncHandler';
 import { Application } from '../models/ApplicationModel';
 import { Job } from '../models/JobModel';
 import { cloudinary } from '../config/cloudinary';
+import { Notification } from '../models/NotificationModel';
 
 // Apply to a job with resume upload
 const applyToJob = asyncHandler(async (req: Request, res: Response) => {
@@ -73,12 +74,20 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
       resumeFileName,
     });
 
+    // create a notification for the employer
+    const notif = await Notification.create({
+      user: job.createdBy._id,
+      message: `${req.user!.name} applied for ${job.title}.`,
+      read: false,
+    });
+
     // ✅ Emit real-time notification to the employer
     if (req.io && job.createdBy) {
       req.io.to(job.createdBy._id.toString()).emit('newApplication', {
-        jobTitle: job.title,
-        applicantName: req.user!.name,
-        applicantId: req.user!.id,
+        _id: notif._id,
+        message: notif.message,
+        read: notif.read,
+        createdAt: notif.createdAt,
       });
     }
 
