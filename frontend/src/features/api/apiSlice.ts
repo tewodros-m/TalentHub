@@ -10,6 +10,12 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ['EmployerJobs', 'Jobs', 'Application', 'Applications'],
+  tagTypes: [
+    'EmployerJobs',
+    'Jobs',
+    'Application',
+    'Applications',
+    'Notifications',
+  ],
   endpoints: () => ({}),
 });
