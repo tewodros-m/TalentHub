@@ -1,19 +1,15 @@
-import { ArrowLeft, Briefcase, FileText } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../ui/Button';
+import Button from './Button';
 
 interface SidebarProps {
   onSelect: (tab: string) => void;
   activeTab: string;
+  tabs: { id: string; label: string; icon: React.ReactNode }[];
 }
 
-const Sidebar = ({ onSelect, activeTab }: SidebarProps) => {
+const Sidebar = ({ onSelect, activeTab, tabs }: SidebarProps) => {
   const navigate = useNavigate();
-
-  const tabs = [
-    { id: 'jobs', label: 'Jobs', icon: <Briefcase size={18} /> },
-    { id: 'applications', label: 'Applications', icon: <FileText size={18} /> },
-  ];
 
   return (
     <div className='w-56 h-screen bg-primary-900 dark:bg-primary-100 text-gray-200 dark:text-gray-700 flex flex-col py-5 fixed left-0 top-0 transition-all z-50'>
