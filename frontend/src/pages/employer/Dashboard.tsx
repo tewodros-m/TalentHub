@@ -16,11 +16,17 @@ import {
 import Modal from '../../components/ui/Modal';
 import { formatDate } from '../../utils/formateDate';
 import Button from '../../components/ui/Button';
+import { useAuth } from '../../hooks/useAuth';
+import useSocket from '../../hooks/useSocket';
 
 const EmployerDashboard = () => {
   const { data: data = { results: 0, jobs: [] }, isLoading } =
     useGetEmployerJobsQuery();
   const [deleteJob] = useDeleteJobMutation();
+
+  const { user } = useAuth();
+  const employerId = user!.id;
+  useSocket(employerId);
 
   const [showForm, setShowForm] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
@@ -58,11 +64,12 @@ const EmployerDashboard = () => {
       </div>
 
       {/* Job List */}
-      <div className='bg-bg shadow-md rounded-xl p-6'>
+      <div className='bg-bg min-h-screen shadow-md rounded-xl p-6'>
         <h3 className='text-xl font-semibold text-gray-800 mb-4'>
           My Job Posts
         </h3>
 
+        {/* {jobs.length > 0 ? ( */}
         {isLoading ? (
           <p className='text-gray-500'>Loading jobs...</p>
         ) : jobs.length > 0 ? (

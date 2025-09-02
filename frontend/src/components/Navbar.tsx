@@ -1,14 +1,17 @@
 import { useDispatch } from 'react-redux';
-import { Moon, Sun } from 'lucide-react';
+import { BellRing, Moon, Sun } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { logout } from '../features/auth/authSlice';
 import { useDarkMode } from '../hooks/useDarkMode';
 import Button from './ui/Button';
 import LinkButton from './ui/LinkButton';
 import IconButton from './ui/IconButton';
+import Notification from './Notification';
 
 const Navbar = () => {
+  const [showNotifications, setShowNotifications] = useState(false);
   const { isAuthenticated, role } = useAuth();
   const dispatch = useDispatch();
   const { isDark, toggleDarkMode } = useDarkMode();
@@ -20,7 +23,7 @@ const Navbar = () => {
 
   return (
     <nav className='h-14 flex items-center bg-primary-600 dark:bg-primary-100 text-primary-100 dark:text-primary-900 px-4'>
-      <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center'>
+      <div className='max-w-[1340px] w-full mx-auto flex justify-between items-center relative'>
         {/* Logo */}
         <LinkButton
           to='/'
@@ -97,7 +100,17 @@ const Navbar = () => {
           <IconButton onClick={toggleDarkMode} size='sm' variant='primary'>
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </IconButton>
+          {isAuthenticated && role === 'employer' && (
+            <IconButton
+              onClick={() => setShowNotifications(!showNotifications)}
+              size='sm'
+              variant='primary'
+            >
+              <BellRing />
+            </IconButton>
+          )}
         </div>
+        {showNotifications && <Notification />}
       </div>
     </nav>
   );
