@@ -1,4 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken';
+import { Server } from 'socket.io';
 import { Role } from '../enums/role';
 
 declare global {
@@ -10,6 +11,7 @@ declare global {
         name: string;
         email: string;
       } & JwtPayload;
+      io: Server;
     }
   }
 }

@@ -1,11 +1,9 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { env } from './config/env';
-import { notFoundHandler, globalErrorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import jobRoutes from './routes/jobRoutes';
-import applicationRoutes from './routes/applicationRoutes';
 import adminRoutes from './routes/adminRoutes';
 
 export const createApp = () => {
@@ -24,18 +22,13 @@ export const createApp = () => {
   app.use(morgan('dev'));
 
   // Test endpoint
-  app.get('/', (req: Request, res: Response) =>
+  app.get('/', (_req, res) =>
     res.status(200).json({ status: 'ok', name: 'TalentHub API' })
   );
 
   app.use('/auth', authRoutes);
   app.use('/jobs', jobRoutes);
-  app.use('/applications', applicationRoutes);
   app.use('/admin', adminRoutes);
-
-  // Error handling middlewares
-  app.use(notFoundHandler);
-  app.use(globalErrorHandler);
 
   return app;
 };

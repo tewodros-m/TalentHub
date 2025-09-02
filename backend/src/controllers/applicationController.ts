@@ -10,7 +10,7 @@ import { cloudinary } from '../config/cloudinary';
 const applyToJob = asyncHandler(async (req: Request, res: Response) => {
   const { jobId } = req.body;
 
-  const job = await Job.findById(jobId);
+  const job = await Job.findById(jobId).populate('createdBy', 'name email');
   if (!job) {
     res.status(404);
     throw new Error('Job not found');
@@ -72,6 +72,16 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
       resumeUrl,
       resumeFileName,
     });
+
+    // ✅ Emit real-time notification to the employer
+    if (req.io && job.createdBy) {
+      req.io.to(job.createdBy._id.toString()).emit('newApplication', {
+        jobTitle: job.title,
+        applicantName: req.user!.name,
+        applicantId: req.user!.id,
+      });
+    }
+
     res.status(201).json(application);
   } catch (err: any) {
     if (err.code === 11000) {
