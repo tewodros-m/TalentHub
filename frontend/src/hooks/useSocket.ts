@@ -1,49 +1,51 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { setNewApplicationNotification } from '../features/notification/notificationSlice';
+import { addNotification } from '../features/notification/notificationSlice';
 
 const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 const useSocket = (employerId: string | undefined) => {
   const dispatch = useDispatch();
+  const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
     if (!employerId) {
-      console.warn('⚠️ No employerId provided, skipping socket connection.');
+      console.warn('No employerId provided, skipping socket connection.');
       return;
     }
 
-    // Create socket instance
-    const socket: Socket = io(SOCKET_URL, {
-      withCredentials: true,
-    });
+    // Prevent duplicate socket connections
+    if (!socketRef.current) {
+      socketRef.current = io(SOCKET_URL, {
+        withCredentials: true,
+        transports: ['websocket'],
+      });
 
-    // When connected
-    socket.on('connect', () => {
-      console.log('✅ Socket connected:', socket.id);
+      socketRef.current.on('connect', () => {
+        console.log('Socket connected:', socketRef.current?.id);
+        console.log('Joining employer room:', employerId);
+        socketRef.current?.emit('joinEmployerRoom', employerId);
+      });
 
-      // Now safe to join employer room
-      console.log('➡️ Joining employer room:', employerId);
-      socket.emit('joinEmployerRoom', employerId);
-    });
+      socketRef.current.on('newApplication', (data) => {
+        console.log('Received newApplication:', data);
+        dispatch(addNotification(data));
+      });
 
-    // Server confirms new applications
-    socket.on('newApplication', (data) => {
-      console.log('Received newApplication:', data);
-      dispatch(setNewApplicationNotification(data));
-    });
+      socketRef.current.on('disconnect', (reason) => {
+        console.log('Socket disconnected:', reason);
+      });
+    }
 
-    // When disconnected
-    socket.on('disconnect', (reason) => {
-      console.log('❌ Socket disconnected:', reason);
-    });
-
-    // Cleanup
+    // Cleanup on unmount
     return () => {
-      socket.disconnect();
+      socketRef.current?.disconnect();
+      socketRef.current = null;
     };
   }, [employerId, dispatch]);
+
+  return socketRef.current;
 };
 
 export default useSocket;
