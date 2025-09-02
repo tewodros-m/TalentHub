@@ -9,11 +9,9 @@ const Notification = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className='absolute top-12 right-0 w-96 p-4 max-w-md mx-auto bg-white dark:bg-gray-800 rounded shadow'>
+    <div className='flex flex-col border border-primary-100 w-96 p-4 max-w-md mx-auto bg-bg h-96 overflow-y-auto rounded-lg shadow-lg'>
       <div className='flex justify-between items-center mb-4'>
-        <h2 className='text-xl font-bold text-gray-800 dark:text-gray-200'>
-          Job Applications
-        </h2>
+        <h2 className='text-lg font-medium text-gray-700'>Job Applications</h2>
         {notifications.length > 0 && (
           <button
             className='text-sm text-red-500 hover:underline'
@@ -25,27 +23,20 @@ const Notification = () => {
       </div>
 
       {notifications.length === 0 ? (
-        <p className='text-gray-500 dark:text-gray-400'>
-          No new applications yet.
-        </p>
+        <div className='flex flex-1 items-center justify-center h-full'>
+          <p className='text-gray-500 text-center'>No new applications yet.</p>
+        </div>
       ) : (
         <ul className='space-y-2'>
           {notifications
             .slice() // make a copy
             .reverse() // latest first
             .map((notif, idx) => (
-              <li
-                key={idx}
-                className='p-3 bg-blue-100 text-gray-700 rounded shadow flex flex-col'
-              >
-                <span className='font-semibold text-gray-800 dark:text-gray-200'>
-                  {notif.applicantName} applied
-                </span>
-                <span className='text-sm text-gray-700 dark:text-gray-300'>
-                  for <strong>{notif.jobTitle}</strong>
-                </span>
-                <span className='text-xs text-gray-500 dark:text-gray-400'>
-                  Applicant ID: {notif.applicantId}
+              <li key={idx} className='flex items-center gap-2'>
+                <span className='inline-block w-2 h-2 rounded-full bg-primary-500 relative -top-1 '></span>
+                <span className='text-gray-500 font-normal mb-2'>
+                  {notif.applicantName} applied for
+                  {notif.jobTitle}
                 </span>
               </li>
             ))}

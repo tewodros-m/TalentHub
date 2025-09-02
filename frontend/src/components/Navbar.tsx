@@ -1,7 +1,7 @@
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BellRing, Moon, Sun } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { logout } from '../features/auth/authSlice';
 import { useDarkMode } from '../hooks/useDarkMode';
@@ -12,9 +12,38 @@ import Notification from './Notification';
 
 const Navbar = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
+  const bellRef = useRef<HTMLButtonElement>(null);
   const { isAuthenticated, role } = useAuth();
   const dispatch = useDispatch();
   const { isDark, toggleDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    setShowNotifications(false);
+  }, [isAuthenticated, role]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target as Node) &&
+        bellRef.current &&
+        !bellRef.current.contains(event.target as Node)
+      ) {
+        setShowNotifications(false);
+      }
+    };
+
+    if (showNotifications) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [notificationRef, showNotifications]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -33,7 +62,6 @@ const Navbar = () => {
         >
           TalentHub
         </LinkButton>
-
         {/* Links */}
         <div className='flex gap-4 items-center'>
           {!isAuthenticated && (
@@ -102,7 +130,8 @@ const Navbar = () => {
           </IconButton>
           {isAuthenticated && role === 'employer' && (
             <IconButton
-              onClick={() => setShowNotifications(!showNotifications)}
+              ref={bellRef}
+              onClick={() => setShowNotifications((prev) => !prev)}
               size='sm'
               variant='primary'
             >
@@ -110,7 +139,12 @@ const Navbar = () => {
             </IconButton>
           )}
         </div>
-        {showNotifications && <Notification />}
+        {/* Notifications dropdown */}
+        {showNotifications && (
+          <div ref={notificationRef} className='absolute right-4 top-10'>
+            <Notification />
+          </div>
+        )}
       </div>
     </nav>
   );
