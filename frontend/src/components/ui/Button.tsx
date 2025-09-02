@@ -5,6 +5,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'custom';
   size?: 'sm' | 'md' | 'lg' | 'custom';
   isLoading?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
 };
 
 const baseStyles =
@@ -34,12 +35,14 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   isLoading = false,
   className,
+  ref,
   ...props
 }) => {
   return (
     <button
       className={cn(baseStyles, variants[variant], sizes[size], className)}
       disabled={isLoading || props.disabled}
+      ref={ref}
       {...props}
     >
       {isLoading ? <span className='animate-spin' /> : null}

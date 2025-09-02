@@ -5,6 +5,7 @@ type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: 'sm' | 'md' | 'lg' | 'custom';
   variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'custom';
   isLoading?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
 };
 
 const variants: Record<string, string> = {
@@ -34,12 +35,14 @@ const IconButton: React.FC<IconButtonProps> = ({
   variant = 'primary',
   isLoading = false,
   className,
+  ref,
   ...props
 }) => {
   return (
     <button
       className={cn(baseStyles, sizes[size], variants[variant], className)}
       disabled={isLoading || props.disabled}
+      ref={ref}
       {...props}
     >
       {isLoading && <span className='animate-spin rounded-full w-4 h-4' />}
