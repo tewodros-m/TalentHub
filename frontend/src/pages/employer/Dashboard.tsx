@@ -16,17 +16,11 @@ import {
 import Modal from '../../components/ui/Modal';
 import { formatDate } from '../../utils/formateDate';
 import Button from '../../components/ui/Button';
-import { useAuth } from '../../hooks/useAuth';
-import useSocket from '../../hooks/useSocket';
 
 const EmployerDashboard = () => {
   const { data: data = { results: 0, jobs: [] }, isLoading } =
     useGetEmployerJobsQuery();
   const [deleteJob] = useDeleteJobMutation();
-
-  const { user } = useAuth();
-  const employerId = user!.id;
-  useSocket(employerId);
 
   const [showForm, setShowForm] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
