@@ -6,6 +6,7 @@ import { Application } from '../models/ApplicationModel';
 import { Job } from '../models/JobModel';
 import { cloudinary } from '../config/cloudinary';
 import { Notification } from '../models/NotificationModel';
+import { ApplicationStatus } from '../enums/applicationStatus';
 
 // Apply to a job with resume upload
 const applyToJob = asyncHandler(async (req: Request, res: Response) => {
@@ -150,4 +151,51 @@ const getEmployerApplications = asyncHandler(
   }
 );
 
-export { applyToJob, getUserApplications, getEmployerApplications };
+// Update application status by employer (only for their own jobs)
+const updateApplicationStatusByEmployer = asyncHandler(
+  async (req: Request, res: Response) => {
+    const employerId = req.user?.id;
+    const { id } = req.params;
+    const { status } = req.body;
+
+    // Validate status
+    if (!Object.values(ApplicationStatus).includes(status)) {
+      res.status(400);
+      throw new Error('Invalid status');
+    }
+
+    // Find application
+    const application = await Application.findById(id);
+    if (!application) {
+      res.status(404);
+      throw new Error('Application not found');
+    }
+
+    // Verify job belongs to employer
+    const job = await Job.findById(application.jobId);
+    if (!job) {
+      res.status(404);
+      throw new Error('Job not found');
+    }
+
+    if (job.createdBy.toString() !== employerId!.toString()) {
+      res.status(403);
+      throw new Error('Not authorized to update applications for this job');
+    }
+
+    // Update status
+    application.status = status;
+    await application.save();
+
+    const populatedApp = await application.populate('jobId userId');
+
+    res.status(200).json(populatedApp);
+  }
+);
+
+export {
+  applyToJob,
+  getUserApplications,
+  getEmployerApplications,
+  updateApplicationStatusByEmployer,
+};

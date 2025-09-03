@@ -5,6 +5,7 @@ import {
   applyToJob,
   getEmployerApplications,
   getUserApplications,
+  updateApplicationStatusByEmployer,
 } from '../controllers/applicationController';
 import { protect } from '../middleware/protect';
 import { requireRole } from '../middleware/requireRole';
@@ -29,5 +30,10 @@ router.post(
 
 router.get('/employer', requireRole(Role.employer), getEmployerApplications);
 router.get('/:userId', requireRole(Role.applicant), getUserApplications);
+router.patch(
+  '/:id',
+  requireRole(Role.employer),
+  updateApplicationStatusByEmployer
+);
 
 export default router;
