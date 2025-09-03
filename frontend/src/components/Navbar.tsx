@@ -108,12 +108,12 @@ const Navbar = () => {
         </div>
         {/* Notifications dropdown */}
         {showNotifications && (
-          <div ref={notificationRef} className='absolute right-4 top-10'>
+          <div ref={notificationRef} className='absolute right-10 top-10'>
             <NotificationList />
           </div>
         )}
         {showProfile && (
-          <div ref={profileRef} className='absolute right-4 top-10'>
+          <div ref={profileRef} className='absolute right-0 top-10'>
             <Profile />
           </div>
         )}

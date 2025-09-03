@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
+import { Briefcase, FileText, LayoutDashboard, LogOut } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { logout } from '../features/auth/authSlice';
 import Button from './ui/Button';
@@ -23,6 +24,7 @@ const Profile = () => {
           variant='custom'
           className='hover:underline'
         >
+          <FileText className='inline mr-1' />
           My Applications
         </LinkButton>
       )}
@@ -33,6 +35,7 @@ const Profile = () => {
           variant='custom'
           className='hover:underline'
         >
+          <Briefcase className='inline mr-1' />
           Employer Dashboard
         </LinkButton>
       )}
@@ -43,6 +46,7 @@ const Profile = () => {
           variant='custom'
           className='hover:underline'
         >
+          <LayoutDashboard className='inline mr-1' />
           Admin Dashboard
         </LinkButton>
       )}
@@ -53,6 +57,7 @@ const Profile = () => {
           variant='custom'
           className='hover:underline'
         >
+          <LogOut className='inline mr-1' />
           Logout
         </Button>
       )}
