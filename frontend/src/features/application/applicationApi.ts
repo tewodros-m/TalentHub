@@ -38,6 +38,23 @@ export const applicationApi = apiSlice.injectEndpoints({
 
     getEmployerApplications: builder.query<GetApplicationsResponse, void>({
       query: () => 'applications/employer',
+      providesTags: ['Applications'],
+    }),
+
+    // PATCH /applications/:id/status
+    updateApplicationStatusByEmployer: builder.mutation<
+      Application,
+      { id: string; status: string }
+    >({
+      query: ({ id, status }) => ({
+        url: `/applications/${id}`,
+        method: 'PATCH',
+        body: { status },
+      }),
+      invalidatesTags: (_result, _error, _arg) => [
+        { type: 'Applications', id: _arg.id },
+        { type: 'Applications' },
+      ],
     }),
   }),
 });
@@ -47,4 +64,5 @@ export const {
   useGetMyApplicationsQuery,
   useGetApplicationsQuery,
   useGetEmployerApplicationsQuery,
+  useUpdateApplicationStatusByEmployerMutation,
 } = applicationApi;
