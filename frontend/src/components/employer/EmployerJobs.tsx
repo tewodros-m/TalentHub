@@ -46,21 +46,19 @@ const EmployerJobs = () => {
 
   return (
     <div className='min-h-screen mb-10'>
-      {/* Header */}
-      <div className='flex justify-end'>
-        <Button variant='primary' onClick={() => setShowForm(true)}>
-          <PlusIcon size={20} className='inline mr-1' />
-          Post Job
-        </Button>
-      </div>
-
       {/* Job List */}
-      <div className='shadow-md rounded-xl px-3'>
-        <h3 className='text-xl font-semibold text-gray-800 mb-4'>
-          My Job Posts
-        </h3>
+      <div className='px-3 bg-bg min-h-screen rounded-2xl shadow-md'>
+        <div className='flex justify-between pr-5 mb-1 items-center'>
+          {/* Header */}
+          <h3 className='text-xl font-semibold text-gray-800 mb-4'>
+            My Job Posts
+          </h3>
+          <Button variant='primary' onClick={() => setShowForm(true)}>
+            <PlusIcon size={20} className='inline mr-1' />
+            Post Job
+          </Button>
+        </div>
 
-        {/* {jobs.length > 0 ? ( */}
         {isLoading ? (
           <p className='text-gray-500'>Loading jobs...</p>
         ) : jobs.length > 0 ? (
