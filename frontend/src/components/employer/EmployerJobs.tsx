@@ -18,12 +18,12 @@ import Button from '../../components/ui/Button';
 import { timeAgo } from '../../utils/timeAgo';
 
 const EmployerJobs = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [editingJob, setEditingJob] = useState<Job | null>(null);
+
   const { data: data = { results: 0, jobs: [] }, isLoading } =
     useGetEmployerJobsQuery();
   const [deleteJob] = useDeleteJobMutation();
-
-  const [showForm, setShowForm] = useState(false);
-  const [editingJob, setEditingJob] = useState<Job | null>(null);
 
   const jobs = data.jobs;
 
@@ -78,11 +78,13 @@ const EmployerJobs = () => {
                     </span>
                   </TableCell>
                   <TableCell>
-                    {job.skills.length > 0 ? job.skills.join(', ') : '—'}
+                    <span className='truncate block max-w-[200px]'>
+                      {job.skills.length > 0 ? job.skills.join(', ') : '—'}
+                    </span>
                   </TableCell>
                   <TableCell>{timeAgo(new Date(job.createdAt))}</TableCell>
                   <TableCell align='right'>
-                    <div className='space-x-2'>
+                    <div className='space-x-1'>
                       <Button
                         onClick={() => handleEdit(job)}
                         size='sm'
