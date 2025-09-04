@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useRegisterMutation } from '../../features/auth/authApi';
 import { setCredentials } from '../../features/auth/authSlice';
@@ -52,7 +52,7 @@ const Register = () => {
   };
 
   return (
-    <div className='max-w-lg min-w-[450px] mx-auto my-10 bg-bg p-6 border border-primary-100 dark:border-primary-200 rounded-lg shadow-xl'>
+    <div className='max-w-lg min-w-[450px] mx-auto my-20 bg-bg p-6 border border-primary-100 dark:border-primary-200 rounded-lg shadow-xl'>
       <h2 className='text-2xl font-bold text-primary-500 mb-4 text-center'>
         Register
       </h2>
@@ -103,6 +103,16 @@ const Register = () => {
           {isLoading ? 'Registering...' : 'Register'}
         </Button>
       </form>
+      {/* Switch to Login */}
+      <p className='mt-6 text-right text-base text-gray-600 dark:text-gray-300'>
+        Already have an account?{' '}
+        <Link
+          to='/login'
+          className='text-primary-500 font-medium hover:underline'
+        >
+          Login
+        </Link>
+      </p>
     </div>
   );
 };

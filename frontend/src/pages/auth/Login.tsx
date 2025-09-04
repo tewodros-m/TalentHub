@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useLoginMutation } from '../../features/auth/authApi';
@@ -59,7 +59,7 @@ const Login = () => {
           id='email'
           type='email'
           placeholder='john@example.com'
-          defaultValue='employer@talenthub.com'
+          // defaultValue='employer@talenthub.com'
           {...register('email')}
           error={errors.email?.message}
         />
@@ -69,7 +69,7 @@ const Login = () => {
           id='password'
           type='password'
           placeholder='******'
-          defaultValue='password123'
+          // defaultValue='password123'
           {...register('password')}
           error={errors.password?.message}
         />
@@ -83,6 +83,16 @@ const Login = () => {
           {isLoading ? 'Logging in...' : 'Login'}
         </Button>
       </form>
+      {/* Switch to register */}
+      <p className='mt-6 text-right text-base text-gray-600 dark:text-gray-300'>
+        Don&apos;t have an account?{' '}
+        <Link
+          to='/register'
+          className='text-primary-500 font-medium hover:underline'
+        >
+          Register
+        </Link>
+      </p>
     </div>
   );
 };
