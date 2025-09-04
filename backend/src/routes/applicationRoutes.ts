@@ -28,7 +28,11 @@ router.post(
   applyToJob
 );
 
-router.get('/employer', requireRole(Role.employer), getEmployerApplications);
+router.get(
+  '/employer/:employerId',
+  requireRole(Role.employer),
+  getEmployerApplications
+);
 router.get('/:userId', requireRole(Role.applicant), getUserApplications);
 router.patch(
   '/:id',

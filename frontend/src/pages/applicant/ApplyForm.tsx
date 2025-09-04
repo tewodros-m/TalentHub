@@ -41,7 +41,11 @@ const ApplyForm = () => {
     formData.append('resume', data.resume[0]);
 
     try {
-      await applyToJob({ formData, userId: user!.id }).unwrap();
+      await applyToJob({
+        formData,
+        userId: user!.id,
+        employerId: job!.createdBy._id!,
+      }).unwrap();
       toast.success('Application submitted successfully!');
       navigate('/applicant/dashboard');
     } catch (err) {

@@ -15,6 +15,7 @@ export const apiSlice = createApi({
     'Jobs',
     'Application',
     'Applications',
+    'EmployerApplications',
     'Notifications',
   ],
   endpoints: () => ({}),

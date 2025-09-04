@@ -3,6 +3,7 @@ export interface User {
   name: string;
   email: string;
   role: string;
+  _id?: string;
 }
 
 export type Role = 'applicant' | 'employer' | 'admin';

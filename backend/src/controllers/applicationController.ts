@@ -123,7 +123,15 @@ const getUserApplications = asyncHandler(
 const getEmployerApplications = asyncHandler(
   async (req: Request, res: Response) => {
     try {
-      const employerId = req.user!.id;
+      // const employerId = req.user!.id;
+      const { employerId } = req.params;
+
+      if (employerId !== req.user!.id) {
+        res.status(403);
+        throw new Error(
+          'Forbidden, you can only view your own job applications'
+        );
+      }
 
       const applications = await Application.find()
         .populate({

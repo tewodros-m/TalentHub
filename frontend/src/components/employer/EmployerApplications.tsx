@@ -6,19 +6,28 @@ import {
   useGetEmployerApplicationsQuery,
   useUpdateApplicationStatusByEmployerMutation,
 } from '../../features/application/applicationApi';
+import { useAuth } from '../../hooks/useAuth';
 
 const EmployerApplications = () => {
+  const { user } = useAuth();
   const {
     data: applicationsData = { results: 0, applications: [] },
     isLoading,
-  } = useGetEmployerApplicationsQuery();
+  } = useGetEmployerApplicationsQuery(
+    { employerId: user!.id },
+    { refetchOnFocus: true, refetchOnReconnect: true }
+  );
   const [updateStatus] = useUpdateApplicationStatusByEmployerMutation();
 
   const { results: appsCount, applications } = applicationsData;
 
   const handleStatusUpdate = async (id: string, status: string) => {
     try {
-      await updateStatus({ id, status }).unwrap();
+      await updateStatus({
+        applicationId: id,
+        status,
+        employerId: user!.id,
+      }).unwrap();
       toast.success(`Application marked as ${status}`);
     } catch {
       toast.error('Failed to update status');
@@ -112,7 +121,7 @@ const EmployerApplications = () => {
           </tbody>
         </Table>
       ) : (
-        <p>No applications available</p>
+        <p className='text-gray-500'>No applications available</p>
       )}
     </div>
   );

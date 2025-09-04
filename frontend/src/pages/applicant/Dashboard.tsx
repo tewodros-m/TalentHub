@@ -1,4 +1,4 @@
-import { useGetMyApplicationsQuery } from '../../features/application/applicationApi';
+import { useGetUserApplicationsQuery } from '../../features/application/applicationApi';
 import ApplicationCard from '../../components/applicant/ApplicationCard';
 import { useAuth } from '../../hooks/useAuth';
 import Welcome from '../../components/Welcome';
@@ -7,12 +7,12 @@ const ApplicantDashboard = () => {
   const { user } = useAuth();
 
   const { data: data = { results: 0, applications: [] }, isLoading } =
-    useGetMyApplicationsQuery(user!.id);
+    useGetUserApplicationsQuery({ userId: user!.id });
 
   const { results, applications } = data;
 
   return (
-    <div className='max-w-4xl min-h-screen mx-auto mt-20 px-4 bg-bg rounded-2xl shadow-lg relative pt-6'>
+    <div className='max-w-4xl min-h-screen mx-auto mt-20 pb-10 mb-10 px-4 bg-bg rounded-2xl shadow-lg relative pt-6'>
       <Welcome name={user!.name} />
       {/* Dashboard Title */}
       <h2 className='text-3xl font-bold text-primary-600 mb-8 border-b border-gray-200 py-2'>

@@ -6,54 +6,55 @@ import type {
 
 export const applicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // GET /applications
-    getApplications: builder.query<GetApplicationsResponse, void>({
-      query: () => '/applications',
-      providesTags: ['Applications'],
-    }),
-
     // POST /applications
     applyToJob: builder.mutation<
       Application,
-      { formData: FormData; userId: string }
+      { formData: FormData; userId: string; employerId: string }
     >({
       query: ({ formData }) => ({
         url: '/applications',
         method: 'POST',
         body: formData,
       }),
-      invalidatesTags: (_result, _error, { userId }) => [
+      invalidatesTags: (_result, _error, { userId, employerId }) => [
         { type: 'Applications', id: userId },
-        { type: 'Applications' },
+        { type: 'EmployerApplications', id: employerId },
       ],
     }),
 
     // GET /applications/:userId
-    getMyApplications: builder.query<GetApplicationsResponse, string>({
-      query: (userId) => `/applications/${userId}`,
-      providesTags: (_result, _error, arg) => [
-        { type: 'Applications', id: arg },
+    getUserApplications: builder.query<
+      GetApplicationsResponse,
+      { userId: string }
+    >({
+      query: ({ userId }) => `/applications/${userId}`,
+      providesTags: (_result, _error, { userId }) => [
+        { type: 'Applications', id: userId },
       ],
     }),
 
-    getEmployerApplications: builder.query<GetApplicationsResponse, void>({
-      query: () => 'applications/employer',
-      providesTags: ['Applications'],
+    getEmployerApplications: builder.query<
+      GetApplicationsResponse,
+      { employerId: string }
+    >({
+      query: ({ employerId }) => `applications/employer/${employerId}`,
+      providesTags: (_result, _error, { employerId }) => [
+        { type: 'EmployerApplications', id: employerId },
+      ],
     }),
 
     // PATCH /applications/:id/status
     updateApplicationStatusByEmployer: builder.mutation<
       Application,
-      { id: string; status: string }
+      { applicationId: string; status: string; employerId: string }
     >({
-      query: ({ id, status }) => ({
-        url: `/applications/${id}`,
+      query: ({ applicationId, status }) => ({
+        url: `/applications/${applicationId}`,
         method: 'PATCH',
         body: { status },
       }),
-      invalidatesTags: (_result, _error, _arg) => [
-        { type: 'Applications', id: _arg.id },
-        { type: 'Applications' },
+      invalidatesTags: (_result, _error, { employerId }) => [
+        { type: 'EmployerApplications', id: employerId },
       ],
     }),
   }),
@@ -61,8 +62,7 @@ export const applicationApi = apiSlice.injectEndpoints({
 
 export const {
   useApplyToJobMutation,
-  useGetMyApplicationsQuery,
-  useGetApplicationsQuery,
+  useGetUserApplicationsQuery,
   useGetEmployerApplicationsQuery,
   useUpdateApplicationStatusByEmployerMutation,
 } = applicationApi;
