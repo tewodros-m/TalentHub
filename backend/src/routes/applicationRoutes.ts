@@ -7,9 +7,9 @@ import {
   getUserApplications,
   updateApplicationStatusByEmployer,
 } from '../controllers/applicationController';
-import { protect } from '../middleware/protect';
-import { requireRole } from '../middleware/requireRole';
-import { requestValidator } from '../middleware/requestValidator';
+import { protect } from '../middlewares/protect';
+import { requireRole } from '../middlewares/requireRole';
+import { requestValidator } from '../middlewares/requestValidator';
 import { Role } from '../enums/role';
 
 const router = Router();

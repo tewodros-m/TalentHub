@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { register, login } from '../controllers/authController';
-import { requestValidator } from '../middleware/requestValidator';
+import { requestValidator } from '../middlewares/requestValidator';
 import { Role } from '../enums/role';
 
 const router = Router();

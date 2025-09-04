@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { protect } from '../middleware/protect';
+import { protect } from '../middlewares/protect';
 import {
   getNotifications,
   markNotificationRead,
 } from '../controllers/notificationController';
-import { requireRole } from '../middleware/requireRole';
+import { requireRole } from '../middlewares/requireRole';
 import { Role } from '../enums/role';
 
 const router = Router();
