@@ -5,7 +5,7 @@ import App from './App.tsx';
 import { Provider } from 'react-redux';
 import { store } from './app/store.ts';
 import { Toaster } from 'react-hot-toast';
-import { DarkModeProvider } from './contexts/DarkModeContext.tsx';
+import { DarkModeProvider } from './contexts/DarkModeProvider.tsx';
 import NotificationProvider from './features/notification/NotificationProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
