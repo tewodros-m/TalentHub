@@ -2,12 +2,19 @@ import { Request, Response } from 'express';
 import { Notification } from '../models/NotificationModel';
 import { asyncHandler } from '../utils/asyncHandler';
 
-const getNotifications = asyncHandler(async (req: Request, res: Response) => {
-  const notifications = await Notification.find({ user: req.user!.id }).sort({
-    createdAt: -1,
-  });
-  res.status(200).json({ results: notifications.length, notifications });
-});
+const getEmployerNotifications = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { employerId } = req.params;
+    if (employerId !== req.user!.id) {
+      res.status(403);
+      throw new Error('Forbidden, you can only view your own notifications');
+    }
+    const notifications = await Notification.find({ user: employerId }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json({ results: notifications.length, notifications });
+  }
+);
 
 const markNotificationRead = asyncHandler(
   async (req: Request, res: Response) => {
@@ -20,4 +27,4 @@ const markNotificationRead = asyncHandler(
   }
 );
 
-export { getNotifications, markNotificationRead };
+export { getEmployerNotifications, markNotificationRead };

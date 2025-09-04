@@ -3,8 +3,8 @@ import { apiSlice } from '../api/apiSlice';
 
 export const notificationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getNotifications: builder.query<NotificationsResponse, void>({
-      query: () => '/notifications',
+    getEmployerNotifications: builder.query<NotificationsResponse, string>({
+      query: (employerId) => `/notifications/employer/${employerId}`,
       providesTags: ['Notifications'],
     }),
     markNotificationRead: builder.mutation<{ status: string }, string>({
@@ -17,5 +17,7 @@ export const notificationApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetNotificationsQuery, useMarkNotificationReadMutation } =
-  notificationApi;
+export const {
+  useGetEmployerNotificationsQuery,
+  useMarkNotificationReadMutation,
+} = notificationApi;

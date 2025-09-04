@@ -84,7 +84,7 @@ const Login = () => {
         </Button>
       </form>
       {/* Switch to register */}
-      <p className='mt-6 text-right text-base text-gray-600 dark:text-gray-300'>
+      <p className='mt-6 text-right text-gray-600 dark:text-gray-300'>
         Don&apos;t have an account?{' '}
         <Link
           to='/register'

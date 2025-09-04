@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { User } from '../src/models/UserModel';
 import { Job } from '../src/models/JobModel';
+import { Application } from '../src/models/ApplicationModel';
+import { Notification } from '../src/models/NotificationModel';
 import { jobs } from './jobs';
 
 dotenv.config({ path: '.env' });
@@ -18,8 +20,11 @@ dotenv.config({ path: '.env' });
     console.log('Connected to MongoDB');
 
     // Clear old data
-    // await User.deleteMany({});
+    // await Notification.deleteMany({});
+    // await Application.deleteMany({});
     // await Job.deleteMany({});
+    // await User.deleteMany({});
+    // console.log('Cleared old data');
 
     // Create Admin
     const admin = await User.create({
@@ -38,9 +43,9 @@ dotenv.config({ path: '.env' });
     });
 
     // Create Applicants
-    const applicant1 = await User.create({
+    const applicant = await User.create({
       name: 'Applicant One',
-      email: 'applicant1@talenthub.com',
+      email: 'applicant@talenthub.com',
       password: 'password123',
       role: 'applicant',
     });
@@ -63,7 +68,7 @@ dotenv.config({ path: '.env' });
     console.log('Login with:');
     console.log('Admin:', admin.email, 'password123');
     console.log('Employer:', employer.email, 'password123');
-    console.log('Applicant1:', applicant1.email, 'password123');
+    console.log('Applicant:', applicant.email, 'password123');
     console.log('Applicant2:', applicant2.email, 'password123');
 
     process.exit(0);

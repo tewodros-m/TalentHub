@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { protect } from '../middlewares/protect';
 import {
-  getNotifications,
+  getEmployerNotifications,
   markNotificationRead,
 } from '../controllers/notificationController';
 import { requireRole } from '../middlewares/requireRole';
@@ -11,7 +11,7 @@ const router = Router();
 
 router.use(protect, requireRole(Role.employer));
 
-router.get('/', getNotifications);
+router.get('/employer/:employerId', getEmployerNotifications);
 router.patch('/:id/read', markNotificationRead);
 
 export default router;
