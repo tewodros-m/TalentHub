@@ -16,20 +16,22 @@ import {
 import Modal from '../../components/ui/Modal';
 import Button from '../../components/ui/Button';
 import { timeAgo } from '../../utils/timeAgo';
+import { useAuth } from '../../hooks/useAuth';
 
 const EmployerJobs = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
+  const { user } = useAuth();
 
   const { data: data = { results: 0, jobs: [] }, isLoading } =
-    useGetEmployerJobsQuery();
+    useGetEmployerJobsQuery(user!.id);
   const [deleteJob] = useDeleteJobMutation();
 
   const jobs = data.jobs;
 
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this job?')) {
-      await deleteJob(id);
+      await deleteJob({ jobId: id, employerId: user!.id }).unwrap();
       toast.success('Job deleted successfully!');
     }
   };

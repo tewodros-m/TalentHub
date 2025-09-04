@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import {
-  listJobs,
+  getAllJobs,
   getJobById,
   createJob,
   deleteJob,
   updateJob,
-  listEmployerJobs,
+  getEmployerJobs,
 } from '../controllers/jobController';
 import { protect } from '../middlewares/protect';
 import { requireRole } from '../middlewares/requireRole';
@@ -16,9 +16,14 @@ import { Role } from '../enums/role';
 const router = Router();
 
 // Public - anyone can view jobs
-router.get('/', listJobs);
+router.get('/', getAllJobs);
 
-router.get('/employer', protect, requireRole(Role.employer), listEmployerJobs);
+router.get(
+  '/employer/:employerId',
+  protect,
+  requireRole(Role.employer),
+  getEmployerJobs
+);
 
 router.get('/:id', getJobById);
 

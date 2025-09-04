@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetJobsQuery } from '../features/job/jobApi';
+import { useGetAllJobsQuery } from '../features/job/jobApi';
 import JobCard from './JobCard';
 import useDebounce from '../hooks/useDebounce';
 import type { ErrorType } from '../types/errorType';
@@ -11,7 +11,7 @@ const MainContent = () => {
     data: data = { results: 0, jobs: [] },
     isLoading,
     error: fetchErr,
-  } = useGetJobsQuery({
+  } = useGetAllJobsQuery({
     search: debouncedSearch,
   });
 

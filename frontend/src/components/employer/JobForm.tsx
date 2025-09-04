@@ -11,6 +11,7 @@ import { JobSchema } from '../../schema/jobSchema';
 import Input from '../ui/Input';
 import type { ErrorType } from '../../types/errorType';
 import Button from '../ui/Button';
+import { useAuth } from '../../hooks/useAuth';
 
 interface JobFormProps {
   initialData?: Job; // optional initial values for editing
@@ -20,7 +21,8 @@ interface JobFormProps {
 const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
   const [createJob, { isLoading: isCreating }] = useCreateJobMutation();
   const [updateJob, { isLoading: isUpdating }] = useUpdateJobMutation();
-  // const [apiError, setApiError] = useState<string | null>(null);
+
+  const { user } = useAuth();
 
   const {
     register,
@@ -55,10 +57,15 @@ const JobForm = ({ initialData, handleFormClose }: JobFormProps) => {
       };
 
       if (initialData) {
-        await updateJob({ id: initialData._id!, data: payload }).unwrap();
+        await updateJob({
+          jobId: initialData._id!,
+          data: payload,
+          employerId: user!.id,
+        }).unwrap();
         toast.success('Job updated successfully!');
       } else {
-        await createJob(payload).unwrap();
+        // console.log()
+        await createJob({ data: payload, employerId: user!.id }).unwrap();
         toast.success('Job posted successfully!');
         reset();
       }

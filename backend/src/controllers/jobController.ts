@@ -3,7 +3,7 @@ import { asyncHandler } from '../utils/asyncHandler';
 import { Job } from '../models/JobModel';
 
 // Public: List all jobs
-const listJobs = asyncHandler(async (req: Request, res: Response) => {
+const getAllJobs = asyncHandler(async (req: Request, res: Response) => {
   const { search } = req.query;
 
   const filter = search
@@ -36,8 +36,14 @@ const getJobById = asyncHandler(async (req: Request, res: Response) => {
 });
 
 // Get all jobs created by the logged-in employer
-const listEmployerJobs = asyncHandler(async (req: Request, res: Response) => {
-  const jobs = await Job.find({ createdBy: req.user!.id })
+const getEmployerJobs = asyncHandler(async (req: Request, res: Response) => {
+  const { employerId } = req.params;
+  if (req.user!.id !== employerId) {
+    return res.status(403).json({
+      message: 'Forbidden, you do not have permission to view these jobs',
+    });
+  }
+  const jobs = await Job.find({ createdBy: employerId })
     .sort({ createdAt: -1 })
     .populate('createdBy', 'name email role');
 
@@ -104,9 +110,9 @@ const deleteJob = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export {
-  listJobs,
+  getAllJobs,
   getJobById,
-  listEmployerJobs,
+  getEmployerJobs,
   createJob,
   deleteJob,
   updateJob,
