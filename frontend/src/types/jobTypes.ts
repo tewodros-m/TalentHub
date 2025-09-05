@@ -7,6 +7,7 @@ export interface Job {
   skills: string[];
   createdAt: string;
   createdBy: User;
+  applicationsCount?: number;
 }
 
 export interface JobResponse {

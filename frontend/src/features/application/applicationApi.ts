@@ -6,6 +6,19 @@ import type {
 
 export const applicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllApplications: builder.query<GetApplicationsResponse, void>({
+      query: () => '/applications',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.applications.map(({ _id }) => ({
+                type: 'Applications' as const,
+                id: _id,
+              })),
+              { type: 'Applications', id: 'LIST' },
+            ]
+          : [{ type: 'Applications', id: 'LIST' }],
+    }),
     // POST /applications
     applyToJob: builder.mutation<
       Application,
@@ -19,6 +32,7 @@ export const applicationApi = apiSlice.injectEndpoints({
       invalidatesTags: (_result, _error, { userId, employerId }) => [
         { type: 'Applications', id: userId },
         { type: 'EmployerApplications', id: employerId },
+        { type: 'Applications', id: 'LIST' },
       ],
     }),
 
@@ -43,7 +57,7 @@ export const applicationApi = apiSlice.injectEndpoints({
       ],
     }),
 
-    // PATCH /applications/:id/status
+    // PATCH /applications/:id
     updateApplicationStatusByEmployer: builder.mutation<
       Application,
       { applicationId: string; status: string; employerId: string }
@@ -55,12 +69,15 @@ export const applicationApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (_result, _error, { employerId }) => [
         { type: 'EmployerApplications', id: employerId },
+        { type: 'Applications', id: _result?.userId },
+        { type: 'Applications', id: 'LIST' },
       ],
     }),
   }),
 });
 
 export const {
+  useGetAllApplicationsQuery,
   useApplyToJobMutation,
   useGetUserApplicationsQuery,
   useGetEmployerApplicationsQuery,

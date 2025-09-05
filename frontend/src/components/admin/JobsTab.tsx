@@ -7,14 +7,14 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import { useGetAllJobsQuery } from '../../features/admin/adminApi';
 import { Table, TableHeader, TableRow, TableCell } from '../ui/table';
 import { useDarkMode } from '../../hooks/useDarkMode';
 import { timeAgo } from '../../utils/timeAgo';
+import { useGetAllJobsByAdminQuery } from '../../features/job/jobApi';
 
 const JobsTab = () => {
   const { data: jobsData = { results: 0, jobs: [] }, isLoading } =
-    useGetAllJobsQuery();
+    useGetAllJobsByAdminQuery({ search: '' });
   const { isDark } = useDarkMode();
 
   const { results: jobsCount, jobs } = jobsData;

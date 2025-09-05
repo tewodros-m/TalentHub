@@ -7,6 +7,10 @@ export const jobApi = apiSlice.injectEndpoints({
       query: ({ search }) => `/jobs?search=${search || ''}`,
       providesTags: ['Jobs'],
     }),
+    getAllJobsByAdmin: builder.query<JobResponse, { search?: string }>({
+      query: ({ search }) => `/jobs/admin?search=${search || ''}`,
+      providesTags: ['Jobs'],
+    }),
     getJobById: builder.query<Job, string>({
       query: (jobId) => `/jobs/${jobId}`,
       providesTags: ['Jobs'],
@@ -64,6 +68,7 @@ export const jobApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAllJobsQuery,
+  useGetAllJobsByAdminQuery,
   useGetJobByIdQuery,
   useCreateJobMutation,
   useGetEmployerJobsQuery,
