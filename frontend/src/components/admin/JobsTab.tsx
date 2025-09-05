@@ -11,6 +11,7 @@ import { Table, TableHeader, TableRow, TableCell } from '../ui/table';
 import { useDarkMode } from '../../hooks/useDarkMode';
 import { timeAgo } from '../../utils/timeAgo';
 import { useGetAllJobsByAdminQuery } from '../../features/job/jobApi';
+import CustomTooltip from './CustomTooltip';
 
 const JobsTab = () => {
   const { data: jobsData = { results: 0, jobs: [] }, isLoading } =
@@ -25,6 +26,7 @@ const JobsTab = () => {
           _id: job._id,
           title: job.title,
           Applications: job.applicationsCount ?? 0,
+          createdBy: job.createdBy.email,
         }))
       : [];
 
@@ -55,6 +57,7 @@ const JobsTab = () => {
                   const job = latestTwentyJobs.find((job) => job._id === value);
                   return job ? job.title : value;
                 }}
+                content={<CustomTooltip />}
                 contentStyle={{
                   backgroundColor: 'rgb(var(--color-bg))',
                   border: '2px solid rgb(var(--color-primary-100))',
