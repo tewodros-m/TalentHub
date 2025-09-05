@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
 import { Job } from '../models/JobModel';
+import { Role } from '../enums/role';
 
 // Public: List all jobs
 const getAllJobs = asyncHandler(async (req: Request, res: Response) => {
@@ -18,15 +19,35 @@ const getAllJobs = asyncHandler(async (req: Request, res: Response) => {
 
   const jobs = await Job.find(filter)
     .sort({ createdAt: -1 })
-    .populate('createdBy', 'name email role');
-
+    .select('-createdBy');
   res.status(200).json({ results: jobs.length, jobs });
+});
+
+// Get all jobs by admin with applications count and employer info
+const getAllJobsByAdmin = asyncHandler(async (req: Request, res: Response) => {
+  const { search } = req.query;
+
+  const filter = search
+    ? {
+        $or: [
+          { title: { $regex: String(search), $options: 'i' } },
+          { description: { $regex: String(search), $options: 'i' } },
+          { skills: { $in: [new RegExp(String(search), 'i')] } },
+        ],
+      }
+    : {};
+
+  const jobs = await Job.find(filter)
+    .populate('applicationsCount')
+    .populate('createdBy', 'name email')
+    .sort({ createdAt: -1 });
+  return res.status(200).json({ results: jobs.length, jobs });
 });
 
 const getJobById = asyncHandler(async (req: Request, res: Response) => {
   const job = await Job.findById(req.params.id).populate(
     'createdBy',
-    'name email role'
+    'name email'
   );
   if (!job) {
     res.status(404);
@@ -45,7 +66,7 @@ const getEmployerJobs = asyncHandler(async (req: Request, res: Response) => {
   }
   const jobs = await Job.find({ createdBy: employerId })
     .sort({ createdAt: -1 })
-    .populate('createdBy', 'name email role');
+    .populate('createdBy', 'name email');
 
   res.status(200).json({ results: jobs.length, jobs });
 });
@@ -111,6 +132,7 @@ const deleteJob = asyncHandler(async (req: Request, res: Response) => {
 
 export {
   getAllJobs,
+  getAllJobsByAdmin,
   getJobById,
   getEmployerJobs,
   createJob,

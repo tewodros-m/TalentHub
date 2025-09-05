@@ -102,6 +102,24 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+const getAllApplications = asyncHandler(
+  async (_req: Request, res: Response) => {
+    const applications = await Application.find()
+      .populate({
+        path: 'jobId',
+        select: 'title createdBy',
+        populate: {
+          path: 'createdBy',
+          select: 'name email',
+        },
+      })
+      .populate('userId', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ results: applications.length, applications });
+  }
+);
+
 // Get applications for a specific user (self or admin)
 const getUserApplications = asyncHandler(
   async (req: Request, res: Response) => {
@@ -195,14 +213,13 @@ const updateApplicationStatusByEmployer = asyncHandler(
     application.status = status;
     await application.save();
 
-    const populatedApp = await application.populate('jobId userId');
-
-    res.status(200).json(populatedApp);
+    res.status(200).json(application);
   }
 );
 
 export {
   applyToJob,
+  getAllApplications,
   getUserApplications,
   getEmployerApplications,
   updateApplicationStatusByEmployer,

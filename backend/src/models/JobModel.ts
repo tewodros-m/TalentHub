@@ -15,7 +15,19 @@ const jobSchema = new Schema<IJob>(
       required: [true, 'Employer ID is required'],
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
+
+// Virtual field for applications count
+jobSchema.virtual('applicationsCount', {
+  ref: 'Application',
+  localField: '_id',
+  foreignField: 'jobId',
+  count: true, // only return the number of docs
+});
 
 export const Job = mongoose.model<IJob>('Job', jobSchema);

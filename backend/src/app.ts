@@ -4,7 +4,6 @@ import morgan from 'morgan';
 import { env } from './config/env';
 import authRoutes from './routes/authRoutes';
 import jobRoutes from './routes/jobRoutes';
-import adminRoutes from './routes/adminRoutes';
 import notificationRoutes from './routes/notificationRoutes';
 
 export const createApp = () => {
@@ -29,7 +28,6 @@ export const createApp = () => {
 
   app.use('/auth', authRoutes);
   app.use('/jobs', jobRoutes);
-  app.use('/admin', adminRoutes);
   app.use('/notifications', notificationRoutes);
 
   return app;
