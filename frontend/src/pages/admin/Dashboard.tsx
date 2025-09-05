@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Briefcase, FileText } from 'lucide-react';
+import { Briefcase, FileText, User } from 'lucide-react';
 import Sidebar from '../../components/ui/Sidebar';
 import JobsTab from '../../components/admin/JobsTab';
 import ApplicationsTab from '../../components/admin/ApplicationsTab';
 import Welcome from '../../components/Welcome';
 import { useAuth } from '../../hooks/useAuth';
+import UsersTab from '../../components/admin/UsersTab';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('jobs');
@@ -13,6 +14,7 @@ const AdminDashboard = () => {
   const tabs = [
     { id: 'jobs', label: 'Jobs', icon: <Briefcase size={18} /> },
     { id: 'applications', label: 'Applications', icon: <FileText size={18} /> },
+    { id: 'users', label: 'Users', icon: <User size={18} /> },
   ];
 
   return (
@@ -30,6 +32,7 @@ const AdminDashboard = () => {
 
         {activeTab === 'jobs' && <JobsTab />}
         {activeTab === 'applications' && <ApplicationsTab />}
+        {activeTab === 'users' && <UsersTab />}
       </div>
     </div>
   );
