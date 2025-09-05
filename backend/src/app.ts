@@ -5,6 +5,7 @@ import { env } from './config/env';
 import authRoutes from './routes/authRoutes';
 import jobRoutes from './routes/jobRoutes';
 import notificationRoutes from './routes/notificationRoutes';
+import userRoutes from './routes/userRoutes';
 
 export const createApp = () => {
   const app = express();
@@ -29,6 +30,7 @@ export const createApp = () => {
   app.use('/auth', authRoutes);
   app.use('/jobs', jobRoutes);
   app.use('/notifications', notificationRoutes);
+  app.use('/users', userRoutes);
 
   return app;
 };
