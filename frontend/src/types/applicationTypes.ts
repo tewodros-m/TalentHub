@@ -1,5 +1,5 @@
-import type { User } from './authTypes';
 import type { Job } from './jobTypes';
+import type { User } from './userTypes';
 
 export type ApplicationStatus = 'applied' | 'shortlisted' | 'rejected';
 

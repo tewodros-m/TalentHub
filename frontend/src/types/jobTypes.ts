@@ -1,4 +1,4 @@
-import type { User } from './authTypes';
+import type { User } from './userTypes';
 
 export interface Job {
   _id: string;

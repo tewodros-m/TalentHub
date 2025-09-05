@@ -1,12 +1,4 @@
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  _id?: string;
-}
-
-export type Role = 'applicant' | 'employer' | 'admin';
+import type { Role, User } from './userTypes';
 
 export interface AuthState {
   user: User | null;
