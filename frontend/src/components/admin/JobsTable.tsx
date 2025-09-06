@@ -26,8 +26,8 @@ const JobsTable = ({ jobs }: JobsTableProps) => {
           {jobs.map((job, i) => (
             <TableRow key={job._id} isStriped={i % 2 === 0}>
               <TableCell>{job.title}</TableCell>
-              <TableCell>{job.createdBy.name}</TableCell>
-              <TableCell>{job.createdBy.email}</TableCell>
+              <TableCell>{job.createdBy?.name || 'N/A'}</TableCell>
+              <TableCell>{job.createdBy?.email || 'N/A'}</TableCell>
               <TableCell align='center'>{job.applicationsCount ?? 0}</TableCell>
               <TableCell>{timeAgo(new Date(job.createdAt))}</TableCell>
             </TableRow>

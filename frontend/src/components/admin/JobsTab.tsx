@@ -16,7 +16,7 @@ const JobsTab = () => {
           _id: job._id,
           title: job.title,
           Applications: job.applicationsCount ?? 0,
-          createdBy: job.createdBy.email,
+          createdBy: job.createdBy?.email || 'N/A',
         }))
       : [];
 
