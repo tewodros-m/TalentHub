@@ -17,9 +17,10 @@ const MainContent = () => {
 
   const jobs = data.jobs || [];
 
-  if (fetchErr) {
-    let errorMessage: string | null = null;
+  let errorMessage: string | null = null;
 
+  if (fetchErr) {
+    console.log(fetchErr);
     if (fetchErr && (fetchErr as ErrorType)?.status === 'FETCH_ERROR') {
       errorMessage = 'Network error. Please check your connection.';
     } else {
@@ -27,16 +28,10 @@ const MainContent = () => {
         (fetchErr as ErrorType).data?.message ||
         'Failed to load jobs. Please try refreshing the page.';
     }
-
-    return (
-      <div className='flex flex-col gap-10'>
-        <p className='text-center text-red-500'>{errorMessage}</p>
-      </div>
-    );
   }
 
   return (
-    <div className='mt-16 overflow-y-auto container mx-auto'>
+    <div className='mt-16 overflow-y-auto container mx-auto min-h-screen'>
       <h1 className='text-3xl font-bold text-center text-primary-500'>
         Find Your Next Job
       </h1>
@@ -58,6 +53,8 @@ const MainContent = () => {
           <p className='text-center text-gray-500'>Loading jobs...</p>
         ) : data.results > 0 ? (
           jobs.map((job) => <JobCard key={job._id} job={job} />)
+        ) : fetchErr ? (
+          <p className='text-center text-red-500'>{errorMessage}</p>
         ) : (
           <p className='text-center text-gray-500'>No jobs found.</p>
         )}
