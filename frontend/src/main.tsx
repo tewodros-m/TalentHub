@@ -12,13 +12,24 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <Toaster
-        position='top-right'
+        position='top-center'
         toastOptions={{
+          style: {
+            background: 'rgb(var(--color-secondary-500))',
+            color: 'rgb(var(--color-white))',
+          },
+          // Success
           success: {
-            style: { background: '#10B981', color: 'white' },
+            style: {
+              background: 'rgb(var(--color-secondary-500))',
+              color: 'rgb(var(--color-white))',
+            },
           },
           error: {
-            style: { background: '#EF4444', color: 'white' },
+            style: {
+              background: '#EF4444',
+              color: 'rgb(var(--color-white))',
+            },
           },
         }}
       />
