@@ -8,16 +8,7 @@ export const applicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllApplications: builder.query<GetApplicationsResponse, void>({
       query: () => '/applications',
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.applications.map(({ _id }) => ({
-                type: 'Applications' as const,
-                id: _id,
-              })),
-              { type: 'Applications', id: 'LIST' },
-            ]
-          : [{ type: 'Applications', id: 'LIST' }],
+      providesTags: [{ type: 'Applications', id: 'LIST' }],
     }),
     // POST /applications
     applyToJob: builder.mutation<
