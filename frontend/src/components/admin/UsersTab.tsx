@@ -13,11 +13,11 @@ const UsersTab = () => {
   return (
     <div className='p-3 bg-bg min-h-screen rounded-2xl shadow-md'>
       <h3 className='text-xl text-primary-800 font-semibold mb-4'>All Users</h3>
-      {isLoading ? (
-        <p>Loading users...</p>
-      ) : usersCount > 0 ? (
-        <Table>
-          <TableHeader headers={['Name', 'Email', 'Role', 'Created']} />
+      <Table>
+        <TableHeader headers={['Name', 'Email', 'Role', 'Created']} />
+        {isLoading ? (
+          <p>Loading users...</p>
+        ) : usersCount > 0 ? (
           <tbody>
             {users.map((user, index) => (
               <TableRow key={user._id} isStriped={index % 2 === 0}>
@@ -28,10 +28,10 @@ const UsersTab = () => {
               </TableRow>
             ))}
           </tbody>
-        </Table>
-      ) : (
-        <p>No users available</p>
-      )}
+        ) : (
+          <p>No users available</p>
+        )}
+      </Table>
     </div>
   );
 };

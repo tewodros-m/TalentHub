@@ -15,20 +15,20 @@ const ApplicationsTab = () => {
       <h3 className='text-xl text-primary-800 font-semibold mb-4'>
         All Applications
       </h3>
-      {isLoading ? (
-        <p>Loading applications...</p>
-      ) : appsCount > 0 ? (
-        <Table>
-          <TableHeader
-            headers={[
-              'Job Title',
-              'Employer Email',
-              'Applicant Email',
-              'Applied',
-              'Resume',
-              'Status',
-            ]}
-          />
+      <Table>
+        <TableHeader
+          headers={[
+            'Job Title',
+            'Employer Email',
+            'Applicant Email',
+            'Applied',
+            'Resume',
+            'Status',
+          ]}
+        />
+        {isLoading ? (
+          <p>Loading applications...</p>
+        ) : appsCount > 0 ? (
           <tbody>
             {applications.map((app, index) => (
               <TableRow key={app._id} isStriped={index % 2 === 0}>
@@ -63,10 +63,10 @@ const ApplicationsTab = () => {
               </TableRow>
             ))}
           </tbody>
-        </Table>
-      ) : (
-        <p>No applications available</p>
-      )}
+        ) : (
+          <p>No applications available</p>
+        )}
+      </Table>
     </div>
   );
 };

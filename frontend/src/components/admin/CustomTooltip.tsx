@@ -1,5 +1,5 @@
 // Custom tooltip component
-type ChartData = {
+export type ChartData = {
   _id: string;
   title: string;
   Applications: number;
