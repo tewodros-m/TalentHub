@@ -16,7 +16,7 @@ const UsersTab = () => {
       <Table>
         <TableHeader headers={['Name', 'Email', 'Role', 'Created']} />
         {isLoading ? (
-          <p>Loading users...</p>
+          <p className='text-gray-600 mt-5 pl-4'>Loading users...</p>
         ) : usersCount > 0 ? (
           <tbody>
             {users.map((user, index) => (
@@ -29,7 +29,7 @@ const UsersTab = () => {
             ))}
           </tbody>
         ) : (
-          <p>No users available</p>
+          <p className='text-gray-600 mt-5 pl-4'>No users available</p>
         )}
       </Table>
     </div>

@@ -23,14 +23,14 @@ const JobsTab = () => {
   return (
     <div className='space-y-4 min-h-screen'>
       {isLoading ? (
-        <p>Loading jobs...</p>
+        <p className='text-gray-600 mt-5 pl-4'>Loading jobs...</p>
       ) : jobsCount > 0 ? (
         <>
           <Chart jobs={chartData} />
           <JobsTable jobs={jobs} />
         </>
       ) : (
-        <p>No jobs available</p>
+        <p className='text-gray-600 mt-5 pl-4'>No jobs available</p>
       )}
     </div>
   );

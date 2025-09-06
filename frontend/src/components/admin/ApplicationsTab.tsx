@@ -27,7 +27,7 @@ const ApplicationsTab = () => {
           ]}
         />
         {isLoading ? (
-          <p>Loading applications...</p>
+          <p className='text-gray-600 mt-5 pl-4'>Loading applications...</p>
         ) : appsCount > 0 ? (
           <tbody>
             {applications.map((app, index) => (
@@ -64,7 +64,7 @@ const ApplicationsTab = () => {
             ))}
           </tbody>
         ) : (
-          <p>No applications available</p>
+          <p className='text-gray-600 mt-5 pl-4'>No applications available</p>
         )}
       </Table>
     </div>

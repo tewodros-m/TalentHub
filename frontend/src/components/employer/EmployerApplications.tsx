@@ -40,7 +40,7 @@ const EmployerApplications = () => {
         All Applications
       </h3>
       {isLoading ? (
-        <p>Loading applications...</p>
+        <p className='text-gray-600 mt-5 pl-4'>Loading applications...</p>
       ) : appsCount > 0 ? (
         <Table>
           <TableHeader
@@ -121,7 +121,7 @@ const EmployerApplications = () => {
           </tbody>
         </Table>
       ) : (
-        <p className='text-gray-500'>No applications available</p>
+        <p className='text-gray-600 mt-5 pl-4'>No applications available</p>
       )}
     </div>
   );

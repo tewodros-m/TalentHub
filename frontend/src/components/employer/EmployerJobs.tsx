@@ -62,7 +62,7 @@ const EmployerJobs = () => {
         </div>
 
         {isLoading ? (
-          <p className='text-gray-500'>Loading jobs...</p>
+          <p className='text-gray-600 mt-5 pl-4'>Loading jobs...</p>
         ) : jobs.length > 0 ? (
           <Table>
             <TableHeader
@@ -109,7 +109,7 @@ const EmployerJobs = () => {
             </tbody>
           </Table>
         ) : (
-          <p className='text-gray-500'>No jobs posted yet.</p>
+          <p className='text-gray-600 mt-5 pl-4'>No jobs posted yet.</p>
         )}
       </div>
 
