@@ -82,15 +82,23 @@ const applyToJob = asyncHandler(async (req: Request, res: Response) => {
       read: false,
     });
 
-    // ✅ Emit real-time notification to the employer
+    // Emit real-time notification to the employer
     if (req.io && job.createdBy) {
-      req.io.to(job.createdBy._id.toString()).emit('newApplication', {
+      req.io.to(job.createdBy._id.toString()).emit('employer:newApplication', {
         _id: notif._id,
         message: notif.message,
         read: notif.read,
         createdAt: notif.createdAt,
       });
     }
+
+    // Notify admin (global)
+    req.io.emit('admin:newApplication', {
+      _id: notif._id,
+      message: notif.message,
+      read: notif.read,
+      createdAt: notif.createdAt,
+    });
 
     res.status(201).json(application);
   } catch (err: any) {
@@ -212,6 +220,26 @@ const updateApplicationStatusByEmployer = asyncHandler(
     // Update status
     application.status = status;
     await application.save();
+
+    // create a notification for the applicant
+    const notif = await Notification.create({
+      user: application.userId,
+      message: `Your application for ${job.title} is ${status}.`,
+    });
+
+    // Notify applicant (room)
+    req.io.to(application.userId.toString()).emit('applicant:statusUpdated', {
+      _id: notif._id,
+      message: notif.message,
+      read: notif.read,
+      createdAt: notif.createdAt,
+      newStatus: status,
+    });
+
+    // Notify admin (global)
+    req.io.emit('admin:statusUpdated', {
+      message: `Application status for ${job.title} updated to ${status}.`,
+    });
 
     res.status(200).json(application);
   }

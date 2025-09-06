@@ -45,6 +45,12 @@ import {
       console.log(`Employer ${employerId} joined room`);
     });
 
+    // Applicants join their personal room
+    socket.on('joinApplicantRoom', (applicantId: string) => {
+      socket.join(applicantId);
+      console.log(`Applicant ${applicantId} joined room`);
+    });
+
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);
     });
