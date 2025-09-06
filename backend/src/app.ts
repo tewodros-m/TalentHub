@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes';
 import jobRoutes from './routes/jobRoutes';
 import notificationRoutes from './routes/notificationRoutes';
 import userRoutes from './routes/userRoutes';
+import { allowedOrigins } from './config/cors';
 
 export const createApp = () => {
   const app = express();
@@ -13,7 +14,7 @@ export const createApp = () => {
   // Middlewares
   app.use(
     cors({
-      origin: env.CORS_ORIGIN === '*' ? true : env.CORS_ORIGIN,
+      origin: allowedOrigins,
       credentials: true,
     })
   );

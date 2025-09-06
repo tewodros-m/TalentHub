@@ -8,6 +8,7 @@ import {
   notFoundHandler,
   globalErrorHandler,
 } from './middlewares/errorHandler';
+import { allowedOrigins } from './config/cors';
 
 (async () => {
   await connectDB();
@@ -15,9 +16,10 @@ import {
   const app = createApp();
 
   const server = http.createServer(app);
+
   const io = new Server(server, {
     cors: {
-      origin: env.CORS_ORIGIN === '*' ? true : env.CORS_ORIGIN,
+      origin: allowedOrigins,
       methods: ['GET', 'POST'],
       credentials: true,
     },
