@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './app/store.ts';
 import { Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from './contexts/DarkModeProvider.tsx';
-import NotificationProvider from './features/notification/NotificationProvider.tsx';
+import RealtimeProvider from './contexts/RealtimeProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -34,9 +34,9 @@ createRoot(document.getElementById('root')!).render(
         }}
       />
       <DarkModeProvider>
-        <NotificationProvider>
+        <RealtimeProvider>
           <App />
-        </NotificationProvider>
+        </RealtimeProvider>
       </DarkModeProvider>
     </Provider>
   </StrictMode>
