@@ -40,8 +40,8 @@
     --color-gray-950: 3, 7, 18;
 
     /* Background & text */
-    --white: 255, 255, 255;
-    --black: 0, 0, 0;
+    --color-white: 255, 255, 255;
+    --color-black: 0, 0, 0;
     --color-bg: 255, 255, 255;
     --color-text: 0, 0, 0;
   }
@@ -83,8 +83,8 @@
     --color-gray-900: 243, 244, 246;
     --color-gray-950: 249, 250, 251;
 
-    --white: 255, 255, 255;
-    --black: 0, 0, 0;
+    --color-white: 255, 255, 255;
+    --color-black: 0, 0, 0;
     --color-bg: 0, 0, 0;
     --color-text: 255, 255, 255;
   }
