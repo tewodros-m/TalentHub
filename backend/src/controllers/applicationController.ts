@@ -127,21 +127,36 @@ const getAllApplications = asyncHandler(
     res.status(200).json({ results: applications.length, applications });
   }
 );
-
-// Get applications for a specific user (self or admin)
+// Get applications for a user (applicant)
 const getUserApplications = asyncHandler(
   async (req: Request, res: Response) => {
     const { userId } = req.params;
+    const { status } = req.query; // optional status filter
     const requester = req.user!;
 
-    if (requester.role !== 'admin' && requester.id !== userId) {
+    if (requester.id !== userId) {
       res.status(403);
       throw new Error('Forbidden, you cannot view applications of other users');
     }
 
-    const apps = await Application.find({ userId })
-      .populate('jobId')
+    if (
+      status &&
+      !Object.values(ApplicationStatus).includes(status as ApplicationStatus)
+    ) {
+      res.status(400);
+      throw new Error('Invalid status');
+    }
+
+    // Build query
+    const query: any = { userId };
+    if (status) {
+      query.status = status;
+    }
+
+    const apps = await Application.find(query)
+      .populate('jobId', 'title description')
       .sort({ createdAt: -1 });
+
     res.json({ results: apps.length, applications: apps });
   }
 );
