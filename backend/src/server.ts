@@ -19,7 +19,7 @@ import { allowedOrigins } from './config/cors';
 
   const io = new Server(server, {
     cors: {
-      origin: allowedOrigins,
+      origin: allowedOrigins.includes('*') ? '*' : allowedOrigins,
       methods: ['GET', 'POST'],
       credentials: true,
     },

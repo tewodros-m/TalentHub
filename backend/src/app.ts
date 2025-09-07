@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import { env } from './config/env';
 import authRoutes from './routes/authRoutes';
 import jobRoutes from './routes/jobRoutes';
 import notificationRoutes from './routes/notificationRoutes';
@@ -14,7 +13,15 @@ export const createApp = () => {
   // Middlewares
   app.use(
     cors({
-      origin: allowedOrigins,
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true); // allow mobile apps / curl
+
+        if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       credentials: true,
     })
   );
