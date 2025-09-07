@@ -6,6 +6,7 @@ import type {
 
 export const applicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // GET /applications
     getAllApplications: builder.query<GetApplicationsResponse, void>({
       query: () => '/applications',
       providesTags: [{ type: 'Applications', id: 'LIST' }],
@@ -30,14 +31,18 @@ export const applicationApi = apiSlice.injectEndpoints({
     // GET /applications/:userId
     getUserApplications: builder.query<
       GetApplicationsResponse,
-      { userId: string }
+      { userId: string; status?: string }
     >({
-      query: ({ userId }) => `/applications/${userId}`,
+      query: ({ userId, status }) => {
+        let url = `/applications/${userId}`;
+        if (status) url += `?status=${status}`;
+        return url;
+      },
       providesTags: (_result, _error, { userId }) => [
         { type: 'Applications', id: userId },
       ],
     }),
-
+    // GET /applications/employer/:employerId
     getEmployerApplications: builder.query<
       GetApplicationsResponse,
       { employerId: string }
