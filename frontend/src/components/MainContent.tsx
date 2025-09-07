@@ -43,7 +43,7 @@ const MainContent = () => {
           placeholder='Search jobs by keyword or skill...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className='w-1/2 py-2 px-5 text-gray-700 bg-gray-50 border-2 border-primary-300 rounded-full  outline-none focus:border-primary-600'
+          className='w-full sm:w-1/2 py-2 px-5 text-gray-700 bg-gray-50 border-2 border-primary-300 rounded-full  outline-none focus:border-primary-600'
         />
       </div>
 

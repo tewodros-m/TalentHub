@@ -11,7 +11,7 @@ const JobCard = ({ job }: { job: Job }) => {
   const passedTime = timeAgo(new Date(job.createdAt));
 
   return (
-    <div className='rounded-2xl border border-primary-200 bg-bg shadow-md hover:shadow-xl  p-5 flex flex-col transition-transform duration-500 ease-out hover:-translate-y-2 mb-6 z-10'>
+    <div className='rounded-2xl border border-primary-200 bg-bg shadow-md hover:shadow-xl p-5 flex flex-col transition-transform duration-500 ease-out hover:bg-gray-50 hover:-translate-y-2 mb-6 z-10'>
       {/* Title */}
       <h3 className='text-xl font-semibold text-primary-600 flex items-center gap-2'>
         <Briefcase className='w-5 h-5' /> {job.title}
@@ -39,15 +39,23 @@ const JobCard = ({ job }: { job: Job }) => {
           <span className='text-lg text-gray-700 font-semibold'>
             Required Skills:
           </span>
-          {job.skills.map((skill) => (
-            <span
-              key={skill}
-              className='inline-block px-3 py-1 rounded-full bg-secondary-100 text-secondary-800 font-medium'
-            >
-              {skill}
-            </span>
-          ))}
+          {job.skills.map((skill, index) =>
+            index <= 4 ? (
+              <span
+                key={skill}
+                className='inline-block px-3 py-1 rounded-full bg-secondary-100 text-secondary-800 font-medium'
+              >
+                {skill}
+              </span>
+            ) : null
+          )}
         </div>
+      )}
+
+      {job.skills.length > 4 && (
+        <p className='text-lg text-gray-600 mt-1'>
+          and {job.skills.length - 5} more...
+        </p>
       )}
 
       {/* Action Button */}
